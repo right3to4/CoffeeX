@@ -20,12 +20,12 @@ public class KioskInit {
 	private JFrame frame;
 	private JLabel lblorderbutton;
 	private KioskViewMenu panel; // 주문하기 패널
+	private KioskSetOption kioskoption; // 옵션선택 패널
+	private KioskOrder kioskorder;
 	public static JLabel lblAddbutton;
 	private JLabel lblCancelbutton;
-	private KioskSetOption kioskoption; // 옵션선택 패널
 	private JLabel lblAd;
 	private JLabel lblConfirm;
-	private KioskOrder kioskorder;
 
 	/**
 	 * Launch the application.
@@ -70,13 +70,13 @@ public class KioskInit {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getPanel());
+		frame.getContentPane().add(getKioskorder());
+		frame.getContentPane().add(getKioskoption());
 		frame.getContentPane().add(getLblorderbutton());
 		frame.getContentPane().add(getLblAddbutton());
 		frame.getContentPane().add(getLblCancelbutton());
-		frame.getContentPane().add(getKioskoption());
 		frame.getContentPane().add(getLblAd());
 		frame.getContentPane().add(getLblConfirm());
-		frame.getContentPane().add(getKioskorder());
 
 	}
 
@@ -98,7 +98,7 @@ public class KioskInit {
 		}
 		return lblorderbutton;
 	}
-	
+
 	private JLabel getLblAd() {
 		if (lblAd == null) {
 			lblAd = new JLabel("");
@@ -118,7 +118,7 @@ public class KioskInit {
 		}
 		return panel;
 	}
-	
+
 	private KioskOrder getKioskorder() {
 		if (kioskorder == null) {
 			kioskorder = new KioskOrder();
@@ -126,6 +126,15 @@ public class KioskInit {
 			kioskorder.setLayout(null);
 		}
 		return kioskorder;
+	}
+	
+	private KioskSetOption getKioskoption() {
+		if (kioskoption == null) {
+			kioskoption = new KioskSetOption();
+			kioskoption.setBounds(12, 10, 426, 444);
+			kioskoption.setLayout(null);
+		}
+		return kioskoption;
 	}
 
 	private JLabel getLblAddbutton() {
@@ -171,14 +180,6 @@ public class KioskInit {
 		return lblCancelbutton;
 	}
 
-	private KioskSetOption getKioskoption() {
-		if (kioskoption == null) {
-			kioskoption = new KioskSetOption();
-			kioskoption.setBounds(12, 10, 426, 444);
-			kioskoption.setLayout(null);
-		}
-		return kioskoption;
-	}
 	private JLabel getLblConfirm() {
 		if (lblConfirm == null) {
 			lblConfirm = new JLabel("담기");

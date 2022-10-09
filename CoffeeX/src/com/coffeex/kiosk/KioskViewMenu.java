@@ -13,6 +13,8 @@ import com.coffeex.util.DBConnect;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -32,10 +34,6 @@ public class KioskViewMenu extends JPanel {
 	{
         @Override
         public Class<?> getColumnClass(int column)  {
-             // row - JTable에 입력된 2차원 배열의  행에 속한다면
-             // 모든 컬럼을 입력된 형으로  반환한다.
-             
-             // 다시말해, 어떤 행이든 간에 입력된  column의 class를 반환하도록 한 것
              return getValueAt(0,  column).getClass();
         }
 	};
@@ -61,7 +59,10 @@ public class KioskViewMenu extends JPanel {
 
 	private JLabel getLblTodaysMenu() {
 		if (lblTodaysMenu == null) {
-			lblTodaysMenu = new JLabel("");
+			lblTodaysMenu = new JLabel("오늘의 메뉴");
+			lblTodaysMenu.setOpaque(true);
+			lblTodaysMenu.setBackground(new Color(148, 128, 96));
+			lblTodaysMenu.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTodaysMenu.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -69,9 +70,7 @@ public class KioskViewMenu extends JPanel {
 					searchTodaysMenu();
 				}
 			});
-			lblTodaysMenu.setBounds(0, 0, 71, 33);
-			lblTodaysMenu
-					.setIcon(new ImageIcon(KioskViewMenu.class.getResource("/com/coffeex/kiosk/image/todaysmenu.JPG")));
+			lblTodaysMenu.setBounds(0, 0, 71, 31);
 
 		}
 		return lblTodaysMenu;
@@ -79,7 +78,10 @@ public class KioskViewMenu extends JPanel {
 
 	private JLabel getLblCoffee() {
 		if (lblCoffee == null) {
-			lblCoffee = new JLabel("");
+			lblCoffee = new JLabel("커피");
+			lblCoffee.setOpaque(true);
+			lblCoffee.setHorizontalAlignment(SwingConstants.CENTER);
+			lblCoffee.setBackground(new Color(148, 128, 96));
 			lblCoffee.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -87,9 +89,7 @@ public class KioskViewMenu extends JPanel {
 					searchMenuByCategory("커피");
 				}
 			});
-			lblCoffee
-					.setIcon(new ImageIcon(KioskViewMenu.class.getResource("/com/coffeex/kiosk/image/coffeetext.JPG")));
-			lblCoffee.setBounds(71, 0, 71, 33);
+			lblCoffee.setBounds(71, 0, 71, 31);
 		}
 		return lblCoffee;
 	}
@@ -97,6 +97,8 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblAide() {
 		if (lblAide == null) {
 			lblAide = new JLabel("에이드");
+			lblAide.setOpaque(true);
+			lblAide.setBackground(new Color(148, 128, 96));
 			lblAide.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -105,7 +107,7 @@ public class KioskViewMenu extends JPanel {
 				}
 			});
 			lblAide.setHorizontalAlignment(SwingConstants.CENTER);
-			lblAide.setBounds(142, 0, 71, 33);
+			lblAide.setBounds(142, 0, 71, 31);
 		}
 		return lblAide;
 	}
@@ -113,8 +115,10 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblTea() {
 		if (lblTea == null) {
 			lblTea = new JLabel("티");
+			lblTea.setOpaque(true);
+			lblTea.setBackground(new Color(148, 128, 96));
 			lblTea.setHorizontalAlignment(SwingConstants.CENTER);
-			lblTea.setBounds(213, 0, 71, 33);
+			lblTea.setBounds(213, 0, 71, 31);
 		}
 		return lblTea;
 	}
@@ -122,8 +126,10 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblSmoothie() {
 		if (lblSmoothie == null) {
 			lblSmoothie = new JLabel("스무디");
+			lblSmoothie.setOpaque(true);
+			lblSmoothie.setBackground(new Color(148, 128, 96));
 			lblSmoothie.setHorizontalAlignment(SwingConstants.CENTER);
-			lblSmoothie.setBounds(284, 0, 71, 33);
+			lblSmoothie.setBounds(284, 0, 71, 31);
 		}
 		return lblSmoothie;
 	}
@@ -131,8 +137,10 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblSide() {
 		if (lblSide == null) {
 			lblSide = new JLabel("사이드");
+			lblSide.setOpaque(true);
+			lblSide.setBackground(new Color(148, 128, 96));
 			lblSide.setHorizontalAlignment(SwingConstants.CENTER);
-			lblSide.setBounds(355, 0, 71, 33);
+			lblSide.setBounds(355, 0, 71, 31);
 		}
 		return lblSide;
 	}
