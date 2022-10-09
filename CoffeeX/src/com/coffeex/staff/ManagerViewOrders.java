@@ -18,12 +18,12 @@ import javax.swing.JTable;
 import java.awt.Window.Type;
 
 public class ManagerViewOrders {
-
+	int i = 0;
 	private JFrame frmCoffeex;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_1_1;
-	private JLabel lblNewLabel_1_1_1;
+	private JLabel lb;
+	private JLabel lbChangeMenu;
+	private JLabel lbPayment;
 	private JLabel lbStaffManage;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_3_1;
@@ -85,9 +85,9 @@ public class ManagerViewOrders {
 		frmCoffeex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCoffeex.getContentPane().setLayout(null);
 		frmCoffeex.getContentPane().add(getLbStaffManage());
-		frmCoffeex.getContentPane().add(getLblNewLabel_1_1_1());
-		frmCoffeex.getContentPane().add(getLblNewLabel_1_1());
-		frmCoffeex.getContentPane().add(getLblNewLabel_1());
+		frmCoffeex.getContentPane().add(getLbPayment());
+		frmCoffeex.getContentPane().add(getLbChangeMenu());
+		frmCoffeex.getContentPane().add(getLb());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3_1());
 		frmCoffeex.getContentPane().add(getSpOrderMade());
@@ -115,41 +115,76 @@ public class ManagerViewOrders {
 		}
 		return lblNewLabel;
 	}
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("마이페이지");
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1.setForeground(Color.WHITE);
-			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lblNewLabel_1.setBounds(760, 0, 140, 50);
+	private JLabel getLb() {
+		if (lb == null) {
+			lb = new JLabel("마이페이지");
+			lb.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+				}
+				
+				
+			});
+			lb.setHorizontalAlignment(SwingConstants.CENTER);
+			lb.setForeground(Color.WHITE);
+			lb.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+			lb.setBounds(760, 0, 140, 50);
 		}
-		return lblNewLabel_1;
+		return lb;
 	}
-	private JLabel getLblNewLabel_1_1() {
-		if (lblNewLabel_1_1 == null) {
-			lblNewLabel_1_1 = new JLabel("메뉴등록");
-			lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1_1.setForeground(Color.WHITE);
-			lblNewLabel_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lblNewLabel_1_1.setBounds(608, 0, 140, 50);
+	private JLabel getLbChangeMenu() {
+		if (lbChangeMenu == null) {
+			lbChangeMenu = new JLabel("메뉴등록");
+			lbChangeMenu.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lbChangeMenu.setForeground(Color.black);
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lbChangeMenu.setForeground(Color.white);
+				}
+				
+			});
+			lbChangeMenu.setHorizontalAlignment(SwingConstants.CENTER);
+			lbChangeMenu.setForeground(Color.WHITE);
+			lbChangeMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+			lbChangeMenu.setBounds(608, 0, 140, 50);
 		}
-		return lblNewLabel_1_1;
+		return lbChangeMenu;
 	}
-	private JLabel getLblNewLabel_1_1_1() {
-		if (lblNewLabel_1_1_1 == null) {
-			lblNewLabel_1_1_1 = new JLabel("판매내역조회");
-			lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1_1_1.setForeground(Color.WHITE);
-			lblNewLabel_1_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lblNewLabel_1_1_1.setBounds(456, 0, 140, 50);
+	private JLabel getLbPayment() {
+		if (lbPayment == null) {
+			lbPayment = new JLabel("판매내역조회");
+			lbPayment.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					ManagerViewSales.main(null);
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lbPayment.setForeground(Color.black);
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lbPayment.setForeground(Color.white);
+				}
+			});
+			lbPayment.setHorizontalAlignment(SwingConstants.CENTER);
+			lbPayment.setForeground(Color.WHITE);
+			lbPayment.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+			lbPayment.setBounds(456, 0, 140, 50);
 		}
-		return lblNewLabel_1_1_1;
+		return lbPayment;
 	}
 	private JLabel getLbStaffManage() {
 		if (lbStaffManage == null) {
 			lbStaffManage = new JLabel("사원관리");
 			lbStaffManage.addMouseListener(new MouseAdapter() {
-				int i = 0;
+				
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if(i%2 == 0) {
@@ -162,6 +197,14 @@ public class ManagerViewOrders {
 						lbStaffInsertDel.setVisible(false);
 					}
 					i++;
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lbStaffManage.setForeground(Color.black);
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lbStaffManage.setForeground(Color.white);
 				}
 			});
 			lbStaffManage.setHorizontalAlignment(SwingConstants.CENTER);
@@ -287,6 +330,16 @@ public class ManagerViewOrders {
 	private JLabel getLbStaffPayManege() {
 		if (lbStaffPayManege == null) {
 			lbStaffPayManege = new JLabel("사원급여관리");
+			lbStaffPayManege.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					ManagerViewPayment.main(null);
+					lbStaffInsertDel.setVisible(false);
+					lbStaffPayManege.setVisible(false);
+					lbStaffManage.setForeground(Color.white);
+					}
+			});
+			
 			lbStaffPayManege.setHorizontalAlignment(SwingConstants.CENTER);
 			lbStaffPayManege.setForeground(Color.BLACK);
 			lbStaffPayManege.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
@@ -298,6 +351,16 @@ public class ManagerViewOrders {
 	private JLabel getLbStaffInsertDel() {
 		if (lbStaffInsertDel == null) {
 			lbStaffInsertDel = new JLabel("사원등록/삭제");
+			lbStaffInsertDel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					ManagerAddStaff.main(null);
+					lbStaffInsertDel.setVisible(false);
+					lbStaffPayManege.setVisible(false);
+					lbStaffManage.setForeground(Color.white);
+					
+					}
+			});
 			lbStaffInsertDel.setHorizontalAlignment(SwingConstants.CENTER);
 			lbStaffInsertDel.setForeground(Color.BLACK);
 			lbStaffInsertDel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));

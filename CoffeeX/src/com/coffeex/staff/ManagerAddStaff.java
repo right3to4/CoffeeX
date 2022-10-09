@@ -42,6 +42,7 @@ public class ManagerAddStaff {
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					
 				}
 			}
 		});
@@ -80,6 +81,7 @@ public class ManagerAddStaff {
 		frame.getContentPane().add(getBtnTfReset());
 		frame.getContentPane().add(getBtnDelete());
 		frame.getContentPane().add(getBtnInsert());
+		frame.setDefaultCloseOperation(2);
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {

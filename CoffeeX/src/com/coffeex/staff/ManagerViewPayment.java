@@ -1,6 +1,7 @@
 package com.coffeex.staff;
 
 import java.awt.EventQueue;
+import java.awt.Frame;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -15,7 +16,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
-public class ManageViewPayment {
+public class ManagerViewPayment {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -32,7 +33,7 @@ public class ManageViewPayment {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ManageViewPayment window = new ManageViewPayment();
+					ManagerViewPayment window = new ManagerViewPayment();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +45,7 @@ public class ManageViewPayment {
 	/**
 	 * Create the application.
 	 */
-	public ManageViewPayment() {
+	public ManagerViewPayment() {
 		initialize();
 	}
 
@@ -57,7 +58,10 @@ public class ManageViewPayment {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				TableInit();
+				frame.setDefaultCloseOperation(2);
 			}
+			//이 윈도우만 종료
+			
 		});
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setTitle("사원급여내역");
