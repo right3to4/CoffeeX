@@ -6,6 +6,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import com.coffeex.dto.MenuViewDto;
+import com.coffeex.kioskdao.KioskViewMenuDao;
+import com.coffeex.util.DBConnect;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Font;
@@ -13,9 +18,10 @@ import javax.swing.JSeparator;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
 
-public class KioskOption extends JPanel {
-	private JLabel lblNewLabel;
+public class KioskSetOption extends JPanel {
+	private JLabel lblImage;
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JLabel lblNewLabel_1;
@@ -24,14 +30,14 @@ public class KioskOption extends JPanel {
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_2_2;
 	private JLabel lblQuantity;
-	private JLabel lblNewLabel_3;
+	private JLabel lblOption;
 
 	/**
 	 * Create the panel.
 	 */
-	public KioskOption() {
+	public KioskSetOption() {
 		setLayout(null);
-		add(getLblNewLabel());
+		add(getLblImage());
 		add(getSeparator());
 		add(getSeparator_1());
 		add(getLblNewLabel_1());
@@ -40,21 +46,19 @@ public class KioskOption extends JPanel {
 		add(getLblNewLabel_2());
 		add(getLblNewLabel_2_2());
 		add(getLblQuantity());
-		add(getLblNewLabel_3());
-
+		add(getLblOption());
+		getMenuDetail(KioskViewMenu.selectedname);
 	}
 
-	private JLabel getLblNewLabel() { //메뉴 사진
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("");
-			lblNewLabel
-					.setIcon(new ImageIcon(KioskOption.class.getResource("/com/coffeex/kiosk/image/iceamericano2.png")));
-			lblNewLabel.setBounds(12, 49, 144, 144);
+	private JLabel getLblImage() { // 메뉴 사진
+		if (lblImage == null) {
+			lblImage = new JLabel("");
+			lblImage.setBounds(12, 49, 144, 144);
 		}
-		return lblNewLabel;
+		return lblImage;
 	}
 
-	private JSeparator getSeparator() { //구분선
+	private JSeparator getSeparator() { // 구분선
 		if (separator == null) {
 			separator = new JSeparator();
 			separator.setBounds(12, 191, 400, 2);
@@ -80,14 +84,14 @@ public class KioskOption extends JPanel {
 		return lblNewLabel_1;
 	}
 
-	private JLabel getLblICE() { //아이스 선택 시
+	private JLabel getLblICE() { // 아이스 선택 시
 		if (lblICE == null) {
 			lblICE = new JLabel("ICE");
 			lblICE.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					lblICE.setText(null);
-					lblICE.setIcon(new ImageIcon(KioskMain.class.getResource("/com/coffeex/kiosk/image/ICE.JPG")));
+					lblICE.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/ICE.JPG")));
 					lblHOT.setIcon(null);
 					lblHOT.setText("HOT");
 				}
@@ -99,14 +103,14 @@ public class KioskOption extends JPanel {
 		return lblICE;
 	}
 
-	private JLabel getLblHOT() { //핫 선택 시
+	private JLabel getLblHOT() { // 핫 선택 시
 		if (lblHOT == null) {
 			lblHOT = new JLabel("HOT");
 			lblHOT.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					lblHOT.setText(null);
-					lblHOT.setIcon(new ImageIcon(KioskMain.class.getResource("/com/coffeex/kiosk/image/HOT.JPG")));
+					lblHOT.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/HOT.JPG")));
 					lblICE.setIcon(null);
 					lblICE.setText("ICE");
 				}
@@ -123,7 +127,7 @@ public class KioskOption extends JPanel {
 			lblNewLabel_2 = new JLabel("+");
 			lblNewLabel_2.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(MouseEvent e) { //수량 늘리기 버튼
+				public void mouseClicked(MouseEvent e) { // 수량 늘리기 버튼
 					int quant = Integer.parseInt(lblQuantity.getText());
 					quant++;
 					lblQuantity.setText(Integer.toString(quant));
@@ -141,7 +145,7 @@ public class KioskOption extends JPanel {
 			lblNewLabel_2_2 = new JLabel("-");
 			lblNewLabel_2_2.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(MouseEvent e) { //수량 줄이기 버튼
+				public void mouseClicked(MouseEvent e) { // 수량 줄이기 버튼
 					int quant = Integer.parseInt(lblQuantity.getText());
 					if (quant > 1) {
 						quant--;
@@ -165,13 +169,29 @@ public class KioskOption extends JPanel {
 		}
 		return lblQuantity;
 	}
-	private JLabel getLblNewLabel_3() {
-		if (lblNewLabel_3 == null) {
-			lblNewLabel_3 = new JLabel("옵션선택");
-			lblNewLabel_3.setFont(new Font("굴림", Font.PLAIN, 20));
-			lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_3.setBounds(161, 10, 103, 38);
+
+	private JLabel getLblOption() {
+		if (lblOption == null) {
+			lblOption = new JLabel("옵션선택");
+			lblOption.setFont(new Font("굴림", Font.PLAIN, 20));
+			lblOption.setHorizontalAlignment(SwingConstants.CENTER);
+			lblOption.setBounds(161, 10, 103, 38);
 		}
-		return lblNewLabel_3;
+		return lblOption;
+	}
+	
+	private void getMenuDetail(String menuname) {
+		KioskViewMenuDao dao=new KioskViewMenuDao();
+		MenuViewDto dto= dao.searchDetail(menuname);
+//		lblOption.setText(dto.getMenuname());
+		
+		String filepath=Integer.toString(DBConnect.filename);
+		lblImage.setIcon(new ImageIcon(filepath));
+		
+		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		File file = new File(filepath);
+		file.delete();
+		
 	}
 }

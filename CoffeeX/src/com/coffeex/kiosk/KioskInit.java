@@ -13,16 +13,17 @@ import java.awt.event.WindowEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-public class KioskMain {
+public class KioskInit {
 
 	// 구성: 아래쪽은 공통 부분, 위쪽을 패널로 구현하여 변경하여 화면 전환
 
 	private JFrame frame;
 	private JLabel lblorderbutton;
-	private KioskOrder panel; // 주문하기 패널
+	private KioskViewMenu panel; // 주문하기 패널
 	private JLabel lblAddbutton;
 	private JLabel lblCancelbutton;
-	private KioskOption kioskoption; // 옵션선택 패널
+	private KioskSetOption kioskoption; // 옵션선택 패널
+	private JLabel lblAd;
 
 	/**
 	 * Launch the application.
@@ -31,7 +32,7 @@ public class KioskMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					KioskMain window = new KioskMain();
+					KioskInit window = new KioskInit();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +44,7 @@ public class KioskMain {
 	/**
 	 * Create the application.
 	 */
-	public KioskMain() {
+	public KioskInit() {
 		initialize();
 	}
 
@@ -69,6 +70,7 @@ public class KioskMain {
 		frame.getContentPane().add(getLblAddbutton());
 		frame.getContentPane().add(getLblCancelbutton());
 		frame.getContentPane().add(getKioskoption());
+		frame.getContentPane().add(getLblAd());
 
 	}
 
@@ -86,15 +88,26 @@ public class KioskMain {
 				}
 			});
 			lblorderbutton
-					.setIcon(new ImageIcon(KioskMain.class.getResource("/com/coffeex/kiosk/image/orderbutton.JPG")));
+					.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/orderbutton.JPG")));
 
 		}
 		return lblorderbutton;
 	}
+	
+	private JLabel getLblAd() {
+		if (lblAd == null) {
+			lblAd = new JLabel("");
+			lblAd.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblAd.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAd.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/ad3.png")));
+			lblAd.setBounds(12, 10, 426, 426);
+		}
+		return lblAd;
+	}
 
-	private KioskOrder getPanel() {
+	private KioskViewMenu getPanel() {
 		if (panel == null) {
-			panel = new KioskOrder();
+			panel = new KioskViewMenu();
 			panel.setBounds(12, 10, 426, 444);
 			panel.setLayout(null);
 		}
@@ -110,6 +123,8 @@ public class KioskMain {
 					lblAddbutton.setVisible(false);
 					panel.setVisible(false);
 					kioskoption.setVisible(true);
+					int i = KioskViewMenu.Inner_Table.getSelectedRow();
+					KioskViewMenu.selectedname = (String) KioskViewMenu.Inner_Table.getValueAt(i, 1);
 				}
 			});
 			lblAddbutton.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
@@ -139,9 +154,9 @@ public class KioskMain {
 		return lblCancelbutton;
 	}
 
-	private KioskOption getKioskoption() {
+	private KioskSetOption getKioskoption() {
 		if (kioskoption == null) {
-			kioskoption = new KioskOption();
+			kioskoption = new KioskSetOption();
 			kioskoption.setBounds(12, 10, 426, 444);
 			kioskoption.setLayout(null);
 		}
