@@ -19,9 +19,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
+import java.awt.Color;
 
 public class KioskSetOption extends JPanel {
-	private JLabel lblImage;
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JLabel lblNewLabel_1;
@@ -31,13 +31,25 @@ public class KioskSetOption extends JPanel {
 	private JLabel lblNewLabel_2_2;
 	private JLabel lblQuantity;
 	private JLabel lblOption;
+	private JLabel lblNewLabel_1_1;
+	private JLabel lblLightShot;
+	private JLabel lblHeavyShot;
+	private JLabel lblBasicShot;
+	private JSeparator separator_1_1;
+	private JLabel lblNewLabel_1_1_1;
+	private JLabel lblNoCream;
+	private JLabel lblWithCream;
+	private JLabel lblNewLabel_1_1_1_1;
+	private JSeparator separator_1_1_1;
+	private JLabel lblNoSyrup;
+	private JLabel lblNutSyrup;
+	private JLabel lblVanillaSyrup;
 
 	/**
 	 * Create the panel.
 	 */
 	public KioskSetOption() {
 		setLayout(null);
-		add(getLblImage());
 		add(getSeparator());
 		add(getSeparator_1());
 		add(getLblNewLabel_1());
@@ -47,21 +59,26 @@ public class KioskSetOption extends JPanel {
 		add(getLblNewLabel_2_2());
 		add(getLblQuantity());
 		add(getLblOption());
-		getMenuDetail(KioskViewMenu.selectedname);
-	}
-
-	private JLabel getLblImage() { // 메뉴 사진
-		if (lblImage == null) {
-			lblImage = new JLabel("");
-			lblImage.setBounds(12, 49, 144, 144);
-		}
-		return lblImage;
+		add(getLblNewLabel_1_1());
+		add(getLblLightShot());
+		add(getLblHeavyShot());
+		add(getLblBasicShot());
+		add(getSeparator_1_1());
+		add(getLblNewLabel_1_1_1());
+		add(getLblNoCream());
+		add(getLblWithCream());
+		add(getLblNewLabel_1_1_1_1());
+		add(getSeparator_1_1_1());
+		add(getLblNoSyrup());
+		add(getLblNutSyrup());
+		add(getLblVanillaSyrup());
+//		getMenuDetail(KioskViewMenu.selectedname);
 	}
 
 	private JSeparator getSeparator() { // 구분선
 		if (separator == null) {
 			separator = new JSeparator();
-			separator.setBounds(12, 191, 400, 2);
+			separator.setBounds(12, 118, 400, 2);
 		}
 		return separator;
 	}
@@ -69,7 +86,7 @@ public class KioskSetOption extends JPanel {
 	private JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-			separator_1.setBounds(12, 263, 400, 2);
+			separator_1.setBounds(12, 190, 400, 2);
 		}
 		return separator_1;
 	}
@@ -79,7 +96,7 @@ public class KioskSetOption extends JPanel {
 			lblNewLabel_1 = new JLabel("HOT/ICE");
 			lblNewLabel_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1.setBounds(12, 203, 120, 50);
+			lblNewLabel_1.setBounds(12, 130, 120, 50);
 		}
 		return lblNewLabel_1;
 	}
@@ -87,18 +104,19 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblICE() { // 아이스 선택 시
 		if (lblICE == null) {
 			lblICE = new JLabel("ICE");
+			lblICE.setOpaque(true);
 			lblICE.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					lblICE.setText(null);
-					lblICE.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/ICE.JPG")));
-					lblHOT.setIcon(null);
-					lblHOT.setText("HOT");
+					lblHOT.setForeground(new Color(0, 0, 0));
+					lblHOT.setBackground(new Color(240, 240, 240));
+					lblICE.setForeground(new Color(255, 255, 255));
+					lblICE.setBackground(new Color(0, 0, 255));
 				}
 			});
 			lblICE.setHorizontalAlignment(SwingConstants.CENTER);
 			lblICE.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblICE.setBounds(287, 203, 65, 50);
+			lblICE.setBounds(287, 130, 65, 50);
 		}
 		return lblICE;
 	}
@@ -106,18 +124,21 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblHOT() { // 핫 선택 시
 		if (lblHOT == null) {
 			lblHOT = new JLabel("HOT");
+			lblHOT.setOpaque(true);
+			lblHOT.setForeground(new Color(255, 255, 255));
+			lblHOT.setBackground(new Color(255, 0, 0));
 			lblHOT.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					lblHOT.setText(null);
-					lblHOT.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/HOT.JPG")));
-					lblICE.setIcon(null);
-					lblICE.setText("ICE");
+					lblHOT.setForeground(new Color(255, 255, 255));
+					lblHOT.setBackground(new Color(255, 0, 0));
+					lblICE.setBackground(new Color(240, 240, 240));
+					lblICE.setForeground(new Color(0, 0, 0));
 				}
 			});
 			lblHOT.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHOT.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblHOT.setBounds(161, 203, 65, 50);
+			lblHOT.setBounds(161, 130, 65, 50);
 		}
 		return lblHOT;
 	}
@@ -135,7 +156,7 @@ public class KioskSetOption extends JPanel {
 			});
 			lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 25));
 			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_2.setBounds(335, 131, 50, 50);
+			lblNewLabel_2.setBounds(335, 58, 50, 50);
 		}
 		return lblNewLabel_2;
 	}
@@ -155,7 +176,7 @@ public class KioskSetOption extends JPanel {
 			});
 			lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_2_2.setFont(new Font("굴림", Font.PLAIN, 25));
-			lblNewLabel_2_2.setBounds(214, 131, 50, 50);
+			lblNewLabel_2_2.setBounds(214, 58, 50, 50);
 		}
 		return lblNewLabel_2_2;
 	}
@@ -165,7 +186,7 @@ public class KioskSetOption extends JPanel {
 			lblQuantity = new JLabel("1");
 			lblQuantity.setHorizontalAlignment(SwingConstants.CENTER);
 			lblQuantity.setFont(new Font("굴림", Font.PLAIN, 20));
-			lblQuantity.setBounds(273, 131, 65, 50);
+			lblQuantity.setBounds(273, 58, 65, 50);
 		}
 		return lblQuantity;
 	}
@@ -179,19 +200,230 @@ public class KioskSetOption extends JPanel {
 		}
 		return lblOption;
 	}
+
+	private JLabel getLblNewLabel_1_1() {
+		if (lblNewLabel_1_1 == null) {
+			lblNewLabel_1_1 = new JLabel("샷 양");
+			lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblNewLabel_1_1.setBounds(12, 202, 120, 50);
+		}
+		return lblNewLabel_1_1;
+	}
+
+	private JLabel getLblLightShot() {
+		if (lblLightShot == null) {
+			lblLightShot = new JLabel("연하게");
+			lblLightShot.setOpaque(true);
+			lblLightShot.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblBasicShot.setBackground(new Color(240, 240, 240));
+					lblHeavyShot.setBackground(new Color(240, 240, 240));
+					lblHeavyShot.setForeground(new Color(0, 0, 0));
+					lblLightShot.setBackground(new Color(188, 168, 136));
+				}
+			});
+			lblLightShot.setHorizontalAlignment(SwingConstants.CENTER);
+			lblLightShot.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblLightShot.setBounds(312, 202, 73, 50);
+		}
+		return lblLightShot;
+	}
+
+	private JLabel getLblHeavyShot() {
+		if (lblHeavyShot == null) {
+			lblHeavyShot = new JLabel("진하게");
+			lblHeavyShot.setOpaque(true);
+			lblHeavyShot.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblBasicShot.setBackground(new Color(240, 240, 240));
+					lblHeavyShot.setBackground(new Color(100, 80, 48));
+					lblHeavyShot.setForeground(new Color(255, 255, 255));
+					lblLightShot.setBackground(new Color(240, 240, 240));
+				}
+			});
+			lblHeavyShot.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHeavyShot.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblHeavyShot.setBounds(227, 202, 73, 50);
+		}
+		return lblHeavyShot;
+	}
+
+	private JLabel getLblBasicShot() {
+		if (lblBasicShot == null) {
+			lblBasicShot = new JLabel("기본");
+			lblBasicShot.setOpaque(true);
+			lblBasicShot.setForeground(new Color(0, 0, 0));
+			lblBasicShot.setBackground(new Color(148, 128, 96));
+			lblBasicShot.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblBasicShot.setBackground(new Color(148, 128, 96));
+					lblHeavyShot.setBackground(new Color(240, 240, 240));
+					lblHeavyShot.setForeground(new Color(0, 0, 0));
+					lblLightShot.setBackground(new Color(240, 240, 240));
+				}
+			});
+			lblBasicShot.setHorizontalAlignment(SwingConstants.CENTER);
+			lblBasicShot.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblBasicShot.setBounds(144, 202, 73, 50);
+		}
+		return lblBasicShot;
+	}
+
+	private JSeparator getSeparator_1_1() {
+		if (separator_1_1 == null) {
+			separator_1_1 = new JSeparator();
+			separator_1_1.setBounds(12, 262, 400, 2);
+		}
+		return separator_1_1;
+	}
+
+	private JLabel getLblNewLabel_1_1_1() {
+		if (lblNewLabel_1_1_1 == null) {
+			lblNewLabel_1_1_1 = new JLabel("휘핑크림");
+			lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_1_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblNewLabel_1_1_1.setBounds(12, 273, 120, 50);
+		}
+		return lblNewLabel_1_1_1;
+	}
+
+	private JLabel getLblNoCream() {
+		if (lblNoCream == null) {
+			lblNoCream = new JLabel("안 함");
+			lblNoCream.setOpaque(true);
+			lblNoCream.setForeground(new Color(0, 0, 0));
+			lblNoCream.setBackground(new Color(200, 200, 200));
+			lblNoCream.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblNoCream.setBackground(new Color(200, 200, 200));
+					lblWithCream.setBackground(new Color(240, 240, 240));
+				}
+			});
+			lblNoCream.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNoCream.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblNoCream.setBounds(161, 274, 65, 50);
+		}
+		return lblNoCream;
+	}
+
+	private JLabel getLblWithCream() {
+		if (lblWithCream == null) {
+			lblWithCream = new JLabel("추가");
+			lblWithCream.setOpaque(true);
+			lblWithCream.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblNoCream.setBackground(new Color(240, 240, 240));
+					lblWithCream.setBackground(new Color(200, 200, 200));
+				}
+			});
+			lblWithCream.setHorizontalAlignment(SwingConstants.CENTER);
+			lblWithCream.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblWithCream.setBounds(287, 274, 65, 50);
+		}
+		return lblWithCream;
+	}
+
+	private JLabel getLblNewLabel_1_1_1_1() {
+		if (lblNewLabel_1_1_1_1 == null) {
+			lblNewLabel_1_1_1_1 = new JLabel("시럽");
+			lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_1_1_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblNewLabel_1_1_1_1.setBounds(12, 345, 120, 50);
+		}
+		return lblNewLabel_1_1_1_1;
+	}
+
+	private JSeparator getSeparator_1_1_1() {
+		if (separator_1_1_1 == null) {
+			separator_1_1_1 = new JSeparator();
+			separator_1_1_1.setBounds(12, 333, 400, 2);
+		}
+		return separator_1_1_1;
+	}
+
+	private JLabel getLblNoSyrup() {
+		if (lblNoSyrup == null) {
+			lblNoSyrup = new JLabel("안 함");
+			lblNoSyrup.setOpaque(true);
+			lblNoSyrup.setBackground(new Color(200, 200, 200));
+			lblNoSyrup.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblNoSyrup.setBackground(new Color(200, 200, 200));
+					lblNutSyrup.setBackground(new Color(240, 240, 240));
+					lblVanillaSyrup.setBackground(new Color(240, 240, 240));
+				}
+			});
+			lblNoSyrup.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNoSyrup.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblNoSyrup.setBounds(144, 345, 73, 50);
+		}
+		return lblNoSyrup;
+	}
+
+	private JLabel getLblNutSyrup() {
+		if (lblNutSyrup == null) {
+			lblNutSyrup = new JLabel("헤이즐넛");
+			lblNutSyrup.setOpaque(true);
+			lblNutSyrup.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblNutSyrup.setBackground(new Color(0xae, 0x9f, 0x80));
+					lblNoSyrup.setBackground(new Color(240, 240, 240));
+					lblVanillaSyrup.setBackground(new Color(240, 240, 240));
+				}
+			});
+			lblNutSyrup.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNutSyrup.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblNutSyrup.setBounds(227, 345, 73, 50);
+		}
+		return lblNutSyrup;
+	}
+
+	private JLabel getLblVanillaSyrup() {
+		if (lblVanillaSyrup == null) {
+			lblVanillaSyrup = new JLabel("바닐라");
+			lblVanillaSyrup.setOpaque(true);
+			lblVanillaSyrup.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblNutSyrup.setBackground(new Color(240, 240, 240));
+					lblNoSyrup.setBackground(new Color(240, 240, 240));
+					lblVanillaSyrup.setBackground(new Color(0xf3, 0xe5, 0xab));
+				}
+			});
+			lblVanillaSyrup.setHorizontalAlignment(SwingConstants.CENTER);
+			lblVanillaSyrup.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblVanillaSyrup.setBounds(312, 345, 73, 50);
+		}
+		return lblVanillaSyrup;
+	}
 	
-	private void getMenuDetail(String menuname) {
-		KioskViewMenuDao dao=new KioskViewMenuDao();
-		MenuViewDto dto= dao.searchDetail(menuname);
-//		lblOption.setText(dto.getMenuname());
-		
-		String filepath=Integer.toString(DBConnect.filename);
-		lblImage.setIcon(new ImageIcon(filepath));
-		
-		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		File file = new File(filepath);
-		file.delete();
-		
+	public void setOptionDefault() {
+		//HOT or ICE
+		lblHOT.setForeground(new Color(255, 255, 255));
+		lblHOT.setBackground(new Color(255, 0, 0));
+		lblICE.setBackground(new Color(240, 240, 240));
+		lblICE.setForeground(new Color(0, 0, 0));
+		//SHOT
+		lblBasicShot.setBackground(new Color(148, 128, 96));
+		lblHeavyShot.setBackground(new Color(240, 240, 240));
+		lblHeavyShot.setForeground(new Color(0, 0, 0));
+		lblLightShot.setBackground(new Color(240, 240, 240));
+		//CREAM
+		lblNoCream.setBackground(new Color(200, 200, 200));
+		lblWithCream.setBackground(new Color(240, 240, 240));
+		//SYRUP
+		lblNoSyrup.setBackground(new Color(200, 200, 200));
+		lblNutSyrup.setBackground(new Color(240, 240, 240));
+		lblVanillaSyrup.setBackground(new Color(240, 240, 240));
+		//QUANTITY
+		lblQuantity.setText("1");
 	}
 }

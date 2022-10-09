@@ -9,12 +9,14 @@ import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.MenuViewDto;
 import com.coffeex.kioskdao.KioskViewMenuDao;
+import com.coffeex.util.DBConnect;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 public class KioskViewMenu extends JPanel {
@@ -26,8 +28,20 @@ public class KioskViewMenu extends JPanel {
 	private JLabel lblSide;
 	private JScrollPane scrollPane;
 	public static JTable Inner_Table;
-	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	private final DefaultTableModel Outer_Table = new DefaultTableModel()
+	{
+        @Override
+        public Class<?> getColumnClass(int column)  {
+             // row - JTable에 입력된 2차원 배열의  행에 속한다면
+             // 모든 컬럼을 입력된 형으로  반환한다.
+             
+             // 다시말해, 어떤 행이든 간에 입력된  column의 class를 반환하도록 한 것
+             return getValueAt(0,  column).getClass();
+        }
+	};
+	
 	public static String selectedname;
+	
 
 	/**
 	 * Create the panel.
@@ -135,6 +149,7 @@ public class KioskViewMenu extends JPanel {
 	private JTable getInner_Table() {
 		if (Inner_Table == null) {
 			Inner_Table = new JTable();
+			
 			Inner_Table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -151,10 +166,11 @@ public class KioskViewMenu extends JPanel {
 
 	private void tableInit() {
 
+		Outer_Table.addColumn("사진");
 		Outer_Table.addColumn("이름");
 		Outer_Table.addColumn("가격");
 
-		Outer_Table.setColumnCount(2);
+		Outer_Table.setColumnCount(3);
 
 		int i = Outer_Table.getRowCount();
 
@@ -168,12 +184,17 @@ public class KioskViewMenu extends JPanel {
 		int vColIndex = 0;
 
 		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		int width = 211;
+		int width = 150;
 		col.setPreferredWidth(width);
 
 		vColIndex = 1;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 211;
+		width = 150;
+		col.setPreferredWidth(width);
+
+		vColIndex = 2;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 100;
 		col.setPreferredWidth(width);
 	}
 
@@ -185,8 +206,12 @@ public class KioskViewMenu extends JPanel {
 		int listCount = dtoList.size();
 
 		for (int index = 0; index < listCount; index++) {
+			String filepath=Integer.toString(DBConnect.filename);
+			ImageIcon image = new ImageIcon(filepath);
+			File file = new File(filepath);
+			file.delete();
 			String temp = dtoList.get(index).getMenuname();
-			String[] qTxt = { temp, Integer.toString(dtoList.get(index).getPrice()) };
+			Object[] qTxt = { image, temp, Integer.toString(dtoList.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}
 	}
@@ -199,14 +224,17 @@ public class KioskViewMenu extends JPanel {
 		int listCount = dtoList.size();
 
 		for (int index = 0; index < listCount; index++) {
+			String filepath=Integer.toString(DBConnect.filename);
 			String temp = dtoList.get(index).getMenuname();
-			String[] qTxt = { temp, Integer.toString(dtoList.get(index).getPrice()) };
+			ImageIcon image = new ImageIcon(filepath);
+			Object[] qTxt = { image, temp, Integer.toString(dtoList.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}
 	}
-	
+
 	private void tableClick() {
 		int i = Inner_Table.getSelectedRow();
 		selectedname = (String) Inner_Table.getValueAt(i, 1);
+		KioskInit.lblAddbutton.setVisible(true);
 	}
 }

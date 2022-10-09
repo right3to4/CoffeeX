@@ -28,6 +28,13 @@ public class MenuViewDto {
 		this.price = price;
 	}
 
+	public MenuViewDto(String menuname, int price, String photo) {
+		super();
+		this.menuname = menuname;
+		this.price = price;
+		this.photo = photo;
+	}
+
 	public String getCategory() {
 		return category;
 	}
