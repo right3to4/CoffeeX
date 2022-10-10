@@ -91,7 +91,7 @@ public class ManagerViewOrders {
 				OrderWaitTableInit();
 				OrderMadeTableInit();
 				OrderCompleteTableInit();
-				OrderNoticeTableInit();
+				//OrderNoticeTableInit();
 			}
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -102,8 +102,9 @@ public class ManagerViewOrders {
 					public void run() {
 						// TODO Auto-generated method stub
 	
-						Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
-//						NoticeSearchAction();
+						//Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
+						OrderNoticeTableInit();
+						NoticeSearchAction();
 						
 					}
 				};
