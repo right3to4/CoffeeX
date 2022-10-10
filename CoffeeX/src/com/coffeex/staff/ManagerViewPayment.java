@@ -63,7 +63,7 @@ public class ManagerViewPayment {
 			//이 윈도우만 종료
 			
 		});
-		frame.getContentPane().setBackground(Color.WHITE);
+		frame.getContentPane().setBackground(new Color(238, 238, 238));
 		frame.setTitle("사원급여내역");
 		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

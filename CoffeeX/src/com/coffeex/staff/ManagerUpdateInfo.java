@@ -11,13 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-public class ManagerAddStaff {
+public class ManagerUpdateInfo {
 
 	private JFrame frame;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_2;
-	private JButton btnSearchStaff;
-	private JTextField textField;
 	private JLabel lblNewLabel_3;
 	private JTextField textField_1;
 	private JLabel lblNewLabel_3_1;
@@ -27,7 +24,6 @@ public class ManagerAddStaff {
 	private JLabel lbConfirm;
 	private JLabel lblNewLabel_3_3;
 	private JTextField textField_2;
-	private JButton btnTfReset;
 	private JButton btnDelete;
 	private JButton btnInsert;
 
@@ -38,7 +34,7 @@ public class ManagerAddStaff {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ManagerAddStaff window = new ManagerAddStaff();
+					ManagerUpdateInfo window = new ManagerUpdateInfo();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +47,7 @@ public class ManagerAddStaff {
 	/**
 	 * Create the application.
 	 */
-	public ManagerAddStaff() {
+	public ManagerUpdateInfo() {
 		initialize();
 	}
 
@@ -60,15 +56,12 @@ public class ManagerAddStaff {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("사원등록/삭제");
+		frame.setTitle("개인정보수정");
 		frame.getContentPane().setBackground(new Color(238, 238, 238));
 		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getLblNewLabel());
-		frame.getContentPane().add(getLblNewLabel_2());
-		frame.getContentPane().add(getBtnSearchStaff());
-		frame.getContentPane().add(getTextField());
 		frame.getContentPane().add(getLblNewLabel_3());
 		frame.getContentPane().add(getTextField_1());
 		frame.getContentPane().add(getLblNewLabel_3_1());
@@ -78,7 +71,6 @@ public class ManagerAddStaff {
 		frame.getContentPane().add(getLbConfirm());
 		frame.getContentPane().add(getLblNewLabel_3_3());
 		frame.getContentPane().add(getTextField_2());
-		frame.getContentPane().add(getBtnTfReset());
 		frame.getContentPane().add(getBtnDelete());
 		frame.getContentPane().add(getBtnInsert());
 		frame.setDefaultCloseOperation(2);
@@ -95,68 +87,47 @@ public class ManagerAddStaff {
 		}
 		return lblNewLabel;
 	}
-	private JLabel getLblNewLabel_2() {
-		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("사원검색");
-			lblNewLabel_2.setBounds(56, 84, 61, 16);
-		}
-		return lblNewLabel_2;
-	}
-	private JButton getBtnSearchStaff() {
-		if (btnSearchStaff == null) {
-			btnSearchStaff = new JButton("검색");
-			btnSearchStaff.setBounds(198, 101, 117, 29);
-		}
-		return btnSearchStaff;
-	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setColumns(10);
-			textField.setBounds(56, 101, 130, 26);
-		}
-		return textField;
-	}
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("사번");
-			lblNewLabel_3.setBounds(56, 152, 61, 16);
+			lblNewLabel_3.setBounds(57, 110, 61, 16);
 		}
 		return lblNewLabel_3;
 	}
 	private JTextField getTextField_1() {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();
+			textField_1.setEnabled(false);
 			textField_1.setColumns(10);
-			textField_1.setBounds(56, 167, 130, 26);
+			textField_1.setBounds(57, 125, 130, 26);
 		}
 		return textField_1;
 	}
 	private JLabel getLblNewLabel_3_1() {
 		if (lblNewLabel_3_1 == null) {
 			lblNewLabel_3_1 = new JLabel("비밀번호");
-			lblNewLabel_3_1.setBounds(56, 205, 61, 16);
+			lblNewLabel_3_1.setBounds(57, 163, 61, 16);
 		}
 		return lblNewLabel_3_1;
 	}
 	private JPasswordField getPasswordField() {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();
-			passwordField.setBounds(56, 220, 130, 26);
+			passwordField.setBounds(57, 178, 130, 26);
 		}
 		return passwordField;
 	}
 	private JLabel getLblNewLabel_3_2() {
 		if (lblNewLabel_3_2 == null) {
 			lblNewLabel_3_2 = new JLabel("비밀번호 확인");
-			lblNewLabel_3_2.setBounds(56, 258, 81, 16);
+			lblNewLabel_3_2.setBounds(57, 216, 81, 16);
 		}
 		return lblNewLabel_3_2;
 	}
 	private JPasswordField getPasswordField_1() {
 		if (passwordField_1 == null) {
 			passwordField_1 = new JPasswordField();
-			passwordField_1.setBounds(56, 273, 130, 26);
+			passwordField_1.setBounds(57, 231, 130, 26);
 		}
 		return passwordField_1;
 	}
@@ -164,14 +135,14 @@ public class ManagerAddStaff {
 		if (lbConfirm == null) {
 			lbConfirm = new JLabel("비밀번호 틀림");
 			lbConfirm.setForeground(Color.RED);
-			lbConfirm.setBounds(198, 278, 158, 16);
+			lbConfirm.setBounds(199, 236, 158, 16);
 		}
 		return lbConfirm;
 	}
 	private JLabel getLblNewLabel_3_3() {
 		if (lblNewLabel_3_3 == null) {
 			lblNewLabel_3_3 = new JLabel("이름");
-			lblNewLabel_3_3.setBounds(56, 311, 61, 16);
+			lblNewLabel_3_3.setBounds(57, 269, 61, 16);
 		}
 		return lblNewLabel_3_3;
 	}
@@ -179,16 +150,9 @@ public class ManagerAddStaff {
 		if (textField_2 == null) {
 			textField_2 = new JTextField();
 			textField_2.setColumns(10);
-			textField_2.setBounds(56, 326, 130, 26);
+			textField_2.setBounds(57, 284, 130, 26);
 		}
 		return textField_2;
-	}
-	private JButton getBtnTfReset() {
-		if (btnTfReset == null) {
-			btnTfReset = new JButton("초기화");
-			btnTfReset.setBounds(56, 364, 117, 29);
-		}
-		return btnTfReset;
 	}
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {

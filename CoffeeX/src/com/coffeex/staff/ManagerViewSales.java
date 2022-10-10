@@ -16,6 +16,9 @@ import javax.swing.table.TableColumn;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ManagerViewSales {
 
@@ -25,6 +28,7 @@ public class ManagerViewSales {
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -69,12 +73,13 @@ public class ManagerViewSales {
 		frame.getContentPane().add(getLb());
 		frame.getContentPane().add(getComboBox());
 		frame.getContentPane().add(getScrollPane());
+		frame.getContentPane().add(getLblNewLabel());
 	}
 
 	private JLabel getLb() {
 		if (lb == null) {
 			lb = new JLabel("판매내역조회");
-			lb.setBounds(16, 30, 74, 16);
+			lb.setBounds(20, 68, 74, 16);
 		}
 		return lb;
 	}
@@ -82,14 +87,14 @@ public class ManagerViewSales {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"월별 판매내역", "제품별 판매내역", "직원별 판매내역"}));
-			comboBox.setBounds(102, 26, 137, 27);
+			comboBox.setBounds(106, 64, 137, 27);
 		}
 		return comboBox;
 	}
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(16, 70, 562, 328);
+			scrollPane.setBounds(20, 108, 562, 328);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -139,5 +144,16 @@ public class ManagerViewSales {
 		col.setPreferredWidth(width);
 
 	}
-	
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("  CoffeeX");
+			lblNewLabel.setOpaque(true);
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel.setForeground(Color.WHITE);
+			lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+			lblNewLabel.setBackground(new Color(148, 128, 96));
+			lblNewLabel.setBounds(0, 0, 600, 50);
+		}
+		return lblNewLabel;
+	}
 }

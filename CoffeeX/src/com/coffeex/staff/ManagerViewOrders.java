@@ -9,19 +9,28 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+
+import com.coffeex.dto.NoticeDto;
+import com.coffeex.staffdao.ManagerViewOrdersDao;
+
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.JTable;
 import java.awt.Window.Type;
+import javax.swing.ListSelectionModel;
 
 public class ManagerViewOrders {
-	int i = 0;
+	int click = 0;
 	private JFrame frmCoffeex;
 	private JLabel lblNewLabel;
-	private JLabel lb;
+	private JLabel lbUpdateInfo;
 	private JLabel lbChangeMenu;
 	private JLabel lbPayment;
 	private JLabel lbStaffManage;
@@ -37,13 +46,15 @@ public class ManagerViewOrders {
 	private JLabel lbPromote;
 	private JLabel lbStaffPayManege;
 	private JLabel lbStaffInsertDel;
-	private JTable tbOrderMade;
-	private final DefaultTableModel Outer_Order = new DefaultTableModel();
-	private JTable tbOrderWait;
+	private final DefaultTableModel Outer_OrderWait = new DefaultTableModel();
+	private final DefaultTableModel Outer_OrderMade = new DefaultTableModel();
+	private final DefaultTableModel Outer_OrderComplete = new DefaultTableModel();
 	private JTable tbOrderComplete;
 	private JTable tbNotice;
 	private final DefaultTableModel Outer_Notice = new DefaultTableModel();
-
+	private JTable tbOrderWait;
+	private JTable tbOrderMade;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -72,22 +83,43 @@ public class ManagerViewOrders {
 	 */
 	private void initialize() {
 		frmCoffeex = new JFrame();
-		frmCoffeex.getContentPane().setBackground(Color.WHITE);
+		frmCoffeex.getContentPane().setBackground(new Color(238, 238, 238));
 		frmCoffeex.setTitle("CoffeeX");
 		frmCoffeex.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				OrderTableInit();
+				OrderWaitTableInit();
+				OrderMadeTableInit();
+				OrderCompleteTableInit();
 				OrderNoticeTableInit();
 			}
+			@Override
+			public void windowOpened(WindowEvent e) {
+				Timer timer = new Timer();
+				TimerTask task = new TimerTask() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+	
+						Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
+//						NoticeSearchAction();
+						
+					}
+				};
+				
+				
+				timer.schedule(task, 0, 1000);
+			}
 		});
+		
 		frmCoffeex.setBounds(100, 100, 900, 600);
 		frmCoffeex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCoffeex.getContentPane().setLayout(null);
 		frmCoffeex.getContentPane().add(getLbStaffManage());
 		frmCoffeex.getContentPane().add(getLbPayment());
 		frmCoffeex.getContentPane().add(getLbChangeMenu());
-		frmCoffeex.getContentPane().add(getLb());
+		frmCoffeex.getContentPane().add(getLbUpdateInfo());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3_1());
 		frmCoffeex.getContentPane().add(getSpOrderMade());
@@ -115,22 +147,32 @@ public class ManagerViewOrders {
 		}
 		return lblNewLabel;
 	}
-	private JLabel getLb() {
-		if (lb == null) {
-			lb = new JLabel("마이페이지");
-			lb.addMouseListener(new MouseAdapter() {
+	private JLabel getLbUpdateInfo() {
+		if (lbUpdateInfo == null) {
+			lbUpdateInfo = new JLabel("마이페이지");
+			lbUpdateInfo.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					ManagerUpdateInfo.main(null);
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lbUpdateInfo.setForeground(Color.black);
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lbUpdateInfo.setForeground(Color.white);
 				}
 				
 				
+				
 			});
-			lb.setHorizontalAlignment(SwingConstants.CENTER);
-			lb.setForeground(Color.WHITE);
-			lb.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lb.setBounds(760, 0, 140, 50);
+			lbUpdateInfo.setHorizontalAlignment(SwingConstants.CENTER);
+			lbUpdateInfo.setForeground(Color.WHITE);
+			lbUpdateInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+			lbUpdateInfo.setBounds(760, 0, 140, 50);
 		}
-		return lb;
+		return lbUpdateInfo;
 	}
 	private JLabel getLbChangeMenu() {
 		if (lbChangeMenu == null) {
@@ -138,6 +180,7 @@ public class ManagerViewOrders {
 			lbChangeMenu.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					ManagerChangeMenu.main(null);
 				}
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -187,7 +230,7 @@ public class ManagerViewOrders {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if(i%2 == 0) {
+					if(click%2 == 0) {
 						lbStaffManage.setForeground(Color.black);
 						lbStaffPayManege.setVisible(true);
 						lbStaffInsertDel.setVisible(true);	
@@ -196,7 +239,7 @@ public class ManagerViewOrders {
 						lbStaffPayManege.setVisible(false);
 						lbStaffInsertDel.setVisible(false);
 					}
-					i++;
+					click++;
 				}
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -234,13 +277,8 @@ public class ManagerViewOrders {
 		if (spOrderMade == null) {
 			spOrderMade = new JScrollPane();
 			spOrderMade.setBounds(491, 155, 350, 170);
-			
-			tbOrderMade = new JTable();
-			tbOrderMade.setShowVerticalLines(false);
-			tbOrderMade.setShowHorizontalLines(false);
-			tbOrderMade.setShowGrid(false);
-			tbOrderMade.setModel(Outer_Order);
-			spOrderMade.setViewportView(tbOrderMade);
+			spOrderMade.setViewportView(getTbOrderMade());
+		
 		}
 		return spOrderMade;
 	}
@@ -248,15 +286,46 @@ public class ManagerViewOrders {
 		if (spOrderWait == null) {
 			spOrderWait = new JScrollPane();
 			spOrderWait.setBounds(81, 155, 350, 170);
-			
+			spOrderWait.setViewportView(getTbOrderWait());
+
+		}
+		return spOrderWait;
+	}
+	private JScrollPane getSpNotice() {
+		if (spNotice == null) {
+			spNotice = new JScrollPane();
+			spNotice.setBounds(395, 382, 446, 170);
+			spNotice.setViewportView(getTbNotice());
+		}
+		return spNotice;
+	}
+	private JScrollPane getSpOrderComplete() {
+		if (spOrderComplete == null) {
+			spOrderComplete = new JScrollPane();
+			spOrderComplete.setBounds(81, 382, 250, 170);
+			spOrderComplete.setViewportView(getTbOrderComplete());
+		}
+		return spOrderComplete;
+	}
+	private JTable getTbOrderWait() {
+		if (tbOrderWait == null) {
 			tbOrderWait = new JTable();
 			tbOrderWait.setShowVerticalLines(false);
 			tbOrderWait.setShowHorizontalLines(false);
 			tbOrderWait.setShowGrid(false);
-			tbOrderWait.setModel(Outer_Order);
-			spOrderWait.setViewportView(tbOrderWait);
+			tbOrderWait.setModel(Outer_OrderWait);
 		}
-		return spOrderWait;
+		return tbOrderWait;
+	}
+	private JTable getTbOrderMade() {
+		if (tbOrderMade == null) {
+			tbOrderMade = new JTable();
+			tbOrderMade.setShowVerticalLines(false);
+			tbOrderMade.setShowHorizontalLines(false);
+			tbOrderMade.setShowGrid(false);
+			tbOrderMade.setModel(Outer_OrderMade);
+		}
+		return tbOrderMade;
 	}
 	private JTable getTbOrderComplete() {
 		if (tbOrderComplete == null) {
@@ -264,16 +333,17 @@ public class ManagerViewOrders {
 			tbOrderComplete.setShowVerticalLines(false);
 			tbOrderComplete.setShowHorizontalLines(false);
 			tbOrderComplete.setShowGrid(false);
-			tbOrderComplete.setModel(Outer_Order);
+			tbOrderComplete.setModel(Outer_OrderComplete);
 		}
 		return tbOrderComplete;
 	}
 	private JTable getTbNotice() {
 		if (tbNotice == null) {
 			tbNotice = new JTable();
+			tbNotice.setShowGrid(false);
+			tbNotice.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tbNotice.setShowVerticalLines(false);
 			tbNotice.setShowHorizontalLines(false);
-			tbNotice.setShowGrid(false);
 			tbNotice.setModel(Outer_Notice);
 		}
 		return tbNotice;
@@ -294,22 +364,7 @@ public class ManagerViewOrders {
 		}
 		return lblNewLabel_3_1_1_1;
 	}
-	private JScrollPane getSpNotice() {
-		if (spNotice == null) {
-			spNotice = new JScrollPane();
-			spNotice.setBounds(395, 382, 446, 170);
-			spNotice.setViewportView(getTbNotice());
-		}
-		return spNotice;
-	}
-	private JScrollPane getSpOrderComplete() {
-		if (spOrderComplete == null) {
-			spOrderComplete = new JScrollPane();
-			spOrderComplete.setBounds(81, 382, 250, 170);
-			spOrderComplete.setViewportView(getTbOrderComplete());
-		}
-		return spOrderComplete;
-	}
+	
 	private JLabel getLblNewLabel_2_1() {
 		if (lblNewLabel_2_1 == null) {
 			lblNewLabel_2_1 = new JLabel("이름");
@@ -370,42 +425,128 @@ public class ManagerViewOrders {
 		return lbStaffInsertDel;
 	}
 	
-	private void OrderTableInit() {
+	private void OrderCompleteTableInit() {
 
-		Outer_Order.addColumn("주문번호");
-		Outer_Order.addColumn("메뉴");
+		Outer_OrderComplete.addColumn("주문번호");
+		Outer_OrderComplete.addColumn("메뉴");
+		Outer_OrderComplete.addColumn("옵션");
 
-		Outer_Order.setColumnCount(2);
+		Outer_OrderComplete.setColumnCount(3);
 
-		int i = Outer_Order.getRowCount();
+		int i = Outer_OrderComplete.getRowCount();
 
 		for (int j = 0; j < i; j++) {
-			Outer_Order.removeRow(0);
+			Outer_OrderComplete.removeRow(0);
+		}
+
+		tbOrderComplete.setAutoResizeMode(tbOrderComplete.AUTO_RESIZE_OFF);
+
+		int vColIndex = 0;
+
+		TableColumn col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+		int width = 50;
+		col.setPreferredWidth(width);
+
+		vColIndex = 1;
+		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 2;
+		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+
+	}
+	
+	private void OrderMadeTableInit() {
+
+		Outer_OrderMade.addColumn("주문번호");
+		Outer_OrderMade.addColumn("메뉴");
+		Outer_OrderMade.addColumn("옵션");
+		Outer_OrderMade.addColumn("주문시간");
+
+		Outer_OrderMade.setColumnCount(4);
+
+		int i = Outer_OrderMade.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_OrderMade.removeRow(0);
+		}
+
+		tbOrderMade.setAutoResizeMode(tbOrderMade.AUTO_RESIZE_OFF);
+
+		int vColIndex = 0;
+
+		TableColumn col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+		int width = 50;
+		col.setPreferredWidth(width);
+
+		vColIndex = 1;
+		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 2;
+		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 3;
+		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+
+	}
+	
+	private void OrderWaitTableInit() {
+
+		Outer_OrderWait.addColumn("주문번호");
+		Outer_OrderWait.addColumn("메뉴");
+		Outer_OrderWait.addColumn("옵션");
+		Outer_OrderWait.addColumn("주문시간");
+
+		Outer_OrderWait.setColumnCount(4);
+
+		int i = Outer_OrderWait.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_OrderWait.removeRow(0);
 		}
 
 		tbOrderWait.setAutoResizeMode(tbOrderWait.AUTO_RESIZE_OFF);
-		tbOrderWait.setRowHeight(100);
 
 		int vColIndex = 0;
 
 		TableColumn col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		int width = 100;
+		int width = 50;
 		col.setPreferredWidth(width);
 
 		vColIndex = 1;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 230;
+		width = 100;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 2;
+		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 3;
+		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
+		width = 100;
 		col.setPreferredWidth(width);
 
 	}
 	
 	private void OrderNoticeTableInit() {
-
+		
+		Outer_Notice.addColumn("No.");
 		Outer_Notice.addColumn("제목");
 		Outer_Notice.addColumn("작성일");
 		Outer_Notice.addColumn("수정일자");
 
-		Outer_Notice.setColumnCount(3);
+		Outer_Notice.setColumnCount(4);
 
 		int i = Outer_Notice.getRowCount();
 
@@ -414,28 +555,52 @@ public class ManagerViewOrders {
 		}
 
 		tbNotice.setAutoResizeMode(tbNotice.AUTO_RESIZE_OFF);
-		tbNotice.setRowHeight(100);
 
 		int vColIndex = 0;
-
 		TableColumn col = tbNotice.getColumnModel().getColumn(vColIndex);
-		int width = 250;
+		int width = 50;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 1;
+		col = tbNotice.getColumnModel().getColumn(vColIndex);
+		width = 200;
 		col.setPreferredWidth(width);
 
-		vColIndex = 1;
+		vColIndex = 2;
 		col = tbNotice.getColumnModel().getColumn(vColIndex);
 		width = 100;
 		col.setPreferredWidth(width);
 		
-		vColIndex = 2;
+		vColIndex = 3;
 		col = tbNotice.getColumnModel().getColumn(vColIndex);
 		width = 100;
 		col.setPreferredWidth(width);
 
 	}
 	
+	private int NoticeSearchAction() {
+		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+		ArrayList<NoticeDto> dtoList = dao.SelecNoticetList();
+		int listCount = dtoList.size();
+		
+		for (int index = 0; index < listCount; index++) {
+			int temp = dtoList.get(index).getNoticeid();
+			String[] qTxt = { Integer.toString(temp), dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(), dtoList.get(index).getNoticeupdatedate()};
+			Outer_Notice.addRow(qTxt);
+		}
+		return listCount;
+	}
 	
+//	private void NoticeSearchAction() {
+//		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+//		ArrayList<NoticeDto> dtoList = dao.SelecNoticetList();
+//		int listCount = dtoList.size();
+//		
+//		for (int index = 0; index < listCount; index++) {
+//			int temp = dtoList.get(index).getNoticeid();
+//			String[] qTxt = { Integer.toString(temp), dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(), dtoList.get(index).getNoticeupdatedate()};
+//			Outer_Notice.addRow(qTxt);
+//		}
+//	}
 
-	
-	
 }

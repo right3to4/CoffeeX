@@ -13,6 +13,14 @@ public class NoticeDto {
 
 	}
 
+	public NoticeDto(int noticeid, String noticetitle, String noticeinsertdate, String noticeupdatedate) {
+		super();
+		this.noticeid = noticeid;
+		this.noticetitle = noticetitle;
+		this.noticeinsertdate = noticeinsertdate;
+		this.noticeupdatedate = noticeupdatedate;
+	}
+
 	public int getNoticeid() {
 		return noticeid;
 	}
