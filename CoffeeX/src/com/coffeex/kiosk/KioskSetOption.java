@@ -29,7 +29,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel lblHOT;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_2_2;
-	private JLabel lblQuantity;
+	public JLabel lblQuantity;
 	private JLabel lblOption;
 	private JLabel lblNewLabel_1_1;
 	private JLabel lblLightShot;
@@ -44,6 +44,12 @@ public class KioskSetOption extends JPanel {
 	private JLabel lblNoSyrup;
 	private JLabel lblNutSyrup;
 	private JLabel lblVanillaSyrup;
+	public JLabel lblMenuName;
+
+	public String hotice = "HOT";
+	public String shot = "";
+	public String cream = "";
+	public String syrup = "";
 
 	/**
 	 * Create the panel.
@@ -72,7 +78,8 @@ public class KioskSetOption extends JPanel {
 		add(getLblNoSyrup());
 		add(getLblNutSyrup());
 		add(getLblVanillaSyrup());
-//		getMenuDetail(KioskViewMenu.selectedname);
+		add(getLblMenuName());
+		lblMenuName.setText(KioskInit.menuname);
 	}
 
 	private JSeparator getSeparator() { // 구분선
@@ -112,6 +119,7 @@ public class KioskSetOption extends JPanel {
 					lblHOT.setBackground(new Color(240, 240, 240));
 					lblICE.setForeground(new Color(255, 255, 255));
 					lblICE.setBackground(new Color(0, 0, 255));
+					hotice = "ICE";
 				}
 			});
 			lblICE.setHorizontalAlignment(SwingConstants.CENTER);
@@ -134,6 +142,7 @@ public class KioskSetOption extends JPanel {
 					lblHOT.setBackground(new Color(255, 0, 0));
 					lblICE.setBackground(new Color(240, 240, 240));
 					lblICE.setForeground(new Color(0, 0, 0));
+					hotice = "HOT";
 				}
 			});
 			lblHOT.setHorizontalAlignment(SwingConstants.CENTER);
@@ -222,6 +231,7 @@ public class KioskSetOption extends JPanel {
 					lblHeavyShot.setBackground(new Color(240, 240, 240));
 					lblHeavyShot.setForeground(new Color(0, 0, 0));
 					lblLightShot.setBackground(new Color(188, 168, 136));
+					shot = ", 연하게";
 				}
 			});
 			lblLightShot.setHorizontalAlignment(SwingConstants.CENTER);
@@ -242,6 +252,7 @@ public class KioskSetOption extends JPanel {
 					lblHeavyShot.setBackground(new Color(100, 80, 48));
 					lblHeavyShot.setForeground(new Color(255, 255, 255));
 					lblLightShot.setBackground(new Color(240, 240, 240));
+					shot = ", 진하게";
 				}
 			});
 			lblHeavyShot.setHorizontalAlignment(SwingConstants.CENTER);
@@ -320,6 +331,7 @@ public class KioskSetOption extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					lblNoCream.setBackground(new Color(240, 240, 240));
 					lblWithCream.setBackground(new Color(200, 200, 200));
+					cream = ", 휘핑추가";
 				}
 			});
 			lblWithCream.setHorizontalAlignment(SwingConstants.CENTER);
@@ -377,6 +389,7 @@ public class KioskSetOption extends JPanel {
 					lblNutSyrup.setBackground(new Color(0xae, 0x9f, 0x80));
 					lblNoSyrup.setBackground(new Color(240, 240, 240));
 					lblVanillaSyrup.setBackground(new Color(240, 240, 240));
+					syrup = ", 헤이즐넛시럽";
 				}
 			});
 			lblNutSyrup.setHorizontalAlignment(SwingConstants.CENTER);
@@ -396,6 +409,7 @@ public class KioskSetOption extends JPanel {
 					lblNutSyrup.setBackground(new Color(240, 240, 240));
 					lblNoSyrup.setBackground(new Color(240, 240, 240));
 					lblVanillaSyrup.setBackground(new Color(0xf3, 0xe5, 0xab));
+					syrup = ", 바닐라시럽";
 				}
 			});
 			lblVanillaSyrup.setHorizontalAlignment(SwingConstants.CENTER);
@@ -404,26 +418,41 @@ public class KioskSetOption extends JPanel {
 		}
 		return lblVanillaSyrup;
 	}
-	
+
+	private JLabel getLblMenuName() {
+		if (lblMenuName == null) {
+			lblMenuName = new JLabel(KioskInit.menuname);
+			lblMenuName.setHorizontalAlignment(SwingConstants.CENTER);
+			lblMenuName.setFont(new Font("굴림", Font.PLAIN, 15));
+			lblMenuName.setBounds(12, 79, 91, 29);
+		}
+		return lblMenuName;
+	}
+
 	public void setOptionDefault() {
-		//HOT or ICE
+		// HOT or ICE
 		lblHOT.setForeground(new Color(255, 255, 255));
 		lblHOT.setBackground(new Color(255, 0, 0));
 		lblICE.setBackground(new Color(240, 240, 240));
 		lblICE.setForeground(new Color(0, 0, 0));
-		//SHOT
+		hotice = "HOT";
+		// SHOT
 		lblBasicShot.setBackground(new Color(148, 128, 96));
 		lblHeavyShot.setBackground(new Color(240, 240, 240));
 		lblHeavyShot.setForeground(new Color(0, 0, 0));
 		lblLightShot.setBackground(new Color(240, 240, 240));
-		//CREAM
+		shot = "";
+		// CREAM
 		lblNoCream.setBackground(new Color(200, 200, 200));
 		lblWithCream.setBackground(new Color(240, 240, 240));
-		//SYRUP
+		cream = "";
+		// SYRUP
 		lblNoSyrup.setBackground(new Color(200, 200, 200));
 		lblNutSyrup.setBackground(new Color(240, 240, 240));
 		lblVanillaSyrup.setBackground(new Color(240, 240, 240));
-		//QUANTITY
+		syrup = "";
+		// QUANTITY
 		lblQuantity.setText("1");
 	}
+
 }

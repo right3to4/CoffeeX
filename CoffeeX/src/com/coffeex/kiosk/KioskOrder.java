@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.MenuViewDto;
+import com.coffeex.dto.ViewCartDto;
+import com.coffeex.kioskdao.KioskOrderDao;
 import com.coffeex.kioskdao.KioskViewMenuDao;
 import com.coffeex.util.DBConnect;
 
@@ -24,10 +26,10 @@ import java.awt.Color;
 public class KioskOrder extends JPanel {
 	
 	private ArrayList<String> phone=new ArrayList<String>();
-	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	public final DefaultTableModel Outer_Table = new DefaultTableModel();
 	public static String selectedname;
 	private JScrollPane scrollPane;
-	private JTable Inner_Table;
+	public JTable Inner_Table;
 	private JPanel panelPoint;
 	private JTextField tfPhone;
 	private JLabel lblNewLabel;
@@ -71,6 +73,8 @@ public class KioskOrder extends JPanel {
 		add(getLblStep_1());
 		add(getPanelPoint());
 		panelPoint.setVisible(false);
+		tableInit();
+		searchCart("kiosk");
 	}
 
 	private JScrollPane getScrollPane_1() {
@@ -433,5 +437,69 @@ public class KioskOrder extends JPanel {
 			lblNewLabel_2.setBounds(70, 90, 39, 30);
 		}
 		return lblNewLabel_2;
+	}
+	
+	public void searchCart(String custid) {
+
+		KioskOrderDao dao = new KioskOrderDao();
+		ArrayList<ViewCartDto> dtoList = dao.ShowCart(custid);
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			String temp = dtoList.get(index).getMenu();
+			String price=Integer.toString(dtoList.get(index).getPrice());
+			String quantity=Integer.toString(dtoList.get(index).getQuantity());
+			String total=Integer.toString(dtoList.get(index).getQuantity()*dtoList.get(index).getPrice());
+			String option=dtoList.get(index).getAddoption();
+			String[] qTxt = { temp, price, quantity, total, option };
+			Outer_Table.addRow(qTxt);
+		}
+	}
+	
+	private void tableInit() {
+
+		Outer_Table.addColumn("메뉴 이름");
+		Outer_Table.addColumn("단가");
+		Outer_Table.addColumn("수량");
+		Outer_Table.addColumn("합계가격");
+		Outer_Table.addColumn("옵션");
+
+		Outer_Table.setColumnCount(5);
+
+		int i = Outer_Table.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_Table.removeRow(0);
+		}
+
+		Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
+		Inner_Table.setRowHeight(50);
+
+		int vColIndex = 0;
+
+		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		int width = 50;
+		col.setPreferredWidth(width);
+
+		vColIndex = 1;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 50;
+		col.setPreferredWidth(width);
+
+		vColIndex = 2;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 50;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 3;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 50;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 4;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 50;
+		col.setPreferredWidth(width);
 	}
 }

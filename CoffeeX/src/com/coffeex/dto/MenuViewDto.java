@@ -34,6 +34,8 @@ public class MenuViewDto {
 		this.price = price;
 		this.photo = photo;
 	}
+	
+	
 
 	public String getCategory() {
 		return category;

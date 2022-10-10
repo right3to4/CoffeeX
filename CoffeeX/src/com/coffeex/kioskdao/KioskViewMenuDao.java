@@ -44,10 +44,11 @@ public class KioskViewMenuDao {
 				byte[] buffer = new byte[1024];
 				while (input.read(buffer) > 0) {
 					output.write(buffer);
-				}
 
+				}
 				MenuViewDto dto = new MenuViewDto(wkName, wkPrice);
 				dtoList.add(dto);
+
 			}
 
 			conn_mysql.close(); // Close DB connection for others to connect

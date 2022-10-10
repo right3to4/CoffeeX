@@ -1,6 +1,7 @@
 package com.coffeex.kiosk;
 
 import javax.swing.JPanel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -29,16 +30,11 @@ public class KioskViewMenu extends JPanel {
 	private JLabel lblSmoothie;
 	private JLabel lblSide;
 	private JScrollPane scrollPane;
-	public static JTable Inner_Table;
-	private final DefaultTableModel Outer_Table = new DefaultTableModel()
-	{
-        @Override
-        public Class<?> getColumnClass(int column)  {
-             return getValueAt(0,  column).getClass();
-        }
-	};
+	public JTable Inner_Table;
+	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	
 	public static String selectedname;
+	ArrayList<MenuViewDto> dto=null;
 	
 
 	/**
@@ -115,6 +111,13 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblTea() {
 		if (lblTea == null) {
 			lblTea = new JLabel("티");
+			lblTea.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					searchMenuByCategory("티");
+					tableInit();
+				}
+			});
 			lblTea.setOpaque(true);
 			lblTea.setBackground(new Color(148, 128, 96));
 			lblTea.setHorizontalAlignment(SwingConstants.CENTER);
@@ -126,6 +129,13 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblSmoothie() {
 		if (lblSmoothie == null) {
 			lblSmoothie = new JLabel("스무디");
+			lblSmoothie.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					searchMenuByCategory("스무디");
+					tableInit();
+				}
+			});
 			lblSmoothie.setOpaque(true);
 			lblSmoothie.setBackground(new Color(148, 128, 96));
 			lblSmoothie.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,6 +147,13 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblSide() {
 		if (lblSide == null) {
 			lblSide = new JLabel("사이드");
+			lblSide.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					searchMenuByCategory("사이드");
+					tableInit();
+				}
+			});
 			lblSide.setOpaque(true);
 			lblSide.setBackground(new Color(148, 128, 96));
 			lblSide.setHorizontalAlignment(SwingConstants.CENTER);
@@ -156,8 +173,11 @@ public class KioskViewMenu extends JPanel {
 
 	private JTable getInner_Table() {
 		if (Inner_Table == null) {
-			Inner_Table = new JTable();
-			
+			Inner_Table = new JTable() {
+				public Class getColumnClass(int column) {
+			        return (column == 0) ? Icon.class : Object.class;
+			      }
+			};
 			Inner_Table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -235,6 +255,8 @@ public class KioskViewMenu extends JPanel {
 			String filepath=Integer.toString(DBConnect.filename);
 			String temp = dtoList.get(index).getMenuname();
 			ImageIcon image = new ImageIcon(filepath);
+			File file = new File(filepath);
+			file.delete();
 			Object[] qTxt = { image, temp, Integer.toString(dtoList.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}
@@ -242,7 +264,7 @@ public class KioskViewMenu extends JPanel {
 
 	private void tableClick() {
 		int i = Inner_Table.getSelectedRow();
-		selectedname = (String) Inner_Table.getValueAt(i, 1);
+		selectedname = (String) Inner_Table.getValueAt(i, 2);
 		KioskInit.lblAddbutton.setVisible(true);
 	}
 }

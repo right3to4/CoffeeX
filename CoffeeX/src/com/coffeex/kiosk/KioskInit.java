@@ -11,6 +11,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.SwingConstants;
+
+import com.coffeex.kioskdao.KioskOrderDao;
+import com.coffeex.kioskdao.KioskSetOptionDao;
+import com.coffeex.kioskdao.KioskViewMenuDao;
+
 import java.awt.Font;
 
 public class KioskInit {
@@ -26,6 +31,10 @@ public class KioskInit {
 	private JLabel lblCancelbutton;
 	private JLabel lblAd;
 	private JLabel lblConfirm;
+	private JLabel lblFianalOrder;
+	private JLabel lblReButton;
+	public static String menuname;
+	private JLabel lblPayButton;
 
 	/**
 	 * Launch the application.
@@ -64,6 +73,8 @@ public class KioskInit {
 				kioskoption.setVisible(false);
 				lblConfirm.setVisible(false);
 				kioskorder.setVisible(false);
+				lblReButton.setVisible(false);
+				lblPayButton.setVisible(false);
 			}
 		});
 		frame.setBounds(100, 100, 466, 550);
@@ -77,6 +88,8 @@ public class KioskInit {
 		frame.getContentPane().add(getLblCancelbutton());
 		frame.getContentPane().add(getLblAd());
 		frame.getContentPane().add(getLblConfirm());
+		frame.getContentPane().add(getLblReButton());
+		frame.getContentPane().add(getLblPayButton());
 
 	}
 
@@ -127,7 +140,7 @@ public class KioskInit {
 		}
 		return kioskorder;
 	}
-	
+
 	private KioskSetOption getKioskoption() {
 		if (kioskoption == null) {
 			kioskoption = new KioskSetOption();
@@ -146,9 +159,10 @@ public class KioskInit {
 					lblAddbutton.setVisible(false);
 					panel.setVisible(false);
 					kioskoption.setVisible(true);
-					int i = KioskViewMenu.Inner_Table.getSelectedRow();
-					KioskViewMenu.selectedname = (String) KioskViewMenu.Inner_Table.getValueAt(i, 1);
+					int i = panel.Inner_Table.getSelectedRow();
+					menuname = (String) panel.Inner_Table.getValueAt(i, 1);
 					lblConfirm.setVisible(true);
+					kioskoption.lblMenuName.setText(menuname);
 				}
 			});
 			lblAddbutton.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
@@ -164,13 +178,20 @@ public class KioskInit {
 			lblCancelbutton.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) { // 초기화면으로 돌아가기
-					KioskViewMenu.Inner_Table.clearSelection();
+					panel.Inner_Table.clearSelection();
 					lblAddbutton.setVisible(false);
 					lblCancelbutton.setVisible(false);
 					lblorderbutton.setVisible(true);
 					panel.setVisible(false);
 					kioskoption.setVisible(false);
 					kioskoption.setOptionDefault();
+					kioskorder.setVisible(false);
+					lblReButton.setVisible(false);
+					kioskoption.lblMenuName.setText("");
+					lblPayButton.setVisible(false);
+					
+					KioskOrderDao dao = new KioskOrderDao();
+					dao.emptyCart("kiosk");
 				}
 			});
 			lblCancelbutton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -186,9 +207,32 @@ public class KioskInit {
 			lblConfirm.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					int i = kioskorder.Outer_Table.getRowCount();
+
+					for (int j = 0; j < i; j++) {
+						kioskorder.Outer_Table.removeRow(0);
+					}
 					lblAddbutton.setVisible(false);
 					kioskoption.setVisible(false);
 					kioskorder.setVisible(true);
+					lblReButton.setVisible(true);
+
+					lblPayButton.setVisible(true);
+					lblConfirm.setVisible(false);
+
+					KioskOrderDao orderdao = new KioskOrderDao();
+					KioskSetOptionDao optiondao=new KioskSetOptionDao();
+
+					String wkmmanageid = optiondao.getMenuId(menuname);
+					String wkcustid = "kiosk";
+					int wkquantity = Integer.parseInt(kioskoption.lblQuantity.getText());
+					String wkoption = kioskoption.hotice + kioskoption.shot + kioskoption.cream + kioskoption.syrup;
+					if (orderdao.checkCart(wkcustid, wkmmanageid, wkoption)==true) {
+						orderdao.AddQuantity(wkmmanageid, wkcustid, wkoption, wkquantity);
+					} else {
+						orderdao.AddCart(wkmmanageid, wkcustid, wkquantity, wkoption);
+					}
+					kioskorder.searchCart(wkcustid);
 				}
 			});
 			lblConfirm.setHorizontalAlignment(SwingConstants.CENTER);
@@ -197,4 +241,38 @@ public class KioskInit {
 		}
 		return lblConfirm;
 	}
+
+	private JLabel getLblPayButton() {
+		if (lblPayButton == null) {
+			lblPayButton = new JLabel("결제");
+			lblPayButton.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPayButton.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblPayButton.setBounds(379, 464, 59, 40);
+		}
+		return lblPayButton;
+	}
+
+	private JLabel getLblReButton() {
+		if (lblReButton == null) {
+			lblReButton = new JLabel("더담기");
+			lblReButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					panel.Inner_Table.clearSelection();
+					kioskoption.setOptionDefault();
+					kioskorder.setVisible(false);
+					panel.setVisible(true);
+					lblReButton.setVisible(false);
+					lblAddbutton.setVisible(false);
+					lblConfirm.setVisible(false);
+					lblPayButton.setVisible(false);
+				}
+			});
+			lblReButton.setHorizontalAlignment(SwingConstants.CENTER);
+			lblReButton.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblReButton.setBounds(318, 464, 59, 40);
+		}
+		return lblReButton;
+	}
+
 }
