@@ -20,6 +20,17 @@ public class NoticeDto {
 		this.noticeinsertdate = noticeinsertdate;
 		this.noticeupdatedate = noticeupdatedate;
 	}
+	
+	
+	
+	public NoticeDto(int noticeid, String noticetitle, String noticetext, String noticeinsertdate,String noticeupdatedate) {
+		super();
+		this.noticeid = noticeid;
+		this.noticetitle = noticetitle;
+		this.noticetext = noticetext;
+		this.noticeinsertdate = noticeinsertdate;
+		this.noticeupdatedate = noticeupdatedate;
+	}
 
 	public int getNoticeid() {
 		return noticeid;

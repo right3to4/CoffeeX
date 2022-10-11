@@ -12,15 +12,17 @@ import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.NoticeDto;
 import com.coffeex.staffdao.StaffViewNoticeDao;
-import com.javalec.dao.DaoProduct;
-import com.javalec.dto.DtoProduct;
 
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class StaffViewNotice {
 
@@ -68,7 +70,9 @@ public class StaffViewNotice {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				searchAction();
 				OrderNoticeTableInit();
+				
 			}
 		});
 		frame.setBounds(100, 100, 600, 600);
@@ -139,6 +143,12 @@ public class StaffViewNotice {
 	private JTable getInner_Notice() {
 		if (Inner_Notice == null) {
 			Inner_Notice = new JTable();
+			Inner_Notice.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					tableClick();
+				}
+			});
 			Inner_Notice.setShowHorizontalLines(false);
 			Inner_Notice.setShowVerticalLines(false);
 			Inner_Notice.setShowGrid(false);
@@ -217,6 +227,19 @@ private void OrderNoticeTableInit() {
 		col.setPreferredWidth(width);
 
 	}
+	private void searchAction() {
+
+	StaffViewNoticeDao dao = new StaffViewNoticeDao();
+	ArrayList<NoticeDto> dtoList = dao.NoticeselectList();
+
+	int listCount = dtoList.size();
+
+	for (int index = 0; index < listCount; index++) {
+		String temp = Integer.toString(dtoList.get(index).getNoticeid()) ;
+		String[] qTxt = { temp, dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(),dtoList.get(index).getNoticeupdatedate() };
+		Outer_Notice.addRow(qTxt);
+	}
+}
 	private void tableClick() {
 	int i = Inner_Notice.getSelectedRow();
 	String wkNoticeid = (String) Inner_Notice.getValueAt(i, 0);
@@ -225,9 +248,10 @@ private void OrderNoticeTableInit() {
 
 	NoticeDto dto = dao.tableClick();
 
-	tfID.setText(dto.getProductid());
-	tfName.setText(dto.getPname());
-	tfPrice.setText(Integer.toString(dto.getPrice()));
+	tfTitle.setText(dto.getNoticetitle());
+	tfInsertDate.setText(dto.getNoticeinsertdate());
+	tfUpdateDate.setText(dto.getNoticeupdatedate());
+	tfTitle.setText(dto.getNoticetext());
 }
 	
 }

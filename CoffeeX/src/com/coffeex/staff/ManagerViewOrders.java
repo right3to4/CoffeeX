@@ -14,8 +14,6 @@ import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.NoticeDto;
 import com.coffeex.staffdao.ManagerViewOrdersDao;
-import com.javalec.dao.DaoProduct;
-import com.javalec.dto.DtoProduct;
 
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
@@ -538,56 +536,56 @@ public class ManagerViewOrders {
 
 	}
 	
-	private void OrderNoticeTableInit() {
-		
-		Outer_Notice.addColumn("No.");
-		Outer_Notice.addColumn("제목");
-		Outer_Notice.addColumn("작성일");
-		Outer_Notice.addColumn("수정일자");
-
-		Outer_Notice.setColumnCount(4);
-
-		int i = Outer_Notice.getRowCount();
-
-		for (int j = 0; j < i; j++) {
-			Outer_Notice.removeRow(0);
-		}
-
-		tbNotice.setAutoResizeMode(tbNotice.AUTO_RESIZE_OFF);
-
-		int vColIndex = 0;
-		TableColumn col = tbNotice.getColumnModel().getColumn(vColIndex);
-		int width = 50;
-		col.setPreferredWidth(width);
-		
-		vColIndex = 1;
-		col = tbNotice.getColumnModel().getColumn(vColIndex);
-		width = 200;
-		col.setPreferredWidth(width);
-
-		vColIndex = 2;
-		col = tbNotice.getColumnModel().getColumn(vColIndex);
-		width = 100;
-		col.setPreferredWidth(width);
-		
-		vColIndex = 3;
-		col = tbNotice.getColumnModel().getColumn(vColIndex);
-		width = 100;
-		col.setPreferredWidth(width);
-
-	}
-	
-	private int NoticeSearchAction() {
-		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-		ArrayList<NoticeDto> dtoList = dao.SelecNoticetList();
-		int listCount = dtoList.size();
-		
-		for (int index = 0; index < listCount; index++) {
-			int temp = dtoList.get(index).getNoticeid();
-			String[] qTxt = { Integer.toString(temp), dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(), dtoList.get(index).getNoticeupdatedate()};
-			Outer_Notice.addRow(qTxt);
-		}
-		return listCount;
-	}
+//	private void OrderNoticeTableInit() {
+//		
+//		Outer_Notice.addColumn("No.");
+//		Outer_Notice.addColumn("제목");
+//		Outer_Notice.addColumn("작성일");
+//		Outer_Notice.addColumn("수정일자");
+//
+//		Outer_Notice.setColumnCount(4);
+//
+//		int i = Outer_Notice.getRowCount();
+//
+//		for (int j = 0; j < i; j++) {
+//			Outer_Notice.removeRow(0);
+//		}
+//
+//		tbNotice.setAutoResizeMode(tbNotice.AUTO_RESIZE_OFF);
+//
+//		int vColIndex = 0;
+//		TableColumn col = tbNotice.getColumnModel().getColumn(vColIndex);
+//		int width = 50;
+//		col.setPreferredWidth(width);
+//		
+//		vColIndex = 1;
+//		col = tbNotice.getColumnModel().getColumn(vColIndex);
+//		width = 200;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 2;
+//		col = tbNotice.getColumnModel().getColumn(vColIndex);
+//		width = 100;
+//		col.setPreferredWidth(width);
+//		
+//		vColIndex = 3;
+//		col = tbNotice.getColumnModel().getColumn(vColIndex);
+//		width = 100;
+//		col.setPreferredWidth(width);
+//
+//	}
+//	
+//	private int NoticeSearchAction() {
+//		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+//		ArrayList<NoticeDto> dtoList = dao.SelecNoticetList();
+//		int listCount = dtoList.size();
+//		
+//		for (int index = 0; index < listCount; index++) {
+//			int temp = dtoList.get(index).getNoticeid();
+//			String[] qTxt = { Integer.toString(temp), dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(), dtoList.get(index).getNoticeupdatedate()};
+//			Outer_Notice.addRow(qTxt);
+//		}
+//		return listCount;
+//	}
 	
 }
