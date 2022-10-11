@@ -34,7 +34,7 @@ public class KioskViewMenu extends JPanel {
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	
 	public static String selectedname;
-	ArrayList<MenuViewDto> dto=null;
+	public ArrayList<MenuViewDto> dto=null;
 	
 
 	/**
@@ -272,17 +272,17 @@ public class KioskViewMenu extends JPanel {
 	private void searchTodaysMenu() {
 
 		KioskViewMenuDao dao = new KioskViewMenuDao();
-		ArrayList<MenuViewDto> dtoList = dao.ShowTodaysMenuList();
+		dto = dao.ShowTodaysMenuList();
 
-		int listCount = dtoList.size();
+		int listCount = dto.size();
 
 		for (int index = 0; index < listCount; index++) {
 			String filepath=Integer.toString(DBConnect.filename);
 			ImageIcon image = new ImageIcon(filepath);
 			File file = new File(filepath);
 			file.delete();
-			String temp = dtoList.get(index).getMenuname();
-			Object[] qTxt = { image, temp, Integer.toString(dtoList.get(index).getPrice()) };
+			String temp = dto.get(index).getMenuname();
+			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}
 	}
@@ -290,17 +290,17 @@ public class KioskViewMenu extends JPanel {
 	private void searchMenuByCategory(String category) {
 
 		KioskViewMenuDao dao = new KioskViewMenuDao();
-		ArrayList<MenuViewDto> dtoList = dao.ShowMenuListByCondition(category);
+		dto = dao.ShowMenuListByCondition(category);
 
-		int listCount = dtoList.size();
+		int listCount = dto.size();
 
 		for (int index = 0; index < listCount; index++) {
 			String filepath=Integer.toString(DBConnect.filename);
-			String temp = dtoList.get(index).getMenuname();
+			String temp = dto.get(index).getMenuname();
 			File file = new File(filepath);
 			ImageIcon image = new ImageIcon("./" + file.getName());
 			file.delete();
-			Object[] qTxt = { image, temp, Integer.toString(dtoList.get(index).getPrice()) };
+			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}
 	}

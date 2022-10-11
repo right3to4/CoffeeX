@@ -272,7 +272,6 @@ public class KioskManage extends JPanel {
 					boolean check = dao.loginCheck(ArrtoString(passwordField.getPassword()));
 
 					if (check == true) {
-						JOptionPane.showMessageDialog(null, "로그인되었습니다");
 						panel.setVisible(false);
 						btnNewButton_1.setVisible(true);
 						btnNewButton_2.setVisible(true);
@@ -280,7 +279,6 @@ public class KioskManage extends JPanel {
 						passwordField.setText(null);
 					} else {
 						passwordField.setText(null);
-						JOptionPane.showMessageDialog(null, "잘못된 사번입니다");
 					}
 				}
 			});

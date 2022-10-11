@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,7 +44,9 @@ public class KioskInit {
 	public static String menuname;
 	public static JLabel lblPayButton;
 
+
 	KioskOrderDao dao0 = new KioskOrderDao();
+	KioskViewMenuDao dao00=new KioskViewMenuDao();
 	private JLabel lblNewLabel;
 
 	/**
@@ -89,6 +92,10 @@ public class KioskInit {
 				lblReButton.setVisible(false);
 				lblPayButton.setVisible(false);
 				kioskmanage.setVisible(false);
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				closingAction();
 			}
 		});
 		frame.setBounds(100, 100, 466, 550);
@@ -145,7 +152,7 @@ public class KioskInit {
 			lblAd = new JLabel("");
 			lblAd.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblAd.setHorizontalAlignment(SwingConstants.CENTER);
-			lblAd.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/ad3.png")));
+			lblAd.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/KakaoTalk_20221011_213641747.jpg")));
 			lblAd.setBounds(12, 10, 426, 426);
 		}
 		return lblAd;
@@ -159,6 +166,8 @@ public class KioskInit {
 		}
 		return panel;
 	}
+	
+
 
 	private KioskManage getKioskmanage() {
 		if (kioskmanage == null) {
@@ -312,19 +321,18 @@ public class KioskInit {
 					KioskOrderDao dao = new KioskOrderDao();
 					if (kioskorder.paywithpoint == true) {
 						if (dao.checkPoint(kioskorder.tfPhone.getText()) < sumPrice()) {
-//							JOptionPane.showMessageDialog(null, "포인트 잔액이 부족합니다");
+							kioskorder.dialog.ShowDialog("포인트 잔액이 부족합니다");
 						} else {
 							dao.usePoint(kioskorder.tfPhone.getText(), getCost());
 							Pay();
 						}
 					} else {
-//						JOptionPane.showMessageDialog(null, "결제가 완료되었습니다");
 						Pay();
 					}
+					JOptionPane.showMessageDialog(null,"결제가 완료되었습니다");
 
 					if (kioskorder.addpoint == true) {
 						dao.addPoint(kioskorder.tfPhone.getText(), (int) (sumPrice() * 0.1));
-						System.out.println(sumPrice());
 					}
 				}
 
@@ -371,6 +379,13 @@ public class KioskInit {
 					kioskoption.lblNutSyrup.setBackground(new Color(108, 88, 56));
 					kioskoption.lblVanillaSyrup.setBackground(new Color(108, 88, 56));
 					kioskoption.lblVanillaSyrup.setForeground(new Color(255, 255, 255));
+					kioskorder.lblAddpointfalse.setBackground(new Color(148, 128, 96));
+					kioskorder.lblAddpointtrue.setBackground(new Color(148, 128, 96));
+					kioskorder.lblTakeout.setBackground(new Color(148, 128, 96));
+					kioskorder.lblHere.setBackground(new Color(148, 128, 96));
+					kioskorder.lblwithcard.setBackground(new Color(148, 128, 96));
+					kioskorder.lblwithpoint.setBackground(new Color(148, 128, 96));
+					dao00.ShowTodaysMenuList();
 				}
 
 				@Override
@@ -441,24 +456,26 @@ public class KioskInit {
 		kioskoption.lblNutSyrup.setBackground(new Color(108, 88, 56));
 		kioskoption.lblVanillaSyrup.setBackground(new Color(108, 88, 56));
 		kioskoption.lblVanillaSyrup.setForeground(new Color(255, 255, 255));
-		kioskorder.lblNewLabel_1_1.setBackground(new Color(240, 240, 240));
-		kioskorder.lblNewLabel_1.setBackground(new Color(240, 240, 240));
 		kioskorder.tfPhone.setText(null);
 		kioskorder.lblStep2.setVisible(false);
-		kioskorder.lblpointtrue.setVisible(false);
-		kioskorder.lblpointtrue.setBackground(new Color(240, 240, 240));
-		kioskorder.lblpointfalse.setBackground(new Color(240, 240, 240));
-		kioskorder.lblpointfalse.setVisible(false);
+		kioskorder.lblAddpointtrue.setVisible(false);
+		kioskorder.lblAddpointfalse.setVisible(false);
 		kioskorder.lblStep3.setVisible(false);
 		kioskorder.lblwithpoint.setVisible(false);
-		kioskorder.lblwithpoint.setBackground(new Color(240, 240, 240));
-		kioskorder.lblwithcard.setBackground(new Color(240, 240, 240));
 		kioskorder.lblwithcard.setVisible(false);
 		kioskorder.tfPhone.setText(null);
 		kioskorder.phone = new ArrayList<String>();
 		dao0.emptyCart("kiosk");
 		kioskmanage.setVisible(false);
 		lblConfirm.setVisible(false);
+		kioskorder.setVisible(false);
+		kioskorder.lblAddpointfalse.setBackground(new Color(148, 128, 96));
+		kioskorder.lblAddpointtrue.setBackground(new Color(148, 128, 96));
+		kioskorder.lblTakeout.setBackground(new Color(148, 128, 96));
+		kioskorder.lblHere.setBackground(new Color(148, 128, 96));
+		kioskorder.lblwithcard.setBackground(new Color(148, 128, 96));
+		kioskorder.lblwithpoint.setBackground(new Color(148, 128, 96));
+		dao00.ShowTodaysMenuList();
 	}
 
 	private int getCost() {
@@ -495,7 +512,6 @@ public class KioskInit {
 			price = Integer.parseInt((String) kioskorder.Inner_Table.getValueAt(i, 3));
 			place = kioskorder.place;
 			stf = stfid.get(rd.nextInt(stfid.size()));
-			System.out.println(custid);
 			dao.Order(stf, menuid, option, quantity, custid, price, place);
 		}
 		reset();
@@ -507,6 +523,16 @@ public class KioskInit {
 			price += Integer.parseInt((String) kioskorder.Inner_Table.getValueAt(i, 3));
 		}
 		return price;
+	}
+	
+	private void closingAction() {
+		
+		for(int index=0; index < panel.dto.size()-1; index++) {
+			File file = new File("./" + Integer.toString(index));
+			file.delete();
+			
+		}
+		
 	}
 
 }

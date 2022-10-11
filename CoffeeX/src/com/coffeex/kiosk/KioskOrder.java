@@ -27,6 +27,7 @@ import java.awt.Color;
 public class KioskOrder extends JPanel {
 
 	public ArrayList<String> phone = new ArrayList<String>();
+	public Dialog dialog;
 	public final DefaultTableModel Outer_Table = new DefaultTableModel();
 	public static String selectedname;
 	private JScrollPane scrollPane;
@@ -34,10 +35,10 @@ public class KioskOrder extends JPanel {
 	public JPanel panelPoint;
 	public JTextField tfPhone;
 	public JLabel lblNewLabel;
-	public JLabel lblNewLabel_1;
-	public JLabel lblNewLabel_1_1;
-	public JLabel lblpointfalse;
-	public JLabel lblpointtrue;
+	public JLabel lblTakeout;
+	public JLabel lblHere;
+	public JLabel lblAddpointfalse;
+	public JLabel lblAddpointtrue;
 	public JLabel lblStep2;
 	public JLabel lblwithcard;
 	public JLabel lblwithpoint;
@@ -71,12 +72,13 @@ public class KioskOrder extends JPanel {
 	public KioskOrder() {
 		setBackground(new Color(148, 128, 96));
 		setLayout(null);
+		add(getDialog());
 		add(getScrollPane_1());
 		add(getLblNewLabel());
-		add(getLblNewLabel_1());
-		add(getLblNewLabel_1_1());
-		add(getLblpointfalse());
-		add(getLblpointtrue());
+		add(getLblTakeout());
+		add(getLblHere());
+		add(getLblAddpointfalse());
+		add(getLblAddpointtrue());
 		add(getLblStep2());
 		add(getLblwithcard());
 		add(getLblwithpoint());
@@ -87,15 +89,15 @@ public class KioskOrder extends JPanel {
 		tableInit();
 		searchCart("kiosk");
 		lblStep2.setVisible(false);
-		lblpointtrue.setVisible(false);
-		lblpointfalse.setVisible(false);
+		lblAddpointtrue.setVisible(false);
+		lblAddpointfalse.setVisible(false);
 		lblStep3.setVisible(true);
 		lblwithcard.setVisible(true);
 		lblwithpoint.setVisible(false);
 		lblStep3.setVisible(false);
 		lblwithcard.setVisible(false);
 		lblwithpoint.setVisible(false);
-		
+		dialog.setVisible(false);
 	}
 
 	private JScrollPane getScrollPane_1() {
@@ -127,97 +129,97 @@ public class KioskOrder extends JPanel {
 		return lblNewLabel;
 	}
 
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("포장");
-			lblNewLabel_1.setBackground(new Color(148, 128, 96));
-			lblNewLabel_1.setOpaque(true);
-			lblNewLabel_1.addMouseListener(new MouseAdapter() {
+	private JLabel getLblTakeout() {
+		if (lblTakeout == null) {
+			lblTakeout = new JLabel("포장");
+			lblTakeout.setBackground(new Color(148, 128, 96));
+			lblTakeout.setOpaque(true);
+			lblTakeout.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					place = "포장";
 					lblStep2.setVisible(true);
-					lblpointtrue.setVisible(true);
-					lblpointfalse.setVisible(true);
-					lblNewLabel_1.setBackground(new Color(178, 158, 136));
-					lblNewLabel_1_1.setBackground(new Color(148, 128, 96));
+					lblAddpointtrue.setVisible(true);
+					lblAddpointfalse.setVisible(true);
+					lblTakeout.setBackground(new Color(178, 158, 136));
+					lblHere.setBackground(new Color(148, 128, 96));
 				}
 			});
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblNewLabel_1.setBounds(250, 72, 88, 58);
+			lblTakeout.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTakeout.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblTakeout.setBounds(250, 72, 88, 58);
 		}
-		return lblNewLabel_1;
+		return lblTakeout;
 	}
 
-	private JLabel getLblNewLabel_1_1() {
-		if (lblNewLabel_1_1 == null) {
-			lblNewLabel_1_1 = new JLabel("매장 식사");
-			lblNewLabel_1_1.setBackground(new Color(148, 128, 96));
-			lblNewLabel_1_1.setOpaque(true);
-			lblNewLabel_1_1.addMouseListener(new MouseAdapter() {
+	private JLabel getLblHere() {
+		if (lblHere == null) {
+			lblHere = new JLabel("매장 식사");
+			lblHere.setBackground(new Color(148, 128, 96));
+			lblHere.setOpaque(true);
+			lblHere.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					place = "매장 식사";
 					lblStep2.setVisible(true);
-					lblpointtrue.setVisible(true);
-					lblpointfalse.setVisible(true);
-					lblNewLabel_1_1.setBackground(new Color(178, 158, 136));
-					lblNewLabel_1.setBackground(new Color(148, 128, 96));
+					lblAddpointtrue.setVisible(true);
+					lblAddpointfalse.setVisible(true);
+					lblHere.setBackground(new Color(178, 158, 136));
+					lblTakeout.setBackground(new Color(148, 128, 96));
 				}
 			});
-			lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblNewLabel_1_1.setBounds(338, 72, 88, 58);
+			lblHere.setHorizontalAlignment(SwingConstants.CENTER);
+			lblHere.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblHere.setBounds(338, 72, 88, 58);
 		}
-		return lblNewLabel_1_1;
+		return lblHere;
 	}
 
-	private JLabel getLblpointfalse() {
-		if (lblpointfalse == null) {
-			lblpointfalse = new JLabel("적립안함");
-			lblpointfalse.setBackground(new Color(148, 128, 96));
-			lblpointfalse.setOpaque(true);
-			lblpointfalse.addMouseListener(new MouseAdapter() {
+	private JLabel getLblAddpointfalse() {
+		if (lblAddpointfalse == null) {
+			lblAddpointfalse = new JLabel("적립안함");
+			lblAddpointfalse.setBackground(new Color(148, 128, 96));
+			lblAddpointfalse.setOpaque(true);
+			lblAddpointfalse.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					lblStep3.setVisible(true);
 					lblwithcard.setVisible(true);
 					lblwithpoint.setVisible(true);
-					lblpointfalse.setBackground(new Color(178, 158, 136));
-					lblpointtrue.setBackground(new Color(148, 128, 96));
+					lblAddpointfalse.setBackground(new Color(178, 158, 136));
+					lblAddpointtrue.setBackground(new Color(148, 128, 96));
 					addpoint = false;
 				}
 			});
-			lblpointfalse.setHorizontalAlignment(SwingConstants.CENTER);
-			lblpointfalse.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblpointfalse.setBounds(338, 159, 88, 58);
+			lblAddpointfalse.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAddpointfalse.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblAddpointfalse.setBounds(338, 159, 88, 58);
 		}
-		return lblpointfalse;
+		return lblAddpointfalse;
 	}
 
-	private JLabel getLblpointtrue() {
-		if (lblpointtrue == null) {
-			lblpointtrue = new JLabel("적립");
-			lblpointtrue.setBackground(new Color(148, 128, 96));
-			lblpointtrue.setOpaque(true);
-			lblpointtrue.addMouseListener(new MouseAdapter() {
+	private JLabel getLblAddpointtrue() {
+		if (lblAddpointtrue == null) {
+			lblAddpointtrue = new JLabel("적립");
+			lblAddpointtrue.setBackground(new Color(148, 128, 96));
+			lblAddpointtrue.setOpaque(true);
+			lblAddpointtrue.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					panelPoint.setVisible(true);
 					lblStep3.setVisible(true);
 					lblwithcard.setVisible(true);
 					lblwithpoint.setVisible(true);
-					lblpointtrue.setBackground(new Color(178, 158, 136));
-					lblpointfalse.setBackground(new Color(148, 128, 96));
+					lblAddpointtrue.setBackground(new Color(178, 158, 136));
+					lblAddpointfalse.setBackground(new Color(148, 128, 96));
 					addpoint=true;
 				}
 			});
-			lblpointtrue.setHorizontalAlignment(SwingConstants.CENTER);
-			lblpointtrue.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblpointtrue.setBounds(250, 159, 88, 58);
+			lblAddpointtrue.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAddpointtrue.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblAddpointtrue.setBounds(250, 159, 88, 58);
 		}
-		return lblpointtrue;
+		return lblAddpointtrue;
 	}
 
 	private JLabel getLblStep2() {
@@ -622,6 +624,15 @@ public class KioskOrder extends JPanel {
 		}
 		return lblKey0;
 	}
+	
+	private Dialog getDialog() {
+		if (dialog == null) {
+			dialog = new Dialog();
+			dialog.setBounds(56, 89, 270, 150);
+			dialog.setLayout(null);
+		}
+		return dialog;
+	}
 
 	private JLabel getLblKeyInsert() {
 		if (lblKeyInsert == null) {
@@ -639,7 +650,7 @@ public class KioskOrder extends JPanel {
 						panelPoint.setVisible(false);
 						addpoint = true;
 					} else {
-						JOptionPane.showMessageDialog(null, "잘못된 전화번호입니다.");
+						dialog.ShowDialog("잘못된 전화번호입니다");
 					}
 				}
 				

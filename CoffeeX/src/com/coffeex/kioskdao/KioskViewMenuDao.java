@@ -46,7 +46,7 @@ public class KioskViewMenuDao {
 					output.write(buffer);
 
 				}
-				MenuViewDto dto = new MenuViewDto(wkName, wkPrice);
+				MenuViewDto dto = new MenuViewDto(wkName, wkPrice, Integer.toString(DBConnect.filename));
 				dtoList.add(dto);
 
 			}
@@ -83,7 +83,7 @@ public class KioskViewMenuDao {
 					output.write(buffer);
 				}
 
-				MenuViewDto dto = new MenuViewDto(wkName, wkPrice);
+				MenuViewDto dto = new MenuViewDto(wkName, wkPrice, Integer.toString(DBConnect.filename));
 				dtoList.add(dto);
 			}
 
