@@ -366,7 +366,7 @@ public class ChefUpdateStaff {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"사번", "이름", "전화번호", "매장","직"}));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"사번", "이름", "전화번호", "매장","직급"}));
 			comboBox.setBounds(441, 95, 106, 27);
 		}
 		return comboBox;
@@ -596,7 +596,7 @@ public class ChefUpdateStaff {
 		case 3:
 			conditionQueryColumn = "belongshopid";
 		case 4:
-			conditionQueryColumn = "promotestaffid";
+			conditionQueryColumn = "position";
 			break;
 		default:
 			break;

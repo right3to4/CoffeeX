@@ -61,7 +61,7 @@ public class StaffViewNoticeDao {
 	public ArrayList<NoticeDto> NoticeselectList() {
 
 		ArrayList<NoticeDto> dtoList = new ArrayList<NoticeDto>();
-		String whereStatement = "select noticeid,noticetitle, noticeinsertdate, noticeupdatedate from notice;";
+		String whereStatement = "select noticeid,noticetitle, noticeinsertdate, noticeupdatedate from notice order by noticeid desc;";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

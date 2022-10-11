@@ -145,7 +145,10 @@ public class StaffLogin {
 					staffLoginDao.positionAction();
 					if (CustomerInfo.position.equals("점장") == true) {
 						ManagerViewOrders.main(null);
-					}else {
+					}else if(CustomerInfo.position.equals("관리자") == true) {
+						//관리자 페이지 
+					}
+					else {
 					JOptionPane.showMessageDialog(null, CustomerInfo.position);
 
 					}

@@ -34,7 +34,7 @@ public class StaffLoginDao {
 	public boolean loginAction() {
 		int check =0;
 		try{
-			String whereStatement = "select count(staffid) from staff ";
+			String whereStatement = "select count(staffid),staffname from staff ";
 			String whereStatement2 = "where staffid = '" + staffid + "' and staffpw = '" + staffpw + "'"; 
 			
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -45,6 +45,7 @@ public class StaffLoginDao {
 
 		while(rs.next()) {
 			check = rs.getInt(1);
+			CustomerInfo.staffname = rs.getString(2);
 		}
 		conn_mysql.close();
 		

@@ -38,7 +38,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ManagerViewOrders {
+public class chiefSearchSales {
 	int click = 0;
 	private JFrame frmCoffeex;
 	private JLabel lblNewLabel;
@@ -73,7 +73,7 @@ public class ManagerViewOrders {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ManagerViewOrders window = new ManagerViewOrders();
+					chiefSearchSales window = new chiefSearchSales();
 					window.frmCoffeex.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,7 +85,7 @@ public class ManagerViewOrders {
 	/**
 	 * Create the application.
 	 */
-	public ManagerViewOrders() {
+	public chiefSearchSales() {
 		initialize();
 	}
 
@@ -413,7 +413,7 @@ public class ManagerViewOrders {
 
 	private JLabel getLbPromote() {
 		if (lbPromote == null) {
-			lbPromote = new JLabel("점장");
+			lbPromote = new JLabel("관리자");
 			lbPromote.setForeground(Color.WHITE);
 			lbPromote.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
 			lbPromote.setBounds(130, 8, 97, 30);
