@@ -13,13 +13,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.NoticeDto;
+import com.coffeex.dto.OrdersViewDto;
+import com.coffeex.kioskdao.KioskViewMenuDao;
 import com.coffeex.staffdao.ManagerViewOrdersDao;
+import com.coffeex.util.DBConnect;
 
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,6 +32,10 @@ import javax.swing.JTable;
 import java.awt.event.MouseEvent;
 import java.awt.Window.Type;
 import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ManagerViewOrders {
 	int click = 0;
@@ -54,7 +62,9 @@ public class ManagerViewOrders {
 	private JTable tbOrderWait;
 	private JTable tbOrderMade;
 	private JLabel lbNotice;
-	
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
+
 	/**
 	 * Launch the application.
 	 */
@@ -90,30 +100,34 @@ public class ManagerViewOrders {
 			public void windowActivated(WindowEvent e) {
 				OrderWaitTableInit();
 				OrderMadeTableInit();
+				OrderCompleteTableInit();
 //				OrderCompleteTableInit();
 //				OrderNoticeTableInit();
 			}
+
 			@Override
 			public void windowOpened(WindowEvent e) {
 				Timer timer = new Timer();
 				TimerTask task = new TimerTask() {
-					
+
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-	
-						//Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
+
+						// Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
 //						OrderNoticeTableInit();
 //						NoticeSearchAction();
 						
+						refresh();
+
 					}
 				};
-				
-				timer.schedule(task, 0, 2000);
+
+				timer.schedule(task, 0, 3000);
 			}
-			
+
 		});
-		
+
 		frmCoffeex.setBounds(100, 100, 900, 600);
 		frmCoffeex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCoffeex.getContentPane().setLayout(null);
@@ -133,7 +147,9 @@ public class ManagerViewOrders {
 		frmCoffeex.getContentPane().add(getLbStaffInsertDel());
 		frmCoffeex.getContentPane().add(getLbNotice());
 		frmCoffeex.getContentPane().add(getLblNewLabel());
-		
+		frmCoffeex.getContentPane().add(getBtnNewButton());
+		frmCoffeex.getContentPane().add(getBtnNewButton_1());
+
 	}
 
 	private JLabel getLblNewLabel() {
@@ -147,6 +163,7 @@ public class ManagerViewOrders {
 		}
 		return lblNewLabel;
 	}
+
 	private JLabel getLbUpdateInfo() {
 		if (lbUpdateInfo == null) {
 			lbUpdateInfo = new JLabel("마이페이지");
@@ -155,17 +172,17 @@ public class ManagerViewOrders {
 				public void mouseClicked(MouseEvent e) {
 					ManagerUpdateInfo.main(null);
 				}
+
 				@Override
 				public void mousePressed(MouseEvent e) {
 					lbUpdateInfo.setForeground(Color.black);
 				}
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					lbUpdateInfo.setForeground(Color.white);
 				}
-				
-				
-				
+
 			});
 			lbUpdateInfo.setHorizontalAlignment(SwingConstants.CENTER);
 			lbUpdateInfo.setForeground(Color.WHITE);
@@ -174,6 +191,7 @@ public class ManagerViewOrders {
 		}
 		return lbUpdateInfo;
 	}
+
 	private JLabel getLbChangeMenu() {
 		if (lbChangeMenu == null) {
 			lbChangeMenu = new JLabel("메뉴등록");
@@ -182,15 +200,17 @@ public class ManagerViewOrders {
 				public void mouseClicked(MouseEvent e) {
 					ManagerChangeMenu.main(null);
 				}
+
 				@Override
 				public void mousePressed(MouseEvent e) {
 					lbChangeMenu.setForeground(Color.black);
 				}
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					lbChangeMenu.setForeground(Color.white);
 				}
-				
+
 			});
 			lbChangeMenu.setHorizontalAlignment(SwingConstants.CENTER);
 			lbChangeMenu.setForeground(Color.WHITE);
@@ -199,6 +219,7 @@ public class ManagerViewOrders {
 		}
 		return lbChangeMenu;
 	}
+
 	private JLabel getLbPayment() {
 		if (lbPayment == null) {
 			lbPayment = new JLabel("판매내역조회");
@@ -207,10 +228,12 @@ public class ManagerViewOrders {
 				public void mouseClicked(MouseEvent e) {
 					ManagerViewSales.main(null);
 				}
+
 				@Override
 				public void mousePressed(MouseEvent e) {
 					lbPayment.setForeground(Color.black);
 				}
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					lbPayment.setForeground(Color.white);
@@ -223,28 +246,31 @@ public class ManagerViewOrders {
 		}
 		return lbPayment;
 	}
+
 	private JLabel getLbStaffManage() {
 		if (lbStaffManage == null) {
 			lbStaffManage = new JLabel("사원관리");
 			lbStaffManage.addMouseListener(new MouseAdapter() {
-				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if(click%2 == 0) {
+					if (click % 2 == 0) {
 						lbStaffManage.setForeground(Color.black);
 						lbStaffPayManege.setVisible(true);
-						lbStaffInsertDel.setVisible(true);	
-					}else {
+						lbStaffInsertDel.setVisible(true);
+					} else {
 						lbStaffManage.setForeground(Color.white);
 						lbStaffPayManege.setVisible(false);
 						lbStaffInsertDel.setVisible(false);
 					}
 					click++;
 				}
+
 				@Override
 				public void mousePressed(MouseEvent e) {
 					lbStaffManage.setForeground(Color.black);
 				}
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					lbStaffManage.setForeground(Color.white);
@@ -257,6 +283,7 @@ public class ManagerViewOrders {
 		}
 		return lbStaffManage;
 	}
+
 	private JLabel getLbNotice() {
 		if (lbNotice == null) {
 			lbNotice = new JLabel("공지사항");
@@ -265,10 +292,12 @@ public class ManagerViewOrders {
 				public void mouseClicked(MouseEvent e) {
 					StaffViewNotice.main(null);
 				}
+
 				@Override
 				public void mousePressed(MouseEvent e) {
 					lbNotice.setForeground(Color.black);
 				}
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					lbNotice.setForeground(Color.white);
@@ -281,6 +310,7 @@ public class ManagerViewOrders {
 		}
 		return lbNotice;
 	}
+
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("주문 대기");
@@ -289,6 +319,7 @@ public class ManagerViewOrders {
 		}
 		return lblNewLabel_3;
 	}
+
 	private JLabel getLblNewLabel_3_1() {
 		if (lblNewLabel_3_1 == null) {
 			lblNewLabel_3_1 = new JLabel("제조 중");
@@ -297,15 +328,17 @@ public class ManagerViewOrders {
 		}
 		return lblNewLabel_3_1;
 	}
+
 	private JScrollPane getSpOrderMade() {
 		if (spOrderMade == null) {
 			spOrderMade = new JScrollPane();
 			spOrderMade.setBounds(491, 155, 350, 170);
 			spOrderMade.setViewportView(getTbOrderMade());
-		
+
 		}
 		return spOrderMade;
 	}
+
 	private JScrollPane getSpOrderWait() {
 		if (spOrderWait == null) {
 			spOrderWait = new JScrollPane();
@@ -315,6 +348,7 @@ public class ManagerViewOrders {
 		}
 		return spOrderWait;
 	}
+
 	private JScrollPane getSpOrderComplete() {
 		if (spOrderComplete == null) {
 			spOrderComplete = new JScrollPane();
@@ -323,6 +357,7 @@ public class ManagerViewOrders {
 		}
 		return spOrderComplete;
 	}
+
 	private JTable getTbOrderWait() {
 		if (tbOrderWait == null) {
 			tbOrderWait = new JTable();
@@ -333,6 +368,7 @@ public class ManagerViewOrders {
 		}
 		return tbOrderWait;
 	}
+
 	private JTable getTbOrderMade() {
 		if (tbOrderMade == null) {
 			tbOrderMade = new JTable();
@@ -343,6 +379,7 @@ public class ManagerViewOrders {
 		}
 		return tbOrderMade;
 	}
+
 	private JTable getTbOrderComplete() {
 		if (tbOrderComplete == null) {
 			tbOrderComplete = new JTable();
@@ -353,15 +390,16 @@ public class ManagerViewOrders {
 		}
 		return tbOrderComplete;
 	}
+
 	private JLabel getLblNewLabel_3_1_1() {
 		if (lblNewLabel_3_1_1 == null) {
 			lblNewLabel_3_1_1 = new JLabel("제조 완료 현황");
 			lblNewLabel_3_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1_1.setBounds(172, 346, 117, 25);
+			lblNewLabel_3_1_1.setBounds(172, 346, 145, 25);
 		}
 		return lblNewLabel_3_1_1;
 	}
-	
+
 	private JLabel getLblNewLabel_2_1() {
 		if (lblNewLabel_2_1 == null) {
 			lblNewLabel_2_1 = new JLabel("이름");
@@ -370,6 +408,7 @@ public class ManagerViewOrders {
 		}
 		return lblNewLabel_2_1;
 	}
+
 	private JLabel getLbPromote() {
 		if (lbPromote == null) {
 			lbPromote = new JLabel("점장");
@@ -379,6 +418,7 @@ public class ManagerViewOrders {
 		}
 		return lbPromote;
 	}
+
 	private JLabel getLbStaffPayManege() {
 		if (lbStaffPayManege == null) {
 			lbStaffPayManege = new JLabel("사원급여관리");
@@ -389,9 +429,9 @@ public class ManagerViewOrders {
 					lbStaffInsertDel.setVisible(false);
 					lbStaffPayManege.setVisible(false);
 					lbStaffManage.setForeground(Color.white);
-					}
+				}
 			});
-			
+
 			lbStaffPayManege.setHorizontalAlignment(SwingConstants.CENTER);
 			lbStaffPayManege.setForeground(Color.BLACK);
 			lbStaffPayManege.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
@@ -400,6 +440,7 @@ public class ManagerViewOrders {
 		lbStaffPayManege.setVisible(false);
 		return lbStaffPayManege;
 	}
+
 	private JLabel getLbStaffInsertDel() {
 		if (lbStaffInsertDel == null) {
 			lbStaffInsertDel = new JLabel("사원등록/삭제");
@@ -410,8 +451,8 @@ public class ManagerViewOrders {
 					lbStaffInsertDel.setVisible(false);
 					lbStaffPayManege.setVisible(false);
 					lbStaffManage.setForeground(Color.white);
-					
-					}
+
+				}
 			});
 			lbStaffInsertDel.setHorizontalAlignment(SwingConstants.CENTER);
 			lbStaffInsertDel.setForeground(Color.BLACK);
@@ -421,14 +462,48 @@ public class ManagerViewOrders {
 		lbStaffInsertDel.setVisible(false);
 		return lbStaffInsertDel;
 	}
-	//----------------------------function---------------------------------
+
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("제조");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+					int orderid = orderWaitTableClick();
+					dao.AlterStatus(orderid, "제조중");
+					refresh();
+				}
+			});
+			btnNewButton.setBounds(339, 122, 91, 23);
+		}
+		return btnNewButton;
+	}
+
+	private JButton getBtnNewButton_1() {
+		if (btnNewButton_1 == null) {
+			btnNewButton_1 = new JButton("완료");
+			btnNewButton_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+					int orderid = orderMadeTableClick();
+					dao.AlterStatus(orderid, "제조완료");
+					refresh();
+				}
+			});
+			btnNewButton_1.setBounds(750, 122, 91, 23);
+		}
+		return btnNewButton_1;
+	}
+
+	// ----------------------------function---------------------------------
 	private void OrderCompleteTableInit() {
 
 		Outer_OrderComplete.addColumn("주문번호");
 		Outer_OrderComplete.addColumn("메뉴");
 		Outer_OrderComplete.addColumn("옵션");
+		Outer_OrderComplete.addColumn("수량");
 
-		Outer_OrderComplete.setColumnCount(3);
+		Outer_OrderComplete.setColumnCount(4);
 
 		int i = Outer_OrderComplete.getRowCount();
 
@@ -448,20 +523,25 @@ public class ManagerViewOrders {
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
 		width = 100;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 2;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
+		col.setPreferredWidth(width);
+
+		vColIndex = 3;
+		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+		width = 50;
 		col.setPreferredWidth(width);
 
 	}
-	
+
 	private void OrderMadeTableInit() {
 
 		Outer_OrderMade.addColumn("주문번호");
 		Outer_OrderMade.addColumn("메뉴");
 		Outer_OrderMade.addColumn("옵션");
-		Outer_OrderMade.addColumn("주문시간");
+		Outer_OrderMade.addColumn("수량");
 
 		Outer_OrderMade.setColumnCount(4);
 
@@ -483,25 +563,25 @@ public class ManagerViewOrders {
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
 		width = 100;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 2;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 3;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 50;
 		col.setPreferredWidth(width);
 
 	}
-	
+
 	private void OrderWaitTableInit() {
 
 		Outer_OrderWait.addColumn("주문번호");
 		Outer_OrderWait.addColumn("메뉴");
 		Outer_OrderWait.addColumn("옵션");
-		Outer_OrderWait.addColumn("주문시간");
+		Outer_OrderWait.addColumn("수량");
 
 		Outer_OrderWait.setColumnCount(4);
 
@@ -523,69 +603,100 @@ public class ManagerViewOrders {
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
 		width = 100;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 2;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 3;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 50;
 		col.setPreferredWidth(width);
 
 	}
+
+	private int orderWaitTableClick() {
+		int i = tbOrderWait.getSelectedRow();
+		int orderid = Integer.parseInt((String) tbOrderWait.getValueAt(i, 0));
+		return orderid;
+	}
+
+	private int orderMadeTableClick() {
+		int i = tbOrderMade.getSelectedRow();
+		int orderid = Integer.parseInt((String) tbOrderMade.getValueAt(i, 0));
+		return orderid;
+	}
+
+	private void searchMenuWait() {
+		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("주문접수");
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			int orderid = dtoList.get(index).getOrderid();
+			String menu = dtoList.get(index).getMenuname();
+			String option = dtoList.get(index).getOrdersoptions();
+			int quantity = dtoList.get(index).getQuantity();
+			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+			Outer_OrderWait.addRow(qTxt);
+		}
+	}
+
+	private void searchMenuMade() {
+		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("제조중");
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			int orderid = dtoList.get(index).getOrderid();
+			String menu = dtoList.get(index).getMenuname();
+			String option = dtoList.get(index).getOrdersoptions();
+			int quantity = dtoList.get(index).getQuantity();
+			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+			Outer_OrderMade.addRow(qTxt);
+		}
+	}
+
+	private void searchMenuComplete() {
+		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("제조완료");
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			int orderid = dtoList.get(index).getOrderid();
+			String menu = dtoList.get(index).getMenuname();
+			String option = dtoList.get(index).getOrdersoptions();
+			int quantity = dtoList.get(index).getQuantity();
+			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+			Outer_OrderComplete.addRow(qTxt);
+		}
+	}
 	
-//	private void OrderNoticeTableInit() {
-//		
-//		Outer_Notice.addColumn("No.");
-//		Outer_Notice.addColumn("제목");
-//		Outer_Notice.addColumn("작성일");
-//		Outer_Notice.addColumn("수정일자");
-//
-//		Outer_Notice.setColumnCount(4);
-//
-//		int i = Outer_Notice.getRowCount();
-//
-//		for (int j = 0; j < i; j++) {
-//			Outer_Notice.removeRow(0);
-//		}
-//
-//		tbNotice.setAutoResizeMode(tbNotice.AUTO_RESIZE_OFF);
-//
-//		int vColIndex = 0;
-//		TableColumn col = tbNotice.getColumnModel().getColumn(vColIndex);
-//		int width = 50;
-//		col.setPreferredWidth(width);
-//		
-//		vColIndex = 1;
-//		col = tbNotice.getColumnModel().getColumn(vColIndex);
-//		width = 200;
-//		col.setPreferredWidth(width);
-//
-//		vColIndex = 2;
-//		col = tbNotice.getColumnModel().getColumn(vColIndex);
-//		width = 100;
-//		col.setPreferredWidth(width);
-//		
-//		vColIndex = 3;
-//		col = tbNotice.getColumnModel().getColumn(vColIndex);
-//		width = 100;
-//		col.setPreferredWidth(width);
-//
-//	}
-//	
-//	private int NoticeSearchAction() {
-//		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-//		ArrayList<NoticeDto> dtoList = dao.SelecNoticetList();
-//		int listCount = dtoList.size();
-//		
-//		for (int index = 0; index < listCount; index++) {
-//			int temp = dtoList.get(index).getNoticeid();
-//			String[] qTxt = { Integer.toString(temp), dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(), dtoList.get(index).getNoticeupdatedate()};
-//			Outer_Notice.addRow(qTxt);
-//		}
-//		return listCount;
-//	}
-	
+	public void refresh() {
+		int i = Outer_OrderWait.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_OrderWait.removeRow(0);
+		}
+
+		i = Outer_OrderMade.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_OrderMade.removeRow(0);
+		}
+
+		i = Outer_OrderComplete.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_OrderComplete.removeRow(0);
+		}
+		searchMenuMade();
+		searchMenuWait();
+		searchMenuComplete();
+	}
+
 }
