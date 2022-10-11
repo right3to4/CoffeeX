@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.NoticeDto;
-import com.coffeex.util.StaffViewNoticeDao;
+import com.coffeex.staffdao.StaffViewNoticeDao;
 import com.javalec.dao.DaoProduct;
 import com.javalec.dto.DtoProduct;
 

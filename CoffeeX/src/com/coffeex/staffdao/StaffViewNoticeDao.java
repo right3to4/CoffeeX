@@ -1,4 +1,4 @@
-package com.coffeex.util;
+package com.coffeex.staffdao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,7 +30,7 @@ public class StaffViewNoticeDao {
 	
 	public NoticeDto tableClick() {
 		NoticeDto dto = null;
-		String whereStatement = "select noticeid,noticetitle,noticetext,noticeinsertdate from notice";
+		String whereStatement = "select noticeid,noticetitle,noticetext,noticeinsertdate, noticeupdatedate from notice";
 		String whereStatement2 = "where noticeid='" + noticeid + "'";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -40,9 +40,11 @@ public class StaffViewNoticeDao {
 			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
 
 			if (rs.next()) {
-				String wkProductid = rs.getString(1);
-				String wkName = rs.getString(2);
-				int wkPrice = rs.getInt(3);
+				int wkNoticeid = rs.getInt(1);
+				String wkNoticeTitle = rs.getString(2);
+				String wkNoticetext = rs.getString(3);
+				String wkinsertdate = rs.getString(4);
+				String wkinupdatedate = rs.getString(4);
 
 				dto = new DtoProduct(wkProductid, wkName, wkPrice);
 			}
