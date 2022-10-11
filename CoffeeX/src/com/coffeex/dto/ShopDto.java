@@ -18,6 +18,11 @@ public class ShopDto {
 		this.shopphotoname = shopphotoname;
 	}
 
+	public ShopDto(String shopid) {
+		super();
+		this.shopid = shopid;
+	}
+
 	public ShopDto() {
 		
 	}
