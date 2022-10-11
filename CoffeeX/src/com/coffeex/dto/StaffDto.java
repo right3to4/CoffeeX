@@ -10,8 +10,22 @@ public class StaffDto {
 	String staffinitdate;
 	String staffdeletedate;
 
+	String belog;
+	
 	public StaffDto() {
 
+	}
+	
+	public StaffDto(int staffid, String staffname, String staffphone, int staffhourlywage, String staffinitdate,
+			String staffdeletedate, String belog) {
+		super();
+		this.staffid = staffid;
+		this.staffname = staffname;
+		this.staffphone = staffphone;
+		this.staffhourlywage = staffhourlywage;
+		this.staffinitdate = staffinitdate;
+		this.staffdeletedate = staffdeletedate;
+		this.belog = belog;
 	}
 
 	public StaffDto(int staffid, String staffname, String staffphone, String staffinitdate, String staffdeletedate) {

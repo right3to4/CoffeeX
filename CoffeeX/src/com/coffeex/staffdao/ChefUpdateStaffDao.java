@@ -48,13 +48,26 @@ public class ChefUpdateStaffDao {
 		this.staffhourlywage = staffhourlywage;
 		this.position=position;
 	}
+	
+
+	public ChefUpdateStaffDao(int staffid, String staffname, String staffpw, String staffphone, int staffhourlywage,
+			String shopid, String position) {
+		super();
+		this.staffid = staffid;
+		this.staffname = staffname;
+		this.staffpw = staffpw;
+		this.staffphone = staffphone;
+		this.staffhourlywage = staffhourlywage;
+		this.shopid = shopid;
+		this.position = position;
+	}
 
 	public ArrayList<StaffDto> conditionList(){
 		
 		ArrayList<StaffDto> dtoList = new ArrayList<StaffDto>();
 		
-		String whereStatement = "select staffid, staffname, staffphone, staffinitdate, staffdeletedate from staff,promote ";
-		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and promotestaffid = staffid";
+		String whereStatement = "select staffid, staffname, staffphone, staffinitdate, staffdeletedate, belongshopid from staff,promote,belong ";
+		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and promotestaffid = staffid and belongstaffid = staffid";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql,DBConnect.id_mysql,DBConnect.pw);
@@ -69,6 +82,7 @@ public class ChefUpdateStaffDao {
 				String wkstaffphone = rs.getString(3);
 				String wkstaffinitdate = rs.getString(4);
 				String wkstaffdeletedate = rs.getString(4);
+				String wkbelong = rs.getString(5);
 				
 				StaffDto dto = new StaffDto(wkstaffid, wkstaffname, wkstaffphone, wkstaffinitdate, wkstaffdeletedate);
 				dtoList.add(dto);
@@ -134,6 +148,29 @@ public int insertArcion() {
 			e.printStackTrace();
 			return check;
 		}
+		//지점 추가
+		try {
+			//sql접속
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql,DBConnect.id_mysql,DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			//쿼리문작성
+			String query = "insert into belong (belongstaffid, belongshopid, belongdate) ";
+			String query1 = "values (?, ? ,now());";
+			//데이터입력
+			ps = conn_mysql.prepareStatement(query +query1);
+			ps.setInt(1, staffid);
+			ps.setString(2,shopid);
+
+			//실행
+			check = ps.executeUpdate();
+			
+			//데이터베이스 연결종료
+			conn_mysql.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return check;
+		}
 		return check;
 	}
 	public ArrayList<ShopDto> cbInsertShopid(){
@@ -151,11 +188,10 @@ public int insertArcion() {
 		while(rs.next()) {
 			
 			String wkshopid = rs.getString(1);
-
 			
-			StaffDto dto = new StaffDto(wkshopid);
+			
+			ShopDto dto = new ShopDto(wkshopid);
 			dtoList.add(dto);
-			
 		}
 	
 		conn_mysql.close();

@@ -140,7 +140,7 @@ public class StaffLogin {
          		
          		boolean check1 = staffLoginDao.loginAction();
 				if (check1 == true) {
-					CustomerInfo.userid = tfId.getText();
+					CustomerInfo.staffid = Integer.parseInt(tfId.getText());
 			
 					staffLoginDao.positionAction();
 					if (CustomerInfo.position.equals("점장") == true) {
