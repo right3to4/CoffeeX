@@ -10,4 +10,5 @@ public class DBConnect {
 	public static final String id_mysql = "root";
 	public static final String pw = "qwer1234";
 	public static int filename = 0;
+	public static String shopname="강남점";
 }

@@ -3,6 +3,7 @@ package com.coffeex.kiosk;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -24,23 +25,23 @@ import javax.swing.JTextField;
 import java.awt.Color;
 
 public class KioskOrder extends JPanel {
-	
-	private ArrayList<String> phone=new ArrayList<String>();
+
+	public ArrayList<String> phone = new ArrayList<String>();
 	public final DefaultTableModel Outer_Table = new DefaultTableModel();
 	public static String selectedname;
 	private JScrollPane scrollPane;
 	public JTable Inner_Table;
-	private JPanel panelPoint;
-	private JTextField tfPhone;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_1_1;
-	private JLabel lblNewLabel_1_1_1;
-	private JLabel lblNewLabel_1_2;
-	private JLabel lblStep;
-	private JLabel lblNewLabel_1_1_2;
-	private JLabel lblNewLabel_1_3;
-	private JLabel lblStep_1;
+	public JPanel panelPoint;
+	public JTextField tfPhone;
+	public JLabel lblNewLabel;
+	public JLabel lblNewLabel_1;
+	public JLabel lblNewLabel_1_1;
+	public JLabel lblpointfalse;
+	public JLabel lblpointtrue;
+	public JLabel lblStep2;
+	public JLabel lblwithcard;
+	public JLabel lblwithpoint;
+	public JLabel lblStep3;
 	private JLabel lblKey1;
 	private JLabel lblKey2;
 	private JLabel lblKey3;
@@ -56,6 +57,13 @@ public class KioskOrder extends JPanel {
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_2;
 
+	public String place;
+	public String paywith;
+	private JLabel lblNewLabel_2_1;
+	public boolean paywithpoint;
+	public boolean addpoint;
+	public boolean havingpoint;
+
 	/**
 	 * Create the panel.
 	 */
@@ -65,16 +73,25 @@ public class KioskOrder extends JPanel {
 		add(getLblNewLabel());
 		add(getLblNewLabel_1());
 		add(getLblNewLabel_1_1());
-		add(getLblNewLabel_1_1_1());
-		add(getLblNewLabel_1_2());
-		add(getLblStep());
-		add(getLblNewLabel_1_1_2());
-		add(getLblNewLabel_1_3());
-		add(getLblStep_1());
+		add(getLblpointfalse());
+		add(getLblpointtrue());
+		add(getLblStep2());
+		add(getLblwithcard());
+		add(getLblwithpoint());
+		add(getLblStep3());
 		add(getPanelPoint());
 		panelPoint.setVisible(false);
 		tableInit();
 		searchCart("kiosk");
+		lblStep2.setVisible(false);
+		lblpointtrue.setVisible(false);
+		lblpointfalse.setVisible(false);
+		lblStep3.setVisible(true);
+		lblwithcard.setVisible(true);
+		lblwithpoint.setVisible(false);
+		lblStep3.setVisible(false);
+		lblwithcard.setVisible(false);
+		lblwithpoint.setVisible(false);
 	}
 
 	private JScrollPane getScrollPane_1() {
@@ -106,6 +123,18 @@ public class KioskOrder extends JPanel {
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("포장");
+			lblNewLabel_1.setOpaque(true);
+			lblNewLabel_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					place = "포장";
+					lblStep2.setVisible(true);
+					lblpointtrue.setVisible(true);
+					lblpointfalse.setVisible(true);
+					lblNewLabel_1.setBackground(new Color(148, 128, 96));
+					lblNewLabel_1_1.setBackground(new Color(240, 240, 240));
+				}
+			});
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblNewLabel_1.setBounds(250, 72, 88, 58);
@@ -116,6 +145,18 @@ public class KioskOrder extends JPanel {
 	private JLabel getLblNewLabel_1_1() {
 		if (lblNewLabel_1_1 == null) {
 			lblNewLabel_1_1 = new JLabel("매장 식사");
+			lblNewLabel_1_1.setOpaque(true);
+			lblNewLabel_1_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					place = "매장 식사";
+					lblStep2.setVisible(true);
+					lblpointtrue.setVisible(true);
+					lblpointfalse.setVisible(true);
+					lblNewLabel_1_1.setBackground(new Color(148, 128, 96));
+					lblNewLabel_1.setBackground(new Color(240, 240, 240));
+				}
+			});
 			lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblNewLabel_1_1.setBounds(338, 72, 88, 58);
@@ -123,68 +164,107 @@ public class KioskOrder extends JPanel {
 		return lblNewLabel_1_1;
 	}
 
-	private JLabel getLblNewLabel_1_1_1() {
-		if (lblNewLabel_1_1_1 == null) {
-			lblNewLabel_1_1_1 = new JLabel("적립안함");
-			lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblNewLabel_1_1_1.setBounds(338, 159, 88, 58);
+	private JLabel getLblpointfalse() {
+		if (lblpointfalse == null) {
+			lblpointfalse = new JLabel("적립안함");
+			lblpointfalse.setOpaque(true);
+			lblpointfalse.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblStep3.setVisible(true);
+					lblwithcard.setVisible(true);
+					lblwithpoint.setVisible(true);
+					lblpointfalse.setBackground(new Color(148, 128, 96));
+					lblpointtrue.setBackground(new Color(240, 240, 240));
+					addpoint = false;
+				}
+			});
+			lblpointfalse.setHorizontalAlignment(SwingConstants.CENTER);
+			lblpointfalse.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblpointfalse.setBounds(338, 159, 88, 58);
 		}
-		return lblNewLabel_1_1_1;
+		return lblpointfalse;
 	}
 
-	private JLabel getLblNewLabel_1_2() {
-		if (lblNewLabel_1_2 == null) {
-			lblNewLabel_1_2 = new JLabel("적립");
-			lblNewLabel_1_2.addMouseListener(new MouseAdapter() {
+	private JLabel getLblpointtrue() {
+		if (lblpointtrue == null) {
+			lblpointtrue = new JLabel("적립");
+			lblpointtrue.setOpaque(true);
+			lblpointtrue.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					panelPoint.setVisible(true);
+					lblStep3.setVisible(true);
+					lblwithcard.setVisible(true);
+					lblwithpoint.setVisible(true);
+					lblpointtrue.setBackground(new Color(148, 128, 96));
+					lblpointfalse.setBackground(new Color(240, 240, 240));
+
 				}
 			});
-			lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1_2.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblNewLabel_1_2.setBounds(250, 159, 88, 58);
+			lblpointtrue.setHorizontalAlignment(SwingConstants.CENTER);
+			lblpointtrue.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblpointtrue.setBounds(250, 159, 88, 58);
 		}
-		return lblNewLabel_1_2;
+		return lblpointtrue;
 	}
 
-	private JLabel getLblStep() {
-		if (lblStep == null) {
-			lblStep = new JLabel("Step2: 포인트 적립 선택");
-			lblStep.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 16));
-			lblStep.setBounds(250, 131, 176, 27);
+	private JLabel getLblStep2() {
+		if (lblStep2 == null) {
+			lblStep2 = new JLabel("Step2: 포인트 적립 선택");
+			lblStep2.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 16));
+			lblStep2.setBounds(250, 131, 176, 27);
 		}
-		return lblStep;
+		return lblStep2;
 	}
 
-	private JLabel getLblNewLabel_1_1_2() {
-		if (lblNewLabel_1_1_2 == null) {
-			lblNewLabel_1_1_2 = new JLabel("카드");
-			lblNewLabel_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1_1_2.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblNewLabel_1_1_2.setBounds(338, 247, 88, 58);
+	private JLabel getLblwithcard() {
+		if (lblwithcard == null) {
+			lblwithcard = new JLabel("카드");
+			lblwithcard.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					lblwithcard.setBackground(new Color(148, 128, 96));
+					lblwithpoint.setBackground(new Color(240, 240, 240));
+					panelPoint.setVisible(false);
+					paywithpoint = false;
+				}
+			});
+			lblwithcard.setOpaque(true);
+			lblwithcard.setHorizontalAlignment(SwingConstants.CENTER);
+			lblwithcard.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblwithcard.setBounds(338, 247, 88, 58);
 		}
-		return lblNewLabel_1_1_2;
+		return lblwithcard;
 	}
 
-	private JLabel getLblNewLabel_1_3() {
-		if (lblNewLabel_1_3 == null) {
-			lblNewLabel_1_3 = new JLabel("포인트");
-			lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1_3.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblNewLabel_1_3.setBounds(250, 247, 88, 58);
+	private JLabel getLblwithpoint() {
+		if (lblwithpoint == null) {
+			lblwithpoint = new JLabel("포인트");
+			lblwithpoint.setOpaque(true);
+			lblwithpoint.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					panelPoint.setVisible(true);
+					lblwithpoint.setBackground(new Color(148, 128, 96));
+					lblwithcard.setBackground(new Color(240, 240, 240));
+					paywithpoint = true;
+				}
+			});
+			lblwithpoint.setHorizontalAlignment(SwingConstants.CENTER);
+			lblwithpoint.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+			lblwithpoint.setBounds(250, 247, 88, 58);
 		}
-		return lblNewLabel_1_3;
+		return lblwithpoint;
 	}
 
-	private JLabel getLblStep_1() {
-		if (lblStep_1 == null) {
-			lblStep_1 = new JLabel("Step3: 결제 방식 선택");
-			lblStep_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 16));
-			lblStep_1.setBounds(250, 219, 176, 27);
+	private JLabel getLblStep3() {
+		if (lblStep3 == null) {
+			lblStep3 = new JLabel("Step3: 결제 방식 선택");
+			lblStep3.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 16));
+			lblStep3.setBounds(250, 219, 176, 27);
 		}
-		return lblStep_1;
+		return lblStep3;
 	}
 
 	private JPanel getPanelPoint() {
@@ -208,6 +288,7 @@ public class KioskOrder extends JPanel {
 			panelPoint.add(getLblKeyInsert());
 			panelPoint.add(getLblNewLabel_3());
 			panelPoint.add(getLblNewLabel_2());
+			panelPoint.add(getLblNewLabel_2_1());
 		}
 		return panelPoint;
 	}
@@ -372,8 +453,8 @@ public class KioskOrder extends JPanel {
 			lblKeyDelete.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (tfPhone.getText().length()>0) {
-						phone.remove(phone.size()-1);
+					if (tfPhone.getText().length() > 0) {
+						phone.remove(phone.size() - 1);
 						tfPhone.setText(ArrtoString(phone));
 					}
 				}
@@ -403,6 +484,21 @@ public class KioskOrder extends JPanel {
 	private JLabel getLblKeyInsert() {
 		if (lblKeyInsert == null) {
 			lblKeyInsert = new JLabel("입력");
+			lblKeyInsert.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					KioskOrderDao dao = new KioskOrderDao();
+					int check = dao.checkCustomerByPhone(tfPhone.getText());
+
+					if (check == 1) {
+						panelPoint.setVisible(false);
+						tfPhone.setText(null);
+						addpoint = true;
+					} else {
+//						JOptionPane.showMessageDialog(null, "잘못된 전화번호입니다.");
+					}
+				}
+			});
 			lblKeyInsert.setHorizontalAlignment(SwingConstants.CENTER);
 			lblKeyInsert.setBounds(203, 90, 47, 30);
 		}
@@ -416,14 +512,15 @@ public class KioskOrder extends JPanel {
 		}
 		return lblNewLabel_3;
 	}
-	
+
 	private String ArrtoString(ArrayList<String> arr) {
-		String str="";
-		for (int i=0;i<arr.size();i++) {
-			str=str+arr.get(i);
+		String str = "";
+		for (int i = 0; i < arr.size(); i++) {
+			str = str + arr.get(i);
 		}
 		return str;
 	}
+
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("초기화");
@@ -431,14 +528,29 @@ public class KioskOrder extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					tfPhone.setText(null);
-					phone=new ArrayList<String>();
+					phone = new ArrayList<String>();
 				}
 			});
 			lblNewLabel_2.setBounds(70, 90, 39, 30);
 		}
 		return lblNewLabel_2;
 	}
-	
+
+	private JLabel getLblNewLabel_2_1() {
+		if (lblNewLabel_2_1 == null) {
+			lblNewLabel_2_1 = new JLabel("취소");
+			lblNewLabel_2_1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					panelPoint.setVisible(false);
+					tfPhone.setText(null);
+				}
+			});
+			lblNewLabel_2_1.setBounds(24, 90, 39, 30);
+		}
+		return lblNewLabel_2_1;
+	}
+
 	public void searchCart(String custid) {
 
 		KioskOrderDao dao = new KioskOrderDao();
@@ -448,15 +560,15 @@ public class KioskOrder extends JPanel {
 
 		for (int index = 0; index < listCount; index++) {
 			String temp = dtoList.get(index).getMenu();
-			String price=Integer.toString(dtoList.get(index).getPrice());
-			String quantity=Integer.toString(dtoList.get(index).getQuantity());
-			String total=Integer.toString(dtoList.get(index).getQuantity()*dtoList.get(index).getPrice());
-			String option=dtoList.get(index).getAddoption();
+			String price = Integer.toString(dtoList.get(index).getPrice());
+			String quantity = Integer.toString(dtoList.get(index).getQuantity());
+			String total = Integer.toString(dtoList.get(index).getQuantity() * dtoList.get(index).getPrice());
+			String option = dtoList.get(index).getAddoption();
 			String[] qTxt = { temp, price, quantity, total, option };
 			Outer_Table.addRow(qTxt);
 		}
 	}
-	
+
 	private void tableInit() {
 
 		Outer_Table.addColumn("메뉴 이름");
@@ -491,15 +603,16 @@ public class KioskOrder extends JPanel {
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
 		width = 50;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 3;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
 		width = 50;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 4;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
 		width = 50;
 		col.setPreferredWidth(width);
 	}
+
 }

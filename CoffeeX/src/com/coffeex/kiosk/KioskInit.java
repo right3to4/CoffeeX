@@ -1,15 +1,20 @@
 package com.coffeex.kiosk;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.SwingConstants;
 
 import com.coffeex.kioskdao.KioskOrderDao;
@@ -35,6 +40,10 @@ public class KioskInit {
 	private JLabel lblReButton;
 	public static String menuname;
 	private JLabel lblPayButton;
+	private KioskManage kioskmanage;
+
+	KioskOrderDao dao0 = new KioskOrderDao();
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -75,11 +84,13 @@ public class KioskInit {
 				kioskorder.setVisible(false);
 				lblReButton.setVisible(false);
 				lblPayButton.setVisible(false);
+				kioskmanage.setVisible(false);
 			}
 		});
 		frame.setBounds(100, 100, 466, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(getKioskmanage());
 		frame.getContentPane().add(getPanel());
 		frame.getContentPane().add(getKioskorder());
 		frame.getContentPane().add(getKioskoption());
@@ -90,6 +101,7 @@ public class KioskInit {
 		frame.getContentPane().add(getLblConfirm());
 		frame.getContentPane().add(getLblReButton());
 		frame.getContentPane().add(getLblPayButton());
+		frame.getContentPane().add(getLblNewLabel());
 
 	}
 
@@ -130,6 +142,15 @@ public class KioskInit {
 			panel.setLayout(null);
 		}
 		return panel;
+	}
+
+	private KioskManage getKioskmanage() {
+		if (kioskmanage == null) {
+			kioskmanage = new KioskManage();
+			kioskmanage.setBounds(12, 10, 426, 444);
+			kioskmanage.setLayout(null);
+		}
+		return kioskmanage;
 	}
 
 	private KioskOrder getKioskorder() {
@@ -178,18 +199,8 @@ public class KioskInit {
 			lblCancelbutton.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) { // 초기화면으로 돌아가기
-					panel.Inner_Table.clearSelection();
-					lblAddbutton.setVisible(false);
-					lblCancelbutton.setVisible(false);
-					lblorderbutton.setVisible(true);
-					panel.setVisible(false);
-					kioskoption.setVisible(false);
-					kioskoption.setOptionDefault();
-					kioskorder.setVisible(false);
-					lblReButton.setVisible(false);
-					kioskoption.lblMenuName.setText("");
-					lblPayButton.setVisible(false);
-					
+					reset();
+
 					KioskOrderDao dao = new KioskOrderDao();
 					dao.emptyCart("kiosk");
 				}
@@ -221,19 +232,22 @@ public class KioskInit {
 					lblConfirm.setVisible(false);
 
 					KioskOrderDao orderdao = new KioskOrderDao();
-					KioskSetOptionDao optiondao=new KioskSetOptionDao();
+					KioskSetOptionDao optiondao = new KioskSetOptionDao();
 
+					String wkmenuname = menuname;
 					String wkmmanageid = optiondao.getMenuId(menuname);
 					String wkcustid = "kiosk";
 					int wkquantity = Integer.parseInt(kioskoption.lblQuantity.getText());
 					String wkoption = kioskoption.hotice + kioskoption.shot + kioskoption.cream + kioskoption.syrup;
-					if (orderdao.checkCart(wkcustid, wkmmanageid, wkoption)==true) {
-						orderdao.AddQuantity(wkmmanageid, wkcustid, wkoption, wkquantity);
+					boolean check = orderdao.checkCart(wkcustid, wkmenuname, wkoption);
+					if (check == true) {
+						orderdao.AddQuantity(wkmenuname, wkcustid, wkoption, wkquantity);
 					} else {
 						orderdao.AddCart(wkmmanageid, wkcustid, wkquantity, wkoption);
 					}
 					kioskorder.searchCart(wkcustid);
 				}
+
 			});
 			lblConfirm.setHorizontalAlignment(SwingConstants.CENTER);
 			lblConfirm.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
@@ -245,6 +259,27 @@ public class KioskInit {
 	private JLabel getLblPayButton() {
 		if (lblPayButton == null) {
 			lblPayButton = new JLabel("결제");
+			lblPayButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					KioskOrderDao dao = new KioskOrderDao();
+					if (kioskorder.paywithpoint == true) {
+						if (dao.checkPoint(kioskorder.tfPhone.getText()) < sumPrice()) {
+//							JOptionPane.showMessageDialog(null, "포인트 잔액이 부족합니다");
+						} else {
+							dao.usePoint(kioskorder.tfPhone.getText(), getCost());
+							Pay();
+						}
+					} else {
+//						JOptionPane.showMessageDialog(null, "결제가 완료되었습니다");
+						Pay();
+					}
+
+					if (kioskorder.addpoint == true) {
+						dao.addPoint(kioskorder.tfPhone.getText(), (int) (sumPrice() * 0.1));
+					}
+				}
+			});
 			lblPayButton.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPayButton.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblPayButton.setBounds(379, 464, 59, 40);
@@ -275,4 +310,95 @@ public class KioskInit {
 		return lblReButton;
 	}
 
+	private void reset() {
+		panel.Inner_Table.clearSelection();
+		lblAddbutton.setVisible(false);
+		lblCancelbutton.setVisible(false);
+		lblorderbutton.setVisible(true);
+		panel.setVisible(false);
+		kioskoption.setVisible(false);
+		kioskoption.setOptionDefault();
+		kioskorder.setVisible(false);
+		lblReButton.setVisible(false);
+		kioskoption.lblMenuName.setText("");
+		lblPayButton.setVisible(false);
+		kioskorder.panelPoint.setVisible(false);
+		kioskorder.lblNewLabel_1_1.setBackground(new Color(240, 240, 240));
+		kioskorder.lblNewLabel_1.setBackground(new Color(240, 240, 240));
+		kioskorder.tfPhone.setText(null);
+		kioskorder.lblStep2.setVisible(false);
+		kioskorder.lblpointtrue.setVisible(false);
+		kioskorder.lblpointtrue.setBackground(new Color(240, 240, 240));
+		kioskorder.lblpointfalse.setBackground(new Color(240, 240, 240));
+		kioskorder.lblpointfalse.setVisible(false);
+		kioskorder.lblStep3.setVisible(false);
+		kioskorder.lblwithpoint.setVisible(false);
+		kioskorder.lblwithpoint.setBackground(new Color(240, 240, 240));
+		kioskorder.lblwithcard.setBackground(new Color(240, 240, 240));
+		kioskorder.lblwithcard.setVisible(false);
+		kioskorder.tfPhone.setText(null);
+		kioskorder.phone = new ArrayList<String>();
+		dao0.emptyCart("kiosk");
+	}
+
+	private int getCost() {
+		int sum = 0;
+		for (int i = 0; i < kioskorder.Inner_Table.getRowCount(); i++) {
+			sum = sum + (int) kioskorder.Inner_Table.getValueAt(i, 4);
+		}
+
+		return sum;
+	}
+
+	private void Pay() {
+		KioskOrderDao dao = new KioskOrderDao();
+		KioskSetOptionDao dao2 = new KioskSetOptionDao();
+		Random rd = new Random();
+		String menuid;
+		String option;
+		int quantity;
+		String custid;
+		int price;
+		String place;
+		ArrayList<Integer> stfid = dao.searchStaff();
+		int stf = 0;
+
+		for (int i = 0; i < kioskorder.Inner_Table.getRowCount(); i++) {
+			menuid = (String) kioskorder.Inner_Table.getValueAt(i, 0);
+			option = (String) kioskorder.Inner_Table.getValueAt(i, 4);
+			quantity = Integer.parseInt((String) kioskorder.Inner_Table.getValueAt(i, 2));
+			if (kioskorder.addpoint == false && kioskorder.paywithpoint == false) {
+				custid = "kiosk";
+			} else {
+				custid = dao.searchCustomerByPhone(kioskorder.tfPhone.getText());
+			}
+			price = Integer.parseInt((String) kioskorder.Inner_Table.getValueAt(i, 3));
+			place = kioskorder.place;
+			stf = stfid.get(rd.nextInt(stfid.size()));
+			dao.Order(stf, menuid, option, quantity, custid, price, place);
+		}
+		reset();
+	}
+
+	private int sumPrice() {
+		int price = 0;
+		for (int i = 0; i < kioskorder.Inner_Table.getRowCount(); i++) {
+			price += Integer.parseInt((String) kioskorder.Inner_Table.getValueAt(i, 3));
+		}
+		return price;
+	}
+
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("관리자 메뉴");
+			lblNewLabel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					kioskmanage.setVisible(true);
+				}
+			});
+			lblNewLabel.setBounds(93, 474, 62, 22);
+		}
+		return lblNewLabel;
+	}
 }

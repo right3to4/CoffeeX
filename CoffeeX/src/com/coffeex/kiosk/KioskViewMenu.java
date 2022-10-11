@@ -254,8 +254,8 @@ public class KioskViewMenu extends JPanel {
 		for (int index = 0; index < listCount; index++) {
 			String filepath=Integer.toString(DBConnect.filename);
 			String temp = dtoList.get(index).getMenuname();
-			ImageIcon image = new ImageIcon(filepath);
 			File file = new File(filepath);
+			ImageIcon image = new ImageIcon("./" + file.getName());
 			file.delete();
 			Object[] qTxt = { image, temp, Integer.toString(dtoList.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);

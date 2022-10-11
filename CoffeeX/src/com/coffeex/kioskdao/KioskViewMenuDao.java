@@ -146,30 +146,4 @@ public class KioskViewMenuDao {
 		}
 		return result;
 	}
-
-//	public MenuViewDto tableClick() {
-//		MenuViewDto dto = null;
-//		String whereStatement = "select productid, pname, price from product ";
-//		String whereStatement2 = "where productid='" + productid + "'";
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
-//			Statement stmt_mysql = conn_mysql.createStatement();
-//
-//			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
-//
-//			if (rs.next()) {
-//				String wkProductid = rs.getString(1);
-//				String wkName = rs.getString(2);
-//				int wkPrice = rs.getInt(3);
-//
-//				dto = new DtoProduct(wkProductid, wkName, wkPrice);
-//			}
-//
-//			conn_mysql.close(); // Close DB connection for others to connect
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return dto;
-//	}
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import com.coffeex.dto.MenuViewDto;
 import com.coffeex.dto.ViewCartDto;
+import com.coffeex.kiosk.KioskOrder;
 import com.coffeex.util.DBConnect;
 
 public class KioskOrderDao {
@@ -50,7 +51,7 @@ public class KioskOrderDao {
 
 		return dtoList;
 	}
-	
+
 	public void emptyCart(String custid) {
 
 		PreparedStatement ps = null;
@@ -70,39 +71,40 @@ public class KioskOrderDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean checkCart(String custid, String menuname, String option) {
 		PreparedStatement ps = null;
-		int wkCount=1;
+		int wkCount = 1;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 			String whereStatement = "select count(*) from viewcart where ";
-			String whereStatement2 = "custid='" + custid + "' and menu='" + menuname + "' and addoption='" + option + "';";
+			String whereStatement2 = "custid='" + custid + "' and menu='" + menuname + "' and addoption='" + option
+					+ "';";
 
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement2);
-			
+
 			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
-			
-			while (rs.next()) {
+
+			if (rs.next()) {
 				wkCount = rs.getInt(1);
 			}
+
 			conn_mysql.close();
-			
-			if (wkCount==1) {
+
+			if (wkCount == 1) {
 				return true;
 			} else {
 				return false;
 			}
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
-	
+
 	public void AddCart(String mmanageid, String custid, int addcartquantity, String addcartoption) {
 
 		PreparedStatement ps = null;
@@ -127,7 +129,7 @@ public class KioskOrderDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void AddQuantity(String mmanageid, String custid, String addcartoption, int quantity) {
 		PreparedStatement ps = null;
 
@@ -136,11 +138,189 @@ public class KioskOrderDao {
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 			String whereStatement = "update addcart set addcartquantity=addcartquantity+" + quantity;
-			String whereStatement1 = " where mmanegeid='" + mmanageid + "' and custid='" + custid + "' and addcartoption='" + addcartoption + "';";
-			
+			String whereStatement1 = " where mmanegeid='" + mmanageid + "' and custid='" + custid
+					+ "' and addcartoption='" + addcartoption + "';";
+
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+			ps.executeUpdate();
+			conn_mysql.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int checkCustomerByPhone(String phone) {
+		PreparedStatement ps = null;
+		int wkCount = 0;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "select count(*) from customer ";
+			String whereStatement1 = " where custphone='" + phone + "';";
+
+			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement1);
+
+			if (rs.next()) {
+				wkCount = rs.getInt(1);
+			}
+
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return wkCount;
+	}
+
+	public int checkPoint(String phone) {
+		PreparedStatement ps = null;
+		int wkPoint = 0;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "select custpoint from customer ";
+			String whereStatement1 = " where custphone='" + phone + "';";
+
+			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement1);
+
+			if (rs.next()) {
+				wkPoint = rs.getInt(1);
+			}
+
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return wkPoint;
+	}
+
+	public void usePoint(String phone, int cost) {
+		PreparedStatement ps = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "update customer set custpoint=custpoint-" + cost;
+			String whereStatement1 = " where custphone='" + phone + "';";
+
+			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+			ps.executeUpdate();
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addPoint(String phone, int cost) {
+		PreparedStatement ps = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "update customer set custpoint=custpoint+" + cost;
+			String whereStatement1 = " where custphone='" + phone + "';";
+
+			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+			ps.executeUpdate();
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void Order(int staffid, String menuid, String option, int quantity, String custid, int price, String place) {
+		PreparedStatement ps = null;
+		KioskSetOptionDao dao = new KioskSetOptionDao();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "insert into orders (ordersstaffid, ordersshopid, orderscustomerid, ordersmmanageid, ordersstatus, ordersquantity, ordersoption, orderssaleprice, ordersplaceselect, ordersdate) ";
+			String whereStatement1 = "values(?,?,?,?,'주문접수',?,?,?,?,curdate()); ";
+
+			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+			ps.setInt(1, staffid);
+			ps.setString(2, DBConnect.shopname);
+			ps.setString(3, custid);
+			ps.setString(4, dao.getMenuId(menuid));
+			ps.setInt(5, quantity);
+			ps.setString(6, option);
+			ps.setInt(7, price);
+			ps.setString(8, place);
+			// 실행
+			ps.executeUpdate();
+
+			// 데이터베이스 연결종료
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String searchCustomerByPhone(String phone) {
+		PreparedStatement ps = null;
+		String wkCustid = "";
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "select custid from customer ";
+			String whereStatement1 = " where custphone='" + phone + "';";
+
+			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement1);
+
+			if (rs.next()) {
+				wkCustid = rs.getString(1);
+			}
+
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return wkCustid;
+	}
+
+	public ArrayList<Integer> searchStaff() {
+		PreparedStatement ps = null;
+		int wkStaffid = 0;
+		ArrayList<Integer> staffid = new ArrayList<Integer>();
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "select punchstaffid from punchinout ";
+			String whereStatement1 = "where now()> (select punchintime from punchinout where date(punchintime)=curdate()) ";
+			String whereStatement2 = "and (now()<(select punchouttime from punchinout where date(punchouttime)=curdate()) ";
+			String whereStatement3 = "or (select punchouttime from punchinout where date(punchouttime)=curdate()) is null) ";
+			String whereStatement4 = "and punchshopid='" + DBConnect.shopname;
+
+			ps = conn_mysql.prepareStatement(
+					whereStatement + whereStatement1 + whereStatement2 + whereStatement3 + whereStatement4);
+
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement1);
+
+			while (rs.next()) {
+				wkStaffid = rs.getInt(1);
+				staffid.add(wkStaffid);
+			}
+
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return staffid;
 	}
 }
