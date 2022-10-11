@@ -6,12 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
+
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.NoticeDto;
 import com.coffeex.staffdao.ManagerViewOrdersDao;
+import com.javalec.dao.DaoProduct;
+import com.javalec.dto.DtoProduct;
 
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
@@ -23,6 +27,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JTable;
+import java.awt.event.MouseEvent;
 import java.awt.Window.Type;
 import javax.swing.ListSelectionModel;
 
@@ -39,8 +44,6 @@ public class ManagerViewOrders {
 	private JScrollPane spOrderMade;
 	private JScrollPane spOrderWait;
 	private JLabel lblNewLabel_3_1_1;
-	private JLabel lblNewLabel_3_1_1_1;
-	private JScrollPane spNotice;
 	private JScrollPane spOrderComplete;
 	private JLabel lblNewLabel_2_1;
 	private JLabel lbPromote;
@@ -50,10 +53,9 @@ public class ManagerViewOrders {
 	private final DefaultTableModel Outer_OrderMade = new DefaultTableModel();
 	private final DefaultTableModel Outer_OrderComplete = new DefaultTableModel();
 	private JTable tbOrderComplete;
-	private JTable tbNotice;
-	private final DefaultTableModel Outer_Notice = new DefaultTableModel();
 	private JTable tbOrderWait;
 	private JTable tbOrderMade;
+	private JLabel lbNotice;
 	
 	/**
 	 * Launch the application.
@@ -90,8 +92,8 @@ public class ManagerViewOrders {
 			public void windowActivated(WindowEvent e) {
 				OrderWaitTableInit();
 				OrderMadeTableInit();
-				OrderCompleteTableInit();
-				//OrderNoticeTableInit();
+//				OrderCompleteTableInit();
+//				OrderNoticeTableInit();
 			}
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -103,15 +105,15 @@ public class ManagerViewOrders {
 						// TODO Auto-generated method stub
 	
 						//Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
-						OrderNoticeTableInit();
-						NoticeSearchAction();
+//						OrderNoticeTableInit();
+//						NoticeSearchAction();
 						
 					}
 				};
 				
-				
-				timer.schedule(task, 0, 1000);
+				timer.schedule(task, 0, 2000);
 			}
+			
 		});
 		
 		frmCoffeex.setBounds(100, 100, 900, 600);
@@ -126,13 +128,12 @@ public class ManagerViewOrders {
 		frmCoffeex.getContentPane().add(getSpOrderMade());
 		frmCoffeex.getContentPane().add(getSpOrderWait());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3_1_1());
-		frmCoffeex.getContentPane().add(getLblNewLabel_3_1_1_1());
-		frmCoffeex.getContentPane().add(getSpNotice());
 		frmCoffeex.getContentPane().add(getSpOrderComplete());
 		frmCoffeex.getContentPane().add(getLblNewLabel_2_1());
 		frmCoffeex.getContentPane().add(getLbPromote());
 		frmCoffeex.getContentPane().add(getLbStaffPayManege());
 		frmCoffeex.getContentPane().add(getLbStaffInsertDel());
+		frmCoffeex.getContentPane().add(getLbNotice());
 		frmCoffeex.getContentPane().add(getLblNewLabel());
 		
 	}
@@ -258,6 +259,30 @@ public class ManagerViewOrders {
 		}
 		return lbStaffManage;
 	}
+	private JLabel getLbNotice() {
+		if (lbNotice == null) {
+			lbNotice = new JLabel("공지사항");
+			lbNotice.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					StaffViewNotice.main(null);
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lbNotice.setForeground(Color.black);
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lbNotice.setForeground(Color.white);
+				}
+			});
+			lbNotice.setHorizontalAlignment(SwingConstants.CENTER);
+			lbNotice.setForeground(Color.WHITE);
+			lbNotice.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+			lbNotice.setBounds(191, 0, 140, 50);
+		}
+		return lbNotice;
+	}
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("주문 대기");
@@ -292,18 +317,10 @@ public class ManagerViewOrders {
 		}
 		return spOrderWait;
 	}
-	private JScrollPane getSpNotice() {
-		if (spNotice == null) {
-			spNotice = new JScrollPane();
-			spNotice.setBounds(395, 382, 446, 170);
-			spNotice.setViewportView(getTbNotice());
-		}
-		return spNotice;
-	}
 	private JScrollPane getSpOrderComplete() {
 		if (spOrderComplete == null) {
 			spOrderComplete = new JScrollPane();
-			spOrderComplete.setBounds(81, 382, 250, 170);
+			spOrderComplete.setBounds(172, 383, 602, 170);
 			spOrderComplete.setViewportView(getTbOrderComplete());
 		}
 		return spOrderComplete;
@@ -338,32 +355,13 @@ public class ManagerViewOrders {
 		}
 		return tbOrderComplete;
 	}
-	private JTable getTbNotice() {
-		if (tbNotice == null) {
-			tbNotice = new JTable();
-			tbNotice.setShowGrid(false);
-			tbNotice.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			tbNotice.setShowVerticalLines(false);
-			tbNotice.setShowHorizontalLines(false);
-			tbNotice.setModel(Outer_Notice);
-		}
-		return tbNotice;
-	}
 	private JLabel getLblNewLabel_3_1_1() {
 		if (lblNewLabel_3_1_1 == null) {
 			lblNewLabel_3_1_1 = new JLabel("제조 완료 현황");
 			lblNewLabel_3_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1_1.setBounds(81, 345, 117, 25);
+			lblNewLabel_3_1_1.setBounds(172, 346, 117, 25);
 		}
 		return lblNewLabel_3_1_1;
-	}
-	private JLabel getLblNewLabel_3_1_1_1() {
-		if (lblNewLabel_3_1_1_1 == null) {
-			lblNewLabel_3_1_1_1 = new JLabel("공지사항");
-			lblNewLabel_3_1_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1_1_1.setBounds(395, 345, 117, 25);
-		}
-		return lblNewLabel_3_1_1_1;
 	}
 	
 	private JLabel getLblNewLabel_2_1() {
@@ -425,7 +423,7 @@ public class ManagerViewOrders {
 		lbStaffInsertDel.setVisible(false);
 		return lbStaffInsertDel;
 	}
-	
+	//----------------------------function---------------------------------
 	private void OrderCompleteTableInit() {
 
 		Outer_OrderComplete.addColumn("주문번호");
@@ -592,16 +590,4 @@ public class ManagerViewOrders {
 		return listCount;
 	}
 	
-//	private void NoticeSearchAction() {
-//		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-//		ArrayList<NoticeDto> dtoList = dao.SelecNoticetList();
-//		int listCount = dtoList.size();
-//		
-//		for (int index = 0; index < listCount; index++) {
-//			int temp = dtoList.get(index).getNoticeid();
-//			String[] qTxt = { Integer.toString(temp), dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(), dtoList.get(index).getNoticeupdatedate()};
-//			Outer_Notice.addRow(qTxt);
-//		}
-//	}
-
 }

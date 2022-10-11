@@ -4,25 +4,35 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import com.coffeex.staffdao.StaffLoginDao;
+import com.coffeex.util.CustomerInfo;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StaffLogin {
 
-   private JFrame frame;
+   private JFrame frmCoffeex;
    private JLabel lblNewLabel;
    private JLabel lblNewLabel_1;
-   private JTextField textField;
+   private JTextField tfId;
    private JLabel lblNewLabel_2;
    private JLabel lblNewLabel_2_1;
-   private JPasswordField passwordField;
-   private JLabel lblNewLabel_3;
+   private JPasswordField pwfPw;
+   private JLabel lbLogIn;
+   private JButton btnNewButton;
+   private JButton btnTest;
 
    /**
     * Launch the application.
@@ -32,7 +42,7 @@ public class StaffLogin {
          public void run() {
             try {
                StaffLogin window = new StaffLogin();
-               window.frame.setVisible(true);
+               window.frmCoffeex.setVisible(true);
             } catch (Exception e) {
                e.printStackTrace();
             }
@@ -51,17 +61,20 @@ public class StaffLogin {
     * Initialize the contents of the frame.
     */
    private void initialize() {
-      frame = new JFrame();
-      frame.setBounds(100, 100, 900, 600);
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.getContentPane().setLayout(null);
-      frame.getContentPane().add(getLblNewLabel());
-      frame.getContentPane().add(getLblNewLabel_1());
-      frame.getContentPane().add(getTextField());
-      frame.getContentPane().add(getLblNewLabel_2());
-      frame.getContentPane().add(getLblNewLabel_2_1());
-      frame.getContentPane().add(getPasswordField());
-      frame.getContentPane().add(getLblNewLabel_3());
+      frmCoffeex = new JFrame();
+      frmCoffeex.setTitle("CoffeeX");
+      frmCoffeex.setBounds(100, 100, 500, 400);
+      frmCoffeex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frmCoffeex.getContentPane().setLayout(null);
+      frmCoffeex.getContentPane().add(getLblNewLabel());
+      frmCoffeex.getContentPane().add(getLblNewLabel_1());
+      frmCoffeex.getContentPane().add(getTfId());
+      frmCoffeex.getContentPane().add(getLblNewLabel_2());
+      frmCoffeex.getContentPane().add(getLblNewLabel_2_1());
+      frmCoffeex.getContentPane().add(getPwfPw());
+      frmCoffeex.getContentPane().add(getLbLogIn());
+      frmCoffeex.getContentPane().add(getBtnNewButton());
+      frmCoffeex.getContentPane().add(getBtnTest());
    }
    private JLabel getLblNewLabel() {
       if (lblNewLabel == null) {
@@ -70,7 +83,7 @@ public class StaffLogin {
          lblNewLabel.setForeground(Color.WHITE);
          lblNewLabel.setOpaque(true);
          lblNewLabel.setBackground(new Color(148, 128, 96));
-         lblNewLabel.setBounds(0, 0, 900, 50);
+         lblNewLabel.setBounds(0, 0, 500, 50);
       }
       return lblNewLabel;
    }
@@ -79,24 +92,24 @@ public class StaffLogin {
          lblNewLabel_1 = new JLabel("로그인");
          lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 50));
          lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-         lblNewLabel_1.setBounds(375, 150, 150, 50);
+         lblNewLabel_1.setBounds(167, 62, 150, 50);
       }
       return lblNewLabel_1;
    }
-   private JTextField getTextField() {
-      if (textField == null) {
-         textField = new JTextField();
-         textField.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-         textField.setBounds(387, 250, 160, 26);
-         textField.setColumns(10);
+   private JTextField getTfId() {
+      if (tfId == null) {
+         tfId = new JTextField();
+         tfId.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+         tfId.setBounds(179, 162, 160, 26);
+         tfId.setColumns(10);
       }
-      return textField;
+      return tfId;
    }
    private JLabel getLblNewLabel_2() {
       if (lblNewLabel_2 == null) {
          lblNewLabel_2 = new JLabel("ID");
          lblNewLabel_2.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-         lblNewLabel_2.setBounds(338, 250, 40, 26);
+         lblNewLabel_2.setBounds(130, 162, 40, 26);
       }
       return lblNewLabel_2;
    }
@@ -104,28 +117,69 @@ public class StaffLogin {
       if (lblNewLabel_2_1 == null) {
          lblNewLabel_2_1 = new JLabel("PW");
          lblNewLabel_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-         lblNewLabel_2_1.setBounds(338, 285, 52, 26);
+         lblNewLabel_2_1.setBounds(130, 197, 52, 26);
       }
       return lblNewLabel_2_1;
    }
-   private JPasswordField getPasswordField() {
-      if (passwordField == null) {
-         passwordField = new JPasswordField();
-         passwordField.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-         passwordField.setBounds(387, 288, 160, 26);
+   private JPasswordField getPwfPw() {
+      if (pwfPw == null) {
+         pwfPw = new JPasswordField();
+         pwfPw.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+         pwfPw.setBounds(179, 200, 160, 26);
       }
-      return passwordField;
+      return pwfPw;
    }
-   private JLabel getLblNewLabel_3() {
-      if (lblNewLabel_3 == null) {
-         lblNewLabel_3 = new JLabel("로그인");
-         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-         lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-         lblNewLabel_3.setForeground(Color.WHITE);
-         lblNewLabel_3.setOpaque(true);
-         lblNewLabel_3.setBackground(new Color(148, 128, 96));
-         lblNewLabel_3.setBounds(324, 355, 262, 26);
+   private JLabel getLbLogIn() {
+      if (lbLogIn == null) {
+         lbLogIn = new JLabel("로그인");
+         lbLogIn.addMouseListener(new MouseAdapter() {
+         	@Override
+         	public void mouseClicked(MouseEvent e) {
+         		
+         		StaffLoginDao staffLoginDao = new StaffLoginDao(Integer.parseInt(tfId.getText()),String.valueOf(pwfPw.getPassword()));
+         		
+         		boolean check1 = staffLoginDao.loginAction();
+				if (check1 == true) {
+					CustomerInfo.userid = tfId.getText();
+			
+					staffLoginDao.positionAction();
+					if (CustomerInfo.position.equals("점장") == true) {
+						ManagerViewOrders.main(null);
+					}else {
+					JOptionPane.showMessageDialog(null, CustomerInfo.position);
+
+					}
+					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+
+				}else {
+
+					JOptionPane.showMessageDialog(null, " 다시 로그인 해주세요 ");
+
+				}
+         		
+         	}
+         });
+         lbLogIn.setHorizontalAlignment(SwingConstants.CENTER);
+         lbLogIn.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+         lbLogIn.setForeground(Color.WHITE);
+         lbLogIn.setOpaque(true);
+         lbLogIn.setBackground(new Color(148, 128, 96));
+         lbLogIn.setBounds(116, 267, 262, 26);
       }
-      return lblNewLabel_3;
+      return lbLogIn;
    }
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("키오스크 Test");
+			btnNewButton.setBounds(0, 337, 117, 29);
+		}
+		return btnNewButton;
+	}
+	private JButton getBtnTest() {
+		if (btnTest == null) {
+			btnTest = new JButton("앱 Test");
+			btnTest.setBounds(116, 337, 117, 29);
+		}
+		return btnTest;
+	}
 }
