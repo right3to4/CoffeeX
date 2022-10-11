@@ -3,12 +3,25 @@ package com.coffeex.dto;
 public class PayDto {
 
 	int paystaffid;
-	String paydate;
 	int payamount;
 	int payincentive;
-	
+	String paydate;
+
 	public PayDto() {
-		
+
+	}
+
+	public PayDto(int paystaffid, int payamount, int payincentive, String paydate) {
+		super();
+		this.paystaffid = paystaffid;
+		this.payamount = payamount;
+		this.payincentive = payincentive;
+		this.paydate = paydate;
+	}
+
+	public PayDto(String paydate) {
+		super();
+		this.paydate = paydate;
 	}
 
 	public int getPaystaffid() {

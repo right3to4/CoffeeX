@@ -38,6 +38,13 @@ public class StaffDto {
 		this.staffphone = staffphone;
 	}
 
+	public StaffDto(String staffname, String staffpw, String staffphone) {
+		super();
+		this.staffname = staffname;
+		this.staffpw = staffpw;
+		this.staffphone = staffphone;
+	}
+
 	public int getStaffid() {
 		return staffid;
 	}
