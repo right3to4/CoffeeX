@@ -13,6 +13,11 @@ public class ShopDto {
 		
 	}
 
+	public ShopDto(String shopid) {
+		super();
+		this.shopid = shopid;
+	}
+
 	public String getShopid() {
 		return shopid;
 	}

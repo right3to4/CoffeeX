@@ -70,8 +70,8 @@ public class StaffViewNotice {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				searchAction();
 				OrderNoticeTableInit();
+				searchAction();
 				
 			}
 		});
@@ -88,6 +88,7 @@ public class StaffViewNotice {
 		frame.getContentPane().add(getLblNewLabel_2_1());
 		frame.getContentPane().add(getTfUpdateDate());
 		frame.getContentPane().add(getLblNewLabel_2_1_1());
+		frame.setDefaultCloseOperation(2);
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
@@ -128,6 +129,12 @@ public class StaffViewNotice {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
+			scrollPane.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					tableClick();
+				}
+			});
 			scrollPane.setBounds(31, 110, 538, 99);
 			scrollPane.setViewportView(getInner_Notice());
 		}
@@ -218,12 +225,12 @@ private void OrderNoticeTableInit() {
 
 		vColIndex = 2;
 		col = Inner_Notice.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 140;
 		col.setPreferredWidth(width);
 		
 		vColIndex = 3;
 		col = Inner_Notice.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 140;
 		col.setPreferredWidth(width);
 
 	}
@@ -251,7 +258,7 @@ private void OrderNoticeTableInit() {
 	tfTitle.setText(dto.getNoticetitle());
 	tfInsertDate.setText(dto.getNoticeinsertdate());
 	tfUpdateDate.setText(dto.getNoticeupdatedate());
-	tfTitle.setText(dto.getNoticetext());
+	epText.setText(dto.getNoticetext());
 }
 	
 }

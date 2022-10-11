@@ -31,7 +31,7 @@ public class StaffViewNoticeDao {
 	
 	public NoticeDto tableClick() {
 		NoticeDto dto = null;
-		String whereStatement = "select noticeid,noticetitle,noticetext,noticeinsertdate, noticeupdatedate from notice";
+		String whereStatement = "select noticeid,noticetitle,noticetext,noticeinsertdate, noticeupdatedate from notice ";
 		String whereStatement2 = "where noticeid='" + noticeid + "'";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
