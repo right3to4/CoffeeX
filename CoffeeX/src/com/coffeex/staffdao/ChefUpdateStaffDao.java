@@ -66,7 +66,7 @@ public class ChefUpdateStaffDao {
 		
 		ArrayList<StaffDto> dtoList = new ArrayList<StaffDto>();
 		
-		String whereStatement = "select staffid, staffname, staffphone, staffinitdate, staffdeletedate, belongshopid from staff,promote,belong ";
+		String whereStatement = "select staffid, staffname, staffphone, staffinitdate, staffdeletedate, belongshopid, staffhourlywage from staff,promote,belong ";
 		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and promotestaffid = staffid and belongstaffid = staffid";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -83,8 +83,9 @@ public class ChefUpdateStaffDao {
 				String wkstaffinitdate = rs.getString(4);
 				String wkstaffdeletedate = rs.getString(4);
 				String wkbelong = rs.getString(5);
+				int wkwage = rs.getInt(6);
 				
-				StaffDto dto = new StaffDto(wkstaffid, wkstaffname, wkstaffphone, wkstaffinitdate, wkstaffdeletedate);
+				StaffDto dto = new StaffDto(wkstaffid, wkstaffname, wkstaffphone, wkwage, wkstaffinitdate, wkstaffdeletedate, wkbelong);
 				dtoList.add(dto);
 				
 			}

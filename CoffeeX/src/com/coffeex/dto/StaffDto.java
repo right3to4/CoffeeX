@@ -115,4 +115,12 @@ public class StaffDto {
 		this.staffdeletedate = staffdeletedate;
 	}
 
+	public String getBelog() {
+		return belog;
+	}
+
+	public void setBelog(String belog) {
+		this.belog = belog;
+	}
+	
 }

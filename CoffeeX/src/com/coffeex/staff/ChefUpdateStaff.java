@@ -551,7 +551,7 @@ public class ChefUpdateStaff {
 		
 		for(int index=0; index<listCount; index++) {
 			String temp = Integer.toString(dtoList.get(index).getStaffid());
-			String[] qTxt = {temp, dtoList.get(index).getStaffname(), dtoList.get(index).getStaffphone(),dtoList.get(index).getStaffinitdate(),dtoList.get(index).getStaffdeletedate()};
+			String[] qTxt = {temp, dtoList.get(index).getStaffname(), dtoList.get(index).getStaffphone(),Integer.toString(dtoList.get(index).getStaffhourlywage()) ,dtoList.get(index).getStaffinitdate(),dtoList.get(index).getStaffdeletedate(),dtoList.get(index).get};
 			Outer_Table.addRow(qTxt);
 			
 			
