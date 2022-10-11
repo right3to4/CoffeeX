@@ -5,21 +5,33 @@ public class ShopDto {
 	String shopid;
 	String shopaddress;
 	String shopphone;
+	String shopphotoname;
 	String openinghours;
 	String openingdate;
 	String closingdate;
 	
+	public ShopDto(String shopid, String shopaddress, String shopphone, String shopphotoname) {
+		super();
+		this.shopid = shopid;
+		this.shopaddress = shopaddress;
+		this.shopphone = shopphone;
+		this.shopphotoname = shopphotoname;
+	}
+
 	public ShopDto() {
 		
 	}
 
-	public ShopDto(String shopid) {
-		super();
-		this.shopid = shopid;
-	}
-
 	public String getShopid() {
 		return shopid;
+	}
+
+	public String getShopphotoname() {
+		return shopphotoname;
+	}
+
+	public void setShopphotoname(String shopphotoname) {
+		this.shopphotoname = shopphotoname;
 	}
 
 	public void setShopid(String shopid) {
