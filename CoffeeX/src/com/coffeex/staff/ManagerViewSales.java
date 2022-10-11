@@ -13,12 +13,18 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.coffeex.dto.OrdersViewDto;
+import com.coffeex.staffdao.ManagerViewOrdersDao;
+import com.coffeex.staffdao.ManagerViewSalesDao;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ManagerViewSales {
 
@@ -27,8 +33,10 @@ public class ManagerViewSales {
 	private JComboBox comboBox;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
-	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	private DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JLabel lblNewLabel;
+
+	private String[] column = { "연도", "월", "매출" };
 
 	/**
 	 * Launch the application.
@@ -61,8 +69,8 @@ public class ManagerViewSales {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				TableInit();
-				//이 윈도우만 종료
+				TableInit(column);
+				// 이 윈도우만 종료
 				frame.setDefaultCloseOperation(2);
 			}
 		});
@@ -83,14 +91,40 @@ public class ManagerViewSales {
 		}
 		return lb;
 	}
+
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"월별 판매내역", "제품별 판매내역", "직원별 판매내역"}));
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (comboBox.getSelectedItem() == "월별 판매내역") {
+						TableInit(column);
+						viewSalesByMonth();
+					} else if (comboBox.getSelectedItem() == "제품별 판매내역") {
+						column[0] = "메뉴";
+						column[1] = "개수";
+						TableInit(column);
+						viewSalesByMenu();
+					} else if (comboBox.getSelectedItem() == "직원별 판매내역") {
+						column[0] = "직원";
+						column[1] = "개수";
+						TableInit(column);
+						viewSalesByStaff();
+					} else {
+						column[0] = "지점";
+						column[1] = "개수";
+						TableInit(column);
+						viewSalesByShop();
+					}
+
+				}
+			});
+			comboBox.setModel(new DefaultComboBoxModel(new String[] { "월별 판매내역", "제품별 판매내역", "직원별 판매내역", "지점별 판매내역" }));
 			comboBox.setBounds(106, 64, 137, 27);
 		}
 		return comboBox;
 	}
+
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
@@ -99,6 +133,7 @@ public class ManagerViewSales {
 		}
 		return scrollPane;
 	}
+
 	private JTable getInner_Table() {
 		if (Inner_Table == null) {
 			Inner_Table = new JTable();
@@ -109,12 +144,12 @@ public class ManagerViewSales {
 		}
 		return Inner_Table;
 	}
-	
-	private void TableInit() {
 
-		Outer_Table.addColumn("뭐들어가");
-		Outer_Table.addColumn("모르겠다");
-		Outer_Table.addColumn("으아아ㅏ");
+	private void TableInit(String[] column) {
+
+		Outer_Table.addColumn(column[0]);
+		Outer_Table.addColumn(column[1]);
+		Outer_Table.addColumn(column[2]);
 
 		Outer_Table.setColumnCount(3);
 
@@ -125,7 +160,7 @@ public class ManagerViewSales {
 		}
 
 		Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
-		Inner_Table.setRowHeight(100);
+		Inner_Table.setRowHeight(50);
 
 		int vColIndex = 0;
 
@@ -137,13 +172,14 @@ public class ManagerViewSales {
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
 		width = 230;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 2;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
 		width = 230;
 		col.setPreferredWidth(width);
 
 	}
+
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("  CoffeeX");
@@ -155,5 +191,65 @@ public class ManagerViewSales {
 			lblNewLabel.setBounds(0, 0, 600, 50);
 		}
 		return lblNewLabel;
+	}
+
+	public void viewSalesByMonth() {
+		ManagerViewSalesDao dao = new ManagerViewSalesDao();
+		ArrayList<OrdersViewDto> dtoList = dao.searchSalesByMonth();
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			String year = dtoList.get(index).getOrderyear();
+			String month = dtoList.get(index).getOrdermonth();
+			int price = dtoList.get(index).getPrice();
+			String[] qTxt = { year, month, Integer.toString(price) };
+			Outer_Table.addRow(qTxt);
+		}
+	}
+
+	public void viewSalesByShop() {
+		ManagerViewSalesDao dao = new ManagerViewSalesDao();
+		ArrayList<OrdersViewDto> dtoList = dao.searchSalesByShop();
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			String shop = dtoList.get(index).getMenuname();
+			int quantity = dtoList.get(index).getQuantity();
+			int price = dtoList.get(index).getPrice();
+			String[] qTxt = { shop, Integer.toString(quantity), Integer.toString(price) };
+			Outer_Table.addRow(qTxt);
+		}
+	}
+
+	public void viewSalesByStaff() {
+		ManagerViewSalesDao dao = new ManagerViewSalesDao();
+		ArrayList<OrdersViewDto> dtoList = dao.searchSalesByStaff();
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			String staff = dtoList.get(index).getMenuname();
+			int quantity = dtoList.get(index).getQuantity();
+			int price = dtoList.get(index).getPrice();
+			String[] qTxt = { staff, Integer.toString(quantity), Integer.toString(price) };
+			Outer_Table.addRow(qTxt);
+		}
+	}
+
+	public void viewSalesByMenu() {
+		ManagerViewSalesDao dao = new ManagerViewSalesDao();
+		ArrayList<OrdersViewDto> dtoList = dao.searchSalesByMenu();
+
+		int listCount = dtoList.size();
+
+		for (int index = 0; index < listCount; index++) {
+			String menu = dtoList.get(index).getMenuname();
+			int quantity = dtoList.get(index).getQuantity();
+			int price = dtoList.get(index).getPrice();
+			String[] qTxt = { menu, Integer.toString(quantity), Integer.toString(price) };
+			Outer_Table.addRow(qTxt);
+		}
 	}
 }

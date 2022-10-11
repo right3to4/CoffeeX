@@ -16,7 +16,6 @@ import com.coffeex.dto.NoticeDto;
 import com.coffeex.dto.OrdersViewDto;
 import com.coffeex.kioskdao.KioskViewMenuDao;
 import com.coffeex.staffdao.ManagerViewOrdersDao;
-import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
 import javax.swing.JScrollPane;
@@ -52,7 +51,7 @@ public class ManagerViewOrders {
 	private JScrollPane spOrderWait;
 	private JLabel lblNewLabel_3_1_1;
 	private JScrollPane spOrderComplete;
-	private JLabel lbName;
+	private JLabel lblNewLabel_2_1;
 	private JLabel lbPromote;
 	private JLabel lbStaffPayManege;
 	private JLabel lbStaffInsertDel;
@@ -65,6 +64,9 @@ public class ManagerViewOrders {
 	private JLabel lbNotice;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JLabel lblOrdersWaiting;
+	private JLabel lblOrdersMaking;
+	private JLabel lblOrdersComplete;
 
 	/**
 	 * Launch the application.
@@ -102,7 +104,6 @@ public class ManagerViewOrders {
 				OrderWaitTableInit();
 				OrderMadeTableInit();
 				OrderCompleteTableInit();
-				lbName.setText(CustomerInfo.staffname);
 //				OrderCompleteTableInit();
 //				OrderNoticeTableInit();
 			}
@@ -143,7 +144,7 @@ public class ManagerViewOrders {
 		frmCoffeex.getContentPane().add(getSpOrderWait());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3_1_1());
 		frmCoffeex.getContentPane().add(getSpOrderComplete());
-		frmCoffeex.getContentPane().add(getLbName());
+		frmCoffeex.getContentPane().add(getLblNewLabel_2_1());
 		frmCoffeex.getContentPane().add(getLbPromote());
 		frmCoffeex.getContentPane().add(getLbStaffPayManege());
 		frmCoffeex.getContentPane().add(getLbStaffInsertDel());
@@ -151,6 +152,9 @@ public class ManagerViewOrders {
 		frmCoffeex.getContentPane().add(getLblNewLabel());
 		frmCoffeex.getContentPane().add(getBtnNewButton());
 		frmCoffeex.getContentPane().add(getBtnNewButton_1());
+		frmCoffeex.getContentPane().add(getLblOrdersWaiting());
+		frmCoffeex.getContentPane().add(getLblOrdersMaking());
+		frmCoffeex.getContentPane().add(getLblOrdersComplete());
 
 	}
 
@@ -402,13 +406,13 @@ public class ManagerViewOrders {
 		return lblNewLabel_3_1_1;
 	}
 
-	private JLabel getLbName() {
-		if (lbName == null) {
-			lbName = new JLabel("이름");
-			lbName.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
-			lbName.setBounds(47, 62, 125, 28);
+	private JLabel getLblNewLabel_2_1() {
+		if (lblNewLabel_2_1 == null) {
+			lblNewLabel_2_1 = new JLabel("이름");
+			lblNewLabel_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+			lblNewLabel_2_1.setBounds(47, 62, 125, 28);
 		}
-		return lbName;
+		return lblNewLabel_2_1;
 	}
 
 	private JLabel getLbPromote() {
@@ -699,6 +703,32 @@ public class ManagerViewOrders {
 		searchMenuMade();
 		searchMenuWait();
 		searchMenuComplete();
+		lblOrdersWaiting.setText("총 " + Outer_OrderWait.getRowCount() + "건");
+		lblOrdersMaking.setText("총 " + Outer_OrderMade.getRowCount() + "건");
+		lblOrdersComplete.setText("총 " + Outer_OrderComplete.getRowCount() + "건");
 	}
-
+	private JLabel getLblOrdersWaiting() {
+		if (lblOrdersWaiting == null) {
+			lblOrdersWaiting = new JLabel("New label");
+			lblOrdersWaiting.setFont(new Font("굴림", Font.PLAIN, 15));
+			lblOrdersWaiting.setBounds(254, 118, 63, 23);
+		}
+		return lblOrdersWaiting;
+	}
+	private JLabel getLblOrdersMaking() {
+		if (lblOrdersMaking == null) {
+			lblOrdersMaking = new JLabel("New label");
+			lblOrdersMaking.setFont(new Font("굴림", Font.PLAIN, 15));
+			lblOrdersMaking.setBounds(672, 118, 63, 23);
+		}
+		return lblOrdersMaking;
+	}
+	private JLabel getLblOrdersComplete() {
+		if (lblOrdersComplete == null) {
+			lblOrdersComplete = new JLabel("New label");
+			lblOrdersComplete.setFont(new Font("굴림", Font.PLAIN, 15));
+			lblOrdersComplete.setBounds(711, 350, 63, 23);
+		}
+		return lblOrdersComplete;
+	}
 }

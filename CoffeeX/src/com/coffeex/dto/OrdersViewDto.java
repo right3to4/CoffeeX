@@ -3,10 +3,21 @@ package com.coffeex.dto;
 public class OrdersViewDto {
 
 	int orderid;
+	int staffid;
+	String orderyear;
+	String ordermonth;
 	String menuname;
 	String orderstatus;
 	int quantity;
+	int price;
 	String ordersoptions;
+
+	public OrdersViewDto(String orderyear, String ordermonth, int price) {
+		super();
+		this.orderyear = orderyear;
+		this.ordermonth = ordermonth;
+		this.price = price;
+	}
 
 	public OrdersViewDto(int orderid, String menuname, int quantity, String ordersoptions) {
 		super();
@@ -14,6 +25,45 @@ public class OrdersViewDto {
 		this.menuname = menuname;
 		this.quantity = quantity;
 		this.ordersoptions = ordersoptions;
+	}
+
+	public OrdersViewDto(String menuname, int quantity, int price) {
+		super();
+		this.menuname = menuname;
+		this.quantity = quantity;
+		this.price = price;
+	}
+
+	public int getStaffid() {
+		return staffid;
+	}
+
+	public void setStaffid(int staffid) {
+		this.staffid = staffid;
+	}
+
+	public String getOrderyear() {
+		return orderyear;
+	}
+
+	public void setOrderyear(String orderyear) {
+		this.orderyear = orderyear;
+	}
+
+	public String getOrdermonth() {
+		return ordermonth;
+	}
+
+	public void setOrdermonth(String ordermonth) {
+		this.ordermonth = ordermonth;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public int getOrderid() {
