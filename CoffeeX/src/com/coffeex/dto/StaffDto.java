@@ -14,6 +14,15 @@ public class StaffDto {
 
 	}
 
+	public StaffDto(int staffid, String staffname, String staffphone, String staffinitdate, String staffdeletedate) {
+		super();
+		this.staffid = staffid;
+		this.staffname = staffname;
+		this.staffphone = staffphone;
+		this.staffinitdate = staffinitdate;
+		this.staffdeletedate = staffdeletedate;
+	}
+
 	public StaffDto(int staffid, String staffname, String staffphone, String staffinitdate) {
 		super();
 		this.staffid = staffid;

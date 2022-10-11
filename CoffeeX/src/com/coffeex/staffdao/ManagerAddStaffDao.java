@@ -136,8 +136,8 @@ public class ManagerAddStaffDao {
 		
 		ArrayList<StaffDto> dtoList = new ArrayList<StaffDto>();
 		
-		String whereStatement = "select staffid, staffname, staffphone, staffinitdate from staff ";
-		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and staffdeletedate is null";
+		String whereStatement = "select staffid, staffname, staffphone, staffinitdate from staff,promote ";
+		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and staffdeletedate is null and promotestaffid = staffid and position = '알바'";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql,DBConnect.id_mysql,DBConnect.pw);
