@@ -12,10 +12,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.coffeex.dto.PromoteDto;
 import com.coffeex.dto.ShopDto;
 import com.coffeex.dto.StaffDto;
 import com.coffeex.staffdao.ChefUpdateStaffDao;
 import com.coffeex.staffdao.ManagerAddStaffDao;
+import com.mysql.cj.protocol.Warning;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -64,6 +66,7 @@ public class ChefUpdateStaff {
 	boolean checkPassword = false;
 	private JComboBox cbPosition;
 	private JComboBox cbShopid;
+	private JButton btnUpdate;
 
 	/**
 	 * Launch the application.
@@ -124,6 +127,7 @@ public class ChefUpdateStaff {
 		frame.getContentPane().add(getBtnStaffIdCheck());
 		frame.getContentPane().add(getCbPosition());
 		frame.getContentPane().add(getCbShopid());
+		frame.getContentPane().add(getBtnUpdate());
 		frame.setDefaultCloseOperation(2);
 		tableInit();
 		cbInsertShopid();
@@ -137,7 +141,7 @@ public class ChefUpdateStaff {
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
 			lblNewLabel.setBackground(new Color(148, 128, 96));
-			lblNewLabel.setBounds(0, 0, 627, 50);
+			lblNewLabel.setBounds(0, 0, 816, 50);
 		}
 		return lblNewLabel;
 	}
@@ -178,6 +182,22 @@ public class ChefUpdateStaff {
 	private JTextField getTfStaffId() {
 		if (tfStaffId == null) {
 			tfStaffId = new JTextField();
+			tfStaffId.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					
+					
+				}
+				@Override
+				public void keyReleased(KeyEvent e) {
+					String REGEX = "[0-9]+";
+					if(tfStaffId.getText().matches(REGEX)) {
+					}else {
+						JOptionPane.showMessageDialog(null, "숫자만 입력해 주세요.");
+						tfStaffId.setText("");
+					}
+				}
+			});
 			tfStaffId.setColumns(10);
 			tfStaffId.setBounds(16, 145, 130, 26);
 		}
@@ -276,7 +296,7 @@ public class ChefUpdateStaff {
 					
 				}
 			});
-			btnDelete.setBounds(338, 398, 117, 29);
+			btnDelete.setBounds(467, 398, 117, 29);
 		}
 		return btnDelete;
 	}
@@ -346,7 +366,7 @@ public class ChefUpdateStaff {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"사번", "이름", "전화번호", "매장"}));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"사번", "이름", "전화번호", "매장","직"}));
 			comboBox.setBounds(441, 95, 106, 27);
 		}
 		return comboBox;
@@ -408,10 +428,23 @@ public class ChefUpdateStaff {
 		}
 		return cbShopid;
 	}
-	//--------------------------------------funtcion-------------------------------
+	private JButton getBtnUpdate() {
+		if (btnUpdate == null) {
+			btnUpdate = new JButton("수정하기");
+			btnUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					updateAction();
+				}
+			});
+			btnUpdate.setBounds(338, 398, 117, 29);
+		}
+		return btnUpdate;
+	}
+	//--------------------------------------function-------------------------------
 	private void tableInit() {
 		
 		Outer_Table.addColumn("사번");
+		Outer_Table.addColumn("직급");
 		Outer_Table.addColumn("매장");
 		Outer_Table.addColumn("이름");
 		Outer_Table.addColumn("전화번호");
@@ -419,7 +452,7 @@ public class ChefUpdateStaff {
 		Outer_Table.addColumn("등록일");
 		Outer_Table.addColumn("삭제일");
 		
-		Outer_Table.setColumnCount(7);
+		Outer_Table.setColumnCount(8);
 		
 		int i = Outer_Table.getRowCount();
 		
@@ -432,22 +465,22 @@ public class ChefUpdateStaff {
 		
 		int vColIndex = 0;
 		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		int width = 100;
+		int width = 80;
 		col.setPreferredWidth(width);
 		
 		vColIndex = 1;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 50;
+		width = 70;
 		col.setPreferredWidth(width);
 		
 		vColIndex = 2;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 50;
+		width = 70;
 		col.setPreferredWidth(width);
 		
 		vColIndex = 3;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 70;
 		col.setPreferredWidth(width);
 		
 		vColIndex = 4;
@@ -465,6 +498,11 @@ public class ChefUpdateStaff {
 		width = 100;
 		col.setPreferredWidth(width);
 		
+		vColIndex = 7;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
 	}
 	//
 	//Integer.parseInt(tfStaffId.getText()), tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()), tfPhone.getText(), Integer.parseInt(tfHourlyWage.getText()), cbShopid.getItemAt(cbShopid.getSelectedIndex()).toString() ,positionInsert());
@@ -474,6 +512,19 @@ public class ChefUpdateStaff {
 		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()),tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()),tfPhone.getText(),Integer.parseInt(tfHourlyWage.getText()),positionInsert());
 		
 		return dao.insertArcion();
+	}
+	//사원정보 수정
+	private void updateAction() {
+		
+		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()),tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()),tfPhone.getText(),Integer.parseInt(tfHourlyWage.getText()),positionInsert());
+		
+		boolean ok = dao.updateAction();
+
+		if (ok == true) {
+			JOptionPane.showMessageDialog(null, tfStaffName.getText() + "님의 정보가 수정 되었습니다.");
+		} else {
+			JOptionPane.showMessageDialog(null, "DB작업중 문제가 발생했습니다. \n 개발자에게 문의주세요");
+		}
 	}
 	//등록시 빈칸 체크
 	private int insertFieldCheck() {
@@ -542,6 +593,11 @@ public class ChefUpdateStaff {
 		case 2:
 			conditionQueryColumn = "staffphone";
 			break;
+		case 3:
+			conditionQueryColumn = "belongshopid";
+		case 4:
+			conditionQueryColumn = "promotestaffid";
+			break;
 		default:
 			break;
 		}
@@ -551,15 +607,13 @@ public class ChefUpdateStaff {
 	}
 	
 	private void conditionQueryAction(String conditionQueryColumn) {
-		
 		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(conditionQueryColumn, tfSearch.getText());
 		ArrayList<StaffDto> dtoList = dao.conditionList();
-		
 		int listCount = dtoList.size();
 		
 		for(int index=0; index<listCount; index++) {
 			String temp = Integer.toString(dtoList.get(index).getStaffid());
-			String[] qTxt = {temp,dtoList.get(index).getBelog(), dtoList.get(index).getStaffname(), dtoList.get(index).getStaffphone(),Integer.toString(dtoList.get(index).getStaffhourlywage()) ,dtoList.get(index).getStaffinitdate(),dtoList.get(index).getStaffdeletedate()};
+			String[] qTxt = {temp,dtoList.get(index).getPosition() ,dtoList.get(index).getBelog(), dtoList.get(index).getStaffname(), dtoList.get(index).getStaffphone(),Integer.toString(dtoList.get(index).getStaffhourlywage()) ,dtoList.get(index).getStaffinitdate(),dtoList.get(index).getStaffdeletedate()};
 			Outer_Table.addRow(qTxt);
 			
 			
@@ -636,9 +690,9 @@ public class ChefUpdateStaff {
 			
 		cbShopid.addItem(dtoList.get(i).getShopid());
 		i++;
-		System.out.println(cbShopid.getItemAt(cbShopid.getSelectedIndex()).getClass());
 		//인덱스 번호의 아이템 가져오기
 		cbShopid.getItemAt(i);
 		}
 	}
+	
 }

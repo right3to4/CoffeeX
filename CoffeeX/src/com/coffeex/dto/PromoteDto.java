@@ -10,6 +10,11 @@ public class PromoteDto {
 		
 	}
 
+	public PromoteDto(String position) {
+		super();
+		this.position = position;
+	}
+
 	public String getPosition() {
 		return position;
 	}

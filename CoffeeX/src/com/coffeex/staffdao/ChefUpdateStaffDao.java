@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.coffeex.dto.PromoteDto;
 import com.coffeex.dto.ShopDto;
 import com.coffeex.dto.StaffDto;
 import com.coffeex.util.DBConnect;
@@ -66,7 +67,7 @@ public class ChefUpdateStaffDao {
 		
 		ArrayList<StaffDto> dtoList = new ArrayList<StaffDto>();
 		
-		String whereStatement = "select staffid, staffname, staffphone, staffinitdate, staffdeletedate, belongshopid, staffhourlywage from staff,promote,belong ";
+		String whereStatement = "select staffid, staffname, staffphone, staffinitdate, staffdeletedate, belongshopid, staffhourlywage, position from staff,promote,belong ";
 		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and promotestaffid = staffid and belongstaffid = staffid";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -84,8 +85,9 @@ public class ChefUpdateStaffDao {
 				String wkstaffdeletedate = rs.getString(5);
 				String wkbelong = rs.getString(6);
 				int wkwage = rs.getInt(7);
-				
-				StaffDto dto = new StaffDto(wkstaffid, wkstaffname, wkstaffphone, wkwage, wkstaffinitdate, wkstaffdeletedate, wkbelong);
+				String wkposition = rs.getString(8);
+
+				StaffDto dto = new StaffDto(wkstaffid, wkstaffname, wkstaffphone, wkwage, wkstaffinitdate, wkstaffdeletedate, wkbelong, wkposition);
 				dtoList.add(dto);
 				
 			}
@@ -174,6 +176,89 @@ public int insertArcion() {
 		}
 		return check;
 	}
+
+	public Boolean updateAction() {
+
+	PreparedStatement ps = null;
+	try {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql,
+				DBConnect.pw);
+		Statement stmt_mysql = conn_mysql.createStatement();
+
+		String query = "update staff set staffid = ?, staffname = ?, staffpw = ?, staffphone = ?,staffhourlywage= ? ";
+		String query2 = "where staffid = ?";
+
+		ps = conn_mysql.prepareStatement(query + query2);
+
+		ps.setInt(1, staffid);
+		ps.setString(2, staffname);
+		ps.setString(3, staffpw);
+		ps.setString(4, staffphone);
+		ps.setInt(5, staffhourlywage);
+		ps.setInt(6, staffid);
+		ps.executeUpdate();
+
+		conn_mysql.close();
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	}
+	//직급추가
+	try {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql,
+				DBConnect.pw);
+		Statement stmt_mysql = conn_mysql.createStatement();
+
+		String query = "update promote set promotestaffid = ?, position = ?, pdate = now() ";
+		String query2 = "where promotestaffid = ?";
+
+		ps = conn_mysql.prepareStatement(query + query2);
+
+		ps.setInt(1, staffid);
+		ps.setString(2, position);
+		ps.setInt(3, staffid);
+	
+		ps.executeUpdate();
+
+		conn_mysql.close();
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	}
+	//지점추가
+//	String query = "insert into belong (belongstaffid, belongshopid, belongdate) ";
+//	String query1 = "values (?, ? ,now());";
+	try {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql,
+				DBConnect.pw);
+		Statement stmt_mysql = conn_mysql.createStatement();
+
+		String query = "update belong set belongstaffid = ?, belongshopid = ?, belongdate = now() ";
+		String query2 = "where belongstaffid = ?";
+
+		ps = conn_mysql.prepareStatement(query + query2);
+
+		ps.setInt(1, staffid);
+		ps.setString(2, shopid);
+		ps.setInt(3, staffid);
+	
+		ps.executeUpdate();
+
+		conn_mysql.close();
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	}
+	return true;
+}
+
+	
 	public ArrayList<ShopDto> cbInsertShopid(){
 	
 	ArrayList<ShopDto> dtoList = new ArrayList<ShopDto>();

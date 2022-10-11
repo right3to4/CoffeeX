@@ -170,6 +170,17 @@ public class ManagerAddStaff {
 	private JTextField getTfStaffId() {
 		if (tfStaffId == null) {
 			tfStaffId = new JTextField();
+			tfStaffId.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					String REGEX = "[0-9]+";
+					if(tfStaffId.getText().matches(REGEX)) {
+					}else {
+						JOptionPane.showMessageDialog(null, "숫자만 입력해 주세요.");
+						tfStaffId.setText("");
+					}
+				}
+			});
 			tfStaffId.setColumns(10);
 			tfStaffId.setBounds(19, 138, 130, 26);
 		}

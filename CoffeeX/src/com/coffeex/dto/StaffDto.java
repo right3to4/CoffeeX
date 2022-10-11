@@ -12,8 +12,23 @@ public class StaffDto {
 
 	String belog;
 	
+	String position;
+	
 	public StaffDto() {
 
+	}
+	
+	public StaffDto(int staffid, String staffname, String staffphone, int staffhourlywage, String staffinitdate,
+			String staffdeletedate, String belog,String position) {
+		super();
+		this.staffid = staffid;
+		this.staffname = staffname;
+		this.staffphone = staffphone;
+		this.staffhourlywage = staffhourlywage;
+		this.staffinitdate = staffinitdate;
+		this.staffdeletedate = staffdeletedate;
+		this.belog = belog;
+		this.position = position;
 	}
 	
 	public StaffDto(int staffid, String staffname, String staffphone, int staffhourlywage, String staffinitdate,
@@ -122,5 +137,15 @@ public class StaffDto {
 	public void setBelog(String belog) {
 		this.belog = belog;
 	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	
 	
 }
