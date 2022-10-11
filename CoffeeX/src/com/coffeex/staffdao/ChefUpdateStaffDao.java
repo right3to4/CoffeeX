@@ -81,9 +81,9 @@ public class ChefUpdateStaffDao {
 				String wkstaffname = rs.getString(2);
 				String wkstaffphone = rs.getString(3);
 				String wkstaffinitdate = rs.getString(4);
-				String wkstaffdeletedate = rs.getString(4);
-				String wkbelong = rs.getString(5);
-				int wkwage = rs.getInt(6);
+				String wkstaffdeletedate = rs.getString(5);
+				String wkbelong = rs.getString(6);
+				int wkwage = rs.getInt(7);
 				
 				StaffDto dto = new StaffDto(wkstaffid, wkstaffname, wkstaffphone, wkwage, wkstaffinitdate, wkstaffdeletedate, wkbelong);
 				dtoList.add(dto);

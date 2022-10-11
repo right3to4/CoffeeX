@@ -415,10 +415,11 @@ public class ChefUpdateStaff {
 		Outer_Table.addColumn("매장");
 		Outer_Table.addColumn("이름");
 		Outer_Table.addColumn("전화번호");
+		Outer_Table.addColumn("시급");
 		Outer_Table.addColumn("등록일");
 		Outer_Table.addColumn("삭제일");
 		
-		Outer_Table.setColumnCount(6);
+		Outer_Table.setColumnCount(7);
 		
 		int i = Outer_Table.getRowCount();
 		
@@ -459,11 +460,18 @@ public class ChefUpdateStaff {
 		width = 100;
 		col.setPreferredWidth(width);
 		
+		vColIndex = 6;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
 	}
+	//
+	//Integer.parseInt(tfStaffId.getText()), tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()), tfPhone.getText(), Integer.parseInt(tfHourlyWage.getText()), cbShopid.getItemAt(cbShopid.getSelectedIndex()).toString() ,positionInsert());
 	//시원정보 입력
 	private int insertAction() {
 		
-		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()), tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()), tfPhone.getText(), Integer.parseInt(tfHourlyWage.getText()), cbShopid.getItemAt(cbShopid.getSelectedIndex()).toString() ,positionInsert());
+		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()),tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()),tfPhone.getText(),Integer.parseInt(tfHourlyWage.getText()),positionInsert());
 		
 		return dao.insertArcion();
 	}
@@ -551,7 +559,7 @@ public class ChefUpdateStaff {
 		
 		for(int index=0; index<listCount; index++) {
 			String temp = Integer.toString(dtoList.get(index).getStaffid());
-			String[] qTxt = {temp, dtoList.get(index).getStaffname(), dtoList.get(index).getStaffphone(),Integer.toString(dtoList.get(index).getStaffhourlywage()) ,dtoList.get(index).getStaffinitdate(),dtoList.get(index).getStaffdeletedate(),dtoList.get(index).get};
+			String[] qTxt = {temp,dtoList.get(index).getBelog(), dtoList.get(index).getStaffname(), dtoList.get(index).getStaffphone(),Integer.toString(dtoList.get(index).getStaffhourlywage()) ,dtoList.get(index).getStaffinitdate(),dtoList.get(index).getStaffdeletedate()};
 			Outer_Table.addRow(qTxt);
 			
 			
