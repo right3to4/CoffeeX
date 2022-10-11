@@ -19,6 +19,10 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class StaffUpdateInfo {
 
@@ -35,7 +39,7 @@ public class StaffUpdateInfo {
 	private JLabel lblNewLabel_5;
 	private JTextField tfStaffPhone;
 	private JButton btnUpdate;
-	private JLabel lblNewLabel_6;
+	private JLabel lblPwCS;
 
 	/**
 	 * Launch the application.
@@ -81,7 +85,7 @@ public class StaffUpdateInfo {
 		frame.getContentPane().add(getLblNewLabel_5());
 		frame.getContentPane().add(getTfStaffPhone());
 		frame.getContentPane().add(getBtnUpdate());
-		frame.getContentPane().add(getLblNewLabel_6());
+		frame.getContentPane().add(getLblPwCS());
 	}
 
 	private JLabel getLblNewLabel() {
@@ -108,8 +112,10 @@ public class StaffUpdateInfo {
 	private JTextField getTfStaffId() {
 		if (tfStaffId == null) {
 			tfStaffId = new JTextField();
+			tfStaffId.setEditable(false);
 			tfStaffId.setBounds(26, 124, 130, 26);
 			tfStaffId.setColumns(10);
+			tfStaffId.setText(Integer.toString(CustomerInfo.staffid));
 		}
 		return tfStaffId;
 	}
@@ -125,6 +131,18 @@ public class StaffUpdateInfo {
 	private JPasswordField getPfPw() {
 		if (pfPw == null) {
 			pfPw = new JPasswordField();
+			pfPw.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					if (pwCheck()) {
+						lblPwCS.setForeground(new Color(0, 84, 255));
+						lblPwCS.setText("비밀번호가 일치합니다.");
+					} else {
+						lblPwCS.setForeground(new Color(255, 0, 0));
+						lblPwCS.setText("비밀번호가 일치하지않습니다.");
+					}
+				}
+			});
 			pfPw.setBounds(26, 190, 130, 26);
 		}
 		return pfPw;
@@ -141,6 +159,22 @@ public class StaffUpdateInfo {
 	private JPasswordField getPfPwC() {
 		if (pfPwC == null) {
 			pfPwC = new JPasswordField();
+			pfPwC.addFocusListener(new FocusAdapter() {
+			});
+			pfPwC.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+
+					if (pwCheck()) {
+						lblPwCS.setForeground(new Color(0, 84, 255));
+						lblPwCS.setText("비밀번호가 일치합니다.");
+					} else {
+						lblPwCS.setForeground(new Color(255, 0, 0));
+						lblPwCS.setText("비밀번호가 일치하지않습니다.");
+					}
+
+				}
+			});
 			pfPwC.setBounds(26, 256, 130, 26);
 		}
 		return pfPwC;
@@ -193,14 +227,18 @@ public class StaffUpdateInfo {
 		return btnUpdate;
 	}
 
-	private JLabel getLblNewLabel_6() {
-		if (lblNewLabel_6 == null) {
-			lblNewLabel_6 = new JLabel("1232");
-			lblNewLabel_6.setBounds(168, 261, 166, 16);
+	private JLabel getLblPwCS() {
+		if (lblPwCS == null) {
+			lblPwCS = new JLabel("");
+			lblPwCS.setBounds(168, 261, 166, 16);
 		}
-		return lblNewLabel_6;
+		return lblPwCS;
 	}
 	// -----------------------------------------
+
+	private void clearPwC() {
+		pfPwC.setText("");
+	}
 
 	private void UpdateInfo() {
 		String password = "";
@@ -208,12 +246,15 @@ public class StaffUpdateInfo {
 			password = password + pfPw.getPassword()[i];
 		}
 		StaffUpdateInfoDao dao = new StaffUpdateInfoDao(tfStaffName.getText(), password, tfStaffPhone.getText());
-		boolean ok = dao.UpdateAction(CustomerInfo.userid);
+		boolean ok = dao.UpdateAction(Integer.toString(CustomerInfo.staffid));
 
 		if (ok == true) {
-			JOptionPane.showMessageDialog(null, "변경에 성공하였습니다");
-		} else {
-			JOptionPane.showMessageDialog(null, "변경에 실패하였습니다");
+			if (pwCheck()) {
+				JOptionPane.showMessageDialog(null, tfStaffName.getText() + " 님의 개인정보 변경을 성공하였습니다");
+			} else {
+				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
+				clearPwC();
+			}
 		}
 	}
 

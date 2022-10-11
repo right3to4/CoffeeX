@@ -66,10 +66,11 @@ public class StaffViewPaymentDao {
 		}
 		return paydto;
 	}
-
-	public ArrayList<String> selectPayDate() {
+	
+	public String [] selectPayDate1() {
 		String sql = "select paydate from coffeex.pay";
-		ArrayList<String> paydateList = new ArrayList<>();
+		String [] paydateList = new String [3];
+		int i=0;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
@@ -77,13 +78,34 @@ public class StaffViewPaymentDao {
 			ResultSet rs = stmt_mysql.executeQuery(sql);
 			while (rs.next()) {
 				rs.getString(1);
-				paydateList.add(rs.getString(1));
+				paydateList[i]=rs.getString(1);
+				i++;
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return paydateList;
+			
+		}catch (Exception e) {
+		}return paydateList;
 	}
 
-}
+//	public ArrayList<String> selectPayDate() {
+//		String sql = "select paydate from coffeex.pay";
+//		ArrayList<String> paydateList = new ArrayList<>();
+//		try {
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+//			Statement stmt_mysql = conn_mysql.createStatement();
+//			ResultSet rs = stmt_mysql.executeQuery(sql);
+//			while (rs.next()) {
+//				rs.getString(1);
+//				paydateList.add(rs.getString(1));
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return paydateList;
+//	}
+
+} ////////////////////////편집점 last
+
+
+////////////////////////편집점

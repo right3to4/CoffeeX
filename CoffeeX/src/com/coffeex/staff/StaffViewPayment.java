@@ -32,11 +32,13 @@ public class StaffViewPayment {
 
 	private JFrame frame;
 	private JLabel lblNewLabel_1;
-	private JComboBox comboBox;
+	private JComboBox cbYear;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JLabel lblNewLabel;
+	private JComboBox cbMonth;
+	private JButton btnSearch;
 
 	/**
 	 * Launch the application.
@@ -81,7 +83,9 @@ public class StaffViewPayment {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getLblNewLabel());
 		frame.getContentPane().add(getLblNewLabel_1());
-		frame.getContentPane().add(getComboBox());
+		frame.getContentPane().add(getCbYear());
+		frame.getContentPane().add(getCbMonth());
+		frame.getContentPane().add(getBtnSearch());
 		frame.getContentPane().add(getScrollPane());
 	}
 
@@ -93,12 +97,20 @@ public class StaffViewPayment {
 		return lblNewLabel_1;
 	}
 
-	private JComboBox getComboBox() {
-		if (comboBox == null) {
-			comboBox = new JComboBox();
-			comboBox.setBounds(68, 67, 121, 27);
+	private JComboBox getCbYear() {
+		if (cbYear == null) {
+			cbYear = new JComboBox();
+			cbYear.setBounds(68, 67, 95, 27);
 		}
-		return comboBox;
+		return cbYear;
+	}
+
+	private JComboBox getCbMonth() {
+		if (cbMonth == null) {
+			cbMonth = new JComboBox();
+			cbMonth.setBounds(162, 67, 63, 27);
+		}
+		return cbMonth;
 	}
 
 	private JScrollPane getScrollPane() {
@@ -174,6 +186,14 @@ public class StaffViewPayment {
 		return lblNewLabel;
 	}
 
+	private JButton getBtnSearch() {
+		if (btnSearch == null) {
+			btnSearch = new JButton("조회");
+			btnSearch.setBounds(225, 66, 117, 29);
+		}
+		return btnSearch;
+	}
+
 	// ------------------------------------
 	private int staffPaySearchAction() {
 		StaffViewPaymentDao dao = new StaffViewPaymentDao();
@@ -190,11 +210,18 @@ public class StaffViewPayment {
 		return listCount;
 	}
 
-	private void updateCombo(ArrayList<String> abc) {
-		StaffViewPaymentDao dao = new StaffViewPaymentDao();
-		for (int i = 0; i < abc.size(); i++) {
-			abc.get(0);
-		}
-	}
+//	private void updateCombo(ArrayList<String> abc) {
+//		StaffViewPaymentDao dao = new StaffViewPaymentDao();
+//		for (int i = 0; i < abc.size(); i++) {
+//			abc.get(0);
+//		}
+//	}
+}//////////////////편집점last
 
-}
+
+
+
+
+
+
+////////////////////편집점 
