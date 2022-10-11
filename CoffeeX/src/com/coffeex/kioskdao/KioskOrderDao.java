@@ -274,7 +274,7 @@ public class KioskOrderDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
-			String whereStatement = "select custid from customer ";
+			String whereStatement = "select custid from customer";
 			String whereStatement1 = " where custphone='" + phone + "';";
 
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);

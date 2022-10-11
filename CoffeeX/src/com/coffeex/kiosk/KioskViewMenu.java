@@ -41,6 +41,7 @@ public class KioskViewMenu extends JPanel {
 	 * Create the panel.
 	 */
 	public KioskViewMenu() {
+		setBackground(new Color(148, 128, 96));
 		setLayout(null);
 		add(getLblTodaysMenu());
 		add(getLblCoffee());
@@ -56,12 +57,19 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblTodaysMenu() {
 		if (lblTodaysMenu == null) {
 			lblTodaysMenu = new JLabel("오늘의 메뉴");
+			lblTodaysMenu.setForeground(new Color(0, 0, 0));
 			lblTodaysMenu.setOpaque(true);
-			lblTodaysMenu.setBackground(new Color(148, 128, 96));
+			lblTodaysMenu.setBackground(new Color(118, 98, 66));
 			lblTodaysMenu.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTodaysMenu.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					lblTodaysMenu.setBackground(new Color(118, 98, 66));
+					lblCoffee.setBackground(new Color(148, 128, 96));
+					lblAide.setBackground(new Color(148, 128, 96));
+					lblTea.setBackground(new Color(148, 128, 96));
+					lblSmoothie.setBackground(new Color(148, 128, 96));
+					lblSide.setBackground(new Color(148, 128, 96));
 					tableInit();
 					searchTodaysMenu();
 				}
@@ -75,12 +83,19 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblCoffee() {
 		if (lblCoffee == null) {
 			lblCoffee = new JLabel("커피");
+			lblCoffee.setForeground(new Color(0, 0, 0));
 			lblCoffee.setOpaque(true);
 			lblCoffee.setHorizontalAlignment(SwingConstants.CENTER);
 			lblCoffee.setBackground(new Color(148, 128, 96));
 			lblCoffee.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					lblTodaysMenu.setBackground(new Color(148, 128, 96));
+					lblCoffee.setBackground(new Color(118, 98, 66));
+					lblAide.setBackground(new Color(148, 128, 96));
+					lblTea.setBackground(new Color(148, 128, 96));
+					lblSmoothie.setBackground(new Color(148, 128, 96));
+					lblSide.setBackground(new Color(148, 128, 96));
 					tableInit();
 					searchMenuByCategory("커피");
 				}
@@ -93,11 +108,18 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblAide() {
 		if (lblAide == null) {
 			lblAide = new JLabel("에이드");
+			lblAide.setForeground(new Color(0, 0, 0));
 			lblAide.setOpaque(true);
 			lblAide.setBackground(new Color(148, 128, 96));
 			lblAide.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					lblTodaysMenu.setBackground(new Color(148, 128, 96));
+					lblCoffee.setBackground(new Color(148, 128, 96));
+					lblAide.setBackground(new Color(118, 98, 66));
+					lblTea.setBackground(new Color(148, 128, 96));
+					lblSmoothie.setBackground(new Color(148, 128, 96));
+					lblSide.setBackground(new Color(148, 128, 96));
 					tableInit();
 					searchMenuByCategory("에이드");
 				}
@@ -111,9 +133,16 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblTea() {
 		if (lblTea == null) {
 			lblTea = new JLabel("티");
+			lblTea.setForeground(new Color(0, 0, 0));
 			lblTea.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					lblTodaysMenu.setBackground(new Color(148, 128, 96));
+					lblCoffee.setBackground(new Color(148, 128, 96));
+					lblAide.setBackground(new Color(148, 128, 96));
+					lblTea.setBackground(new Color(118, 98, 66));
+					lblSmoothie.setBackground(new Color(148, 128, 96));
+					lblSide.setBackground(new Color(148, 128, 96));
 					searchMenuByCategory("티");
 					tableInit();
 				}
@@ -129,9 +158,16 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblSmoothie() {
 		if (lblSmoothie == null) {
 			lblSmoothie = new JLabel("스무디");
+			lblSmoothie.setForeground(new Color(0, 0, 0));
 			lblSmoothie.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					lblTodaysMenu.setBackground(new Color(148, 128, 96));
+					lblCoffee.setBackground(new Color(148, 128, 96));
+					lblAide.setBackground(new Color(148, 128, 96));
+					lblTea.setBackground(new Color(148, 128, 96));
+					lblSmoothie.setBackground(new Color(118, 98, 66));
+					lblSide.setBackground(new Color(148, 128, 96));
 					searchMenuByCategory("스무디");
 					tableInit();
 				}
@@ -147,9 +183,16 @@ public class KioskViewMenu extends JPanel {
 	private JLabel getLblSide() {
 		if (lblSide == null) {
 			lblSide = new JLabel("사이드");
+			lblSide.setForeground(new Color(0, 0, 0));
 			lblSide.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					lblTodaysMenu.setBackground(new Color(148, 128, 96));
+					lblCoffee.setBackground(new Color(148, 128, 96));
+					lblAide.setBackground(new Color(148, 128, 96));
+					lblTea.setBackground(new Color(148, 128, 96));
+					lblSmoothie.setBackground(new Color(148, 128, 96));
+					lblSide.setBackground(new Color(118, 98, 66));
 					searchMenuByCategory("사이드");
 					tableInit();
 				}

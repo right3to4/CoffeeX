@@ -272,13 +272,15 @@ public class KioskManage extends JPanel {
 					boolean check = dao.loginCheck(ArrtoString(passwordField.getPassword()));
 
 					if (check == true) {
-//						JOptionPane.showMessageDialog(null, "로그인되었습니다");
+						JOptionPane.showMessageDialog(null, "로그인되었습니다");
 						panel.setVisible(false);
 						btnNewButton_1.setVisible(true);
 						btnNewButton_2.setVisible(true);
 						btnNewButton_2_1.setVisible(true);
+						passwordField.setText(null);
 					} else {
-//						JOptionPane.showMessageDialog(null, "잘못된 사번입니다");
+						passwordField.setText(null);
+						JOptionPane.showMessageDialog(null, "잘못된 사번입니다");
 					}
 				}
 			});
@@ -290,6 +292,8 @@ public class KioskManage extends JPanel {
 	private JPasswordField getPasswordField() {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();
+			passwordField.setEchoChar('*');
+			passwordField.setEditable(false);
 			passwordField.setBounds(44, 37, 162, 32);
 		}
 		return passwordField;

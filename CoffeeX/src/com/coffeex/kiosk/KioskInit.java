@@ -20,6 +20,8 @@ import javax.swing.SwingConstants;
 import com.coffeex.kioskdao.KioskOrderDao;
 import com.coffeex.kioskdao.KioskSetOptionDao;
 import com.coffeex.kioskdao.KioskViewMenuDao;
+import com.coffeex.util.CustomerInfo;
+import com.coffeex.util.DBConnect;
 
 import java.awt.Font;
 
@@ -31,16 +33,15 @@ public class KioskInit {
 	private JLabel lblorderbutton;
 	private KioskViewMenu panel; // 주문하기 패널
 	private KioskSetOption kioskoption; // 옵션선택 패널
-	private KioskOrder kioskorder;
+	private KioskOrder kioskorder; // 최종 결제 패널
+	private KioskManage kioskmanage; // 관리자 메뉴 패널
 	public static JLabel lblAddbutton;
 	private JLabel lblCancelbutton;
 	private JLabel lblAd;
 	private JLabel lblConfirm;
-	private JLabel lblFianalOrder;
 	private JLabel lblReButton;
 	public static String menuname;
-	private JLabel lblPayButton;
-	private KioskManage kioskmanage;
+	public static JLabel lblPayButton;
 
 	KioskOrderDao dao0 = new KioskOrderDao();
 	private JLabel lblNewLabel;
@@ -66,6 +67,7 @@ public class KioskInit {
 	 */
 	public KioskInit() {
 		initialize();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/**
@@ -73,6 +75,8 @@ public class KioskInit {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(148, 128, 96));
+		frame.setBackground(new Color(148, 128, 96));
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) { // 화면, 버튼 다 끄기
@@ -102,12 +106,16 @@ public class KioskInit {
 		frame.getContentPane().add(getLblReButton());
 		frame.getContentPane().add(getLblPayButton());
 		frame.getContentPane().add(getLblNewLabel());
-
 	}
 
 	private JLabel getLblorderbutton() {
 		if (lblorderbutton == null) {
-			lblorderbutton = new JLabel("");
+			lblorderbutton = new JLabel("주문하기");
+			lblorderbutton.setForeground(new Color(0, 0, 0));
+			lblorderbutton.setOpaque(true);
+			lblorderbutton.setBackground(new Color(148, 128, 96));
+			lblorderbutton.setHorizontalAlignment(SwingConstants.CENTER);
+			lblorderbutton.setFont(new Font("굴림", Font.PLAIN, 20));
 			lblorderbutton.setBounds(167, 464, 117, 40);
 			lblorderbutton.addMouseListener(new MouseAdapter() {
 				@Override
@@ -116,9 +124,17 @@ public class KioskInit {
 					lblCancelbutton.setVisible(true);
 					lblorderbutton.setVisible(false);
 				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblorderbutton.setBackground(new Color(118, 98, 66));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblorderbutton.setBackground(new Color(148, 128, 96));
+				}
 			});
-			lblorderbutton
-					.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/orderbutton.JPG")));
 
 		}
 		return lblorderbutton;
@@ -185,6 +201,16 @@ public class KioskInit {
 					lblConfirm.setVisible(true);
 					kioskoption.lblMenuName.setText(menuname);
 				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblAddbutton.setBackground(new Color(118, 98, 66));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblAddbutton.setBackground(new Color(148, 128, 96));
+				}
 			});
 			lblAddbutton.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblAddbutton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -203,6 +229,16 @@ public class KioskInit {
 
 					KioskOrderDao dao = new KioskOrderDao();
 					dao.emptyCart("kiosk");
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblCancelbutton.setBackground(new Color(118, 98, 66));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblCancelbutton.setBackground(new Color(148, 128, 96));
 				}
 			});
 			lblCancelbutton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -227,8 +263,6 @@ public class KioskInit {
 					kioskoption.setVisible(false);
 					kioskorder.setVisible(true);
 					lblReButton.setVisible(true);
-
-					lblPayButton.setVisible(true);
 					lblConfirm.setVisible(false);
 
 					KioskOrderDao orderdao = new KioskOrderDao();
@@ -246,6 +280,19 @@ public class KioskInit {
 						orderdao.AddCart(wkmmanageid, wkcustid, wkquantity, wkoption);
 					}
 					kioskorder.searchCart(wkcustid);
+					
+					kioskorder.lblNewLabel_4.setText("총 금액: " + sumPrice());
+					
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblConfirm.setBackground(new Color(118, 98, 66));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblConfirm.setBackground(new Color(148, 128, 96));
 				}
 
 			});
@@ -277,7 +324,18 @@ public class KioskInit {
 
 					if (kioskorder.addpoint == true) {
 						dao.addPoint(kioskorder.tfPhone.getText(), (int) (sumPrice() * 0.1));
+						System.out.println(sumPrice());
 					}
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblPayButton.setBackground(new Color(118, 98, 66));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblPayButton.setBackground(new Color(148, 128, 96));
 				}
 			});
 			lblPayButton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -301,6 +359,28 @@ public class KioskInit {
 					lblAddbutton.setVisible(false);
 					lblConfirm.setVisible(false);
 					lblPayButton.setVisible(false);
+					kioskoption.lblHOT.setForeground(new Color(255, 255, 255));
+					kioskoption.lblHOT.setBackground(new Color(255, 0, 0));
+					kioskoption.lblICE.setBackground(new Color(108, 88, 56));
+					kioskoption.lblBasicShot.setBackground(new Color(148, 128, 96));
+					kioskoption.lblHeavyShot.setBackground(new Color(108, 88, 56));
+					kioskoption.lblLightShot.setBackground(new Color(108, 88, 56));
+					kioskoption.lblNoCream.setBackground(new Color(148, 128, 96));
+					kioskoption.lblWithCream.setBackground(new Color(108, 88, 56));
+					kioskoption.lblNoSyrup.setBackground(new Color(148, 128, 96));
+					kioskoption.lblNutSyrup.setBackground(new Color(108, 88, 56));
+					kioskoption.lblVanillaSyrup.setBackground(new Color(108, 88, 56));
+					kioskoption.lblVanillaSyrup.setForeground(new Color(255, 255, 255));
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblReButton.setBackground(new Color(118, 98, 66));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblReButton.setBackground(new Color(148, 128, 96));
 				}
 			});
 			lblReButton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -308,6 +388,32 @@ public class KioskInit {
 			lblReButton.setBounds(318, 464, 59, 40);
 		}
 		return lblReButton;
+	}
+
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("관리자 메뉴");
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					kioskmanage.setVisible(true);
+					lblCancelbutton.setVisible(true);
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblNewLabel.setBackground(new Color(118, 98, 66));
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblNewLabel.setBackground(new Color(148, 128, 96));
+				}
+			});
+			lblNewLabel.setBounds(85, 474, 70, 22);
+		}
+		return lblNewLabel;
 	}
 
 	private void reset() {
@@ -323,6 +429,18 @@ public class KioskInit {
 		kioskoption.lblMenuName.setText("");
 		lblPayButton.setVisible(false);
 		kioskorder.panelPoint.setVisible(false);
+		kioskoption.lblHOT.setForeground(new Color(255, 255, 255));
+		kioskoption.lblHOT.setBackground(new Color(255, 0, 0));
+		kioskoption.lblICE.setBackground(new Color(108, 88, 56));
+		kioskoption.lblBasicShot.setBackground(new Color(148, 128, 96));
+		kioskoption.lblHeavyShot.setBackground(new Color(108, 88, 56));
+		kioskoption.lblLightShot.setBackground(new Color(108, 88, 56));
+		kioskoption.lblNoCream.setBackground(new Color(148, 128, 96));
+		kioskoption.lblWithCream.setBackground(new Color(108, 88, 56));
+		kioskoption.lblNoSyrup.setBackground(new Color(148, 128, 96));
+		kioskoption.lblNutSyrup.setBackground(new Color(108, 88, 56));
+		kioskoption.lblVanillaSyrup.setBackground(new Color(108, 88, 56));
+		kioskoption.lblVanillaSyrup.setForeground(new Color(255, 255, 255));
 		kioskorder.lblNewLabel_1_1.setBackground(new Color(240, 240, 240));
 		kioskorder.lblNewLabel_1.setBackground(new Color(240, 240, 240));
 		kioskorder.tfPhone.setText(null);
@@ -339,6 +457,8 @@ public class KioskInit {
 		kioskorder.tfPhone.setText(null);
 		kioskorder.phone = new ArrayList<String>();
 		dao0.emptyCart("kiosk");
+		kioskmanage.setVisible(false);
+		lblConfirm.setVisible(false);
 	}
 
 	private int getCost() {
@@ -375,12 +495,13 @@ public class KioskInit {
 			price = Integer.parseInt((String) kioskorder.Inner_Table.getValueAt(i, 3));
 			place = kioskorder.place;
 			stf = stfid.get(rd.nextInt(stfid.size()));
+			System.out.println(custid);
 			dao.Order(stf, menuid, option, quantity, custid, price, place);
 		}
 		reset();
 	}
 
-	private int sumPrice() {
+	public int sumPrice() {
 		int price = 0;
 		for (int i = 0; i < kioskorder.Inner_Table.getRowCount(); i++) {
 			price += Integer.parseInt((String) kioskorder.Inner_Table.getValueAt(i, 3));
@@ -388,17 +509,4 @@ public class KioskInit {
 		return price;
 	}
 
-	private JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("관리자 메뉴");
-			lblNewLabel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					kioskmanage.setVisible(true);
-				}
-			});
-			lblNewLabel.setBounds(93, 474, 62, 22);
-		}
-		return lblNewLabel;
-	}
 }
