@@ -206,10 +206,26 @@ public class StaffViewPayment {
 
 	private JLabel getLblSumDate() {
 		if (lblSumDate == null) {
-			lblSumDate = new JLabel("");
+			lblSumDate = new JLabel("조회날짜");
 			lblSumDate.setBounds(30, 448, 163, 16);
 		}
 		return lblSumDate;
+	}
+
+	private JLabel getLblSumPayAmount() {
+		if (lblSumPayAmount == null) {
+			lblSumPayAmount = new JLabel("급여합계");
+			lblSumPayAmount.setBounds(205, 448, 163, 16);
+		}
+		return lblSumPayAmount;
+	}
+
+	private JLabel getLblSumPayIncentive() {
+		if (lblSumPayIncentive == null) {
+			lblSumPayIncentive = new JLabel("인센티브합계");
+			lblSumPayIncentive.setBounds(380, 448, 163, 16);
+		}
+		return lblSumPayIncentive;
 	}
 
 	// ------------------------------------
@@ -253,7 +269,7 @@ public class StaffViewPayment {
 		lblSumDate.setText("조회날짜 = " + wkPayDate);
 		lblSumPayAmount.setText("급여합계 = " + Integer.toString(wkPayAmount));
 		lblSumPayIncentive.setText("인센티브합계 = " + Integer.toString(wkPayIncentive));
-		
+
 		return listCount;
 	}
 
@@ -269,19 +285,4 @@ public class StaffViewPayment {
 		}
 	}
 
-	private JLabel getLblSumPayAmount() {
-		if (lblSumPayAmount == null) {
-			lblSumPayAmount = new JLabel("");
-			lblSumPayAmount.setBounds(205, 448, 163, 16);
-		}
-		return lblSumPayAmount;
-	}
-
-	private JLabel getLblSumPayIncentive() {
-		if (lblSumPayIncentive == null) {
-			lblSumPayIncentive = new JLabel("");
-			lblSumPayIncentive.setBounds(380, 448, 163, 16);
-		}
-		return lblSumPayIncentive;
-	}
 }
