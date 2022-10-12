@@ -1,15 +1,26 @@
 package com.coffeex.dto;
 
 public class MenuViewDto {
+	int menuid;
 	String category;
 	String menuname;
 	int price;
-	String photo;
-	String info;
 	String createdate;
 	String updatedate;
+	String info;
+	String photo;
 	String deletedate;
 	String shopid;
+
+	public MenuViewDto(int menuid, String category, String menuname, int price, String createdate, String updatedate) {
+		super();
+		this.menuid = menuid;
+		this.category = category;
+		this.menuname = menuname;
+		this.price = price;
+		this.createdate = createdate;
+		this.updatedate = updatedate;
+	}
 
 	public MenuViewDto() {
 
@@ -34,8 +45,14 @@ public class MenuViewDto {
 		this.price = price;
 		this.photo = photo;
 	}
-	
-	
+
+	public int getMenuid() {
+		return menuid;
+	}
+
+	public void setMenuid(int menuid) {
+		this.menuid = menuid;
+	}
 
 	public String getCategory() {
 		return category;
@@ -84,8 +101,6 @@ public class MenuViewDto {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
-	
 
 	public String getUpdatedate() {
 		return updatedate;
