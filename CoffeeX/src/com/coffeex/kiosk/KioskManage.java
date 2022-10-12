@@ -65,6 +65,7 @@ public class KioskManage extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					panel.setVisible(true);
 					setVisible(false);
+					passwordField.setText(null);
 				}
 			});
 			btnLogout.setBounds(130, 114, 114, 50);

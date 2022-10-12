@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import com.coffeex.kiosk.KioskInit;
 import com.coffeex.staffdao.StaffLoginDao;
 import com.coffeex.util.CustomerInfo;
 
@@ -32,7 +33,6 @@ public class StaffLogin {
    private JPasswordField pwfPw;
    private JLabel lbLogIn;
    private JButton btnNewButton;
-   private JButton btnTest;
 
    /**
     * Launch the application.
@@ -74,7 +74,7 @@ public class StaffLogin {
       frmCoffeex.getContentPane().add(getPwfPw());
       frmCoffeex.getContentPane().add(getLbLogIn());
       frmCoffeex.getContentPane().add(getBtnNewButton());
-      frmCoffeex.getContentPane().add(getBtnTest());
+      
    }
    private JLabel getLblNewLabel() {
       if (lblNewLabel == null) {
@@ -153,6 +153,7 @@ public class StaffLogin {
 
 					}
 					JOptionPane.showMessageDialog(null, CustomerInfo.staffname + "님 로그인 되었습니다.");
+					frmCoffeex.setVisible(false);
 
 				}else {
 
@@ -174,15 +175,14 @@ public class StaffLogin {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("키오스크 Test");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					KioskInit.main(null);
+					frmCoffeex.setVisible(false);
+				}
+			});
 			btnNewButton.setBounds(0, 337, 117, 29);
 		}
 		return btnNewButton;
-	}
-	private JButton getBtnTest() {
-		if (btnTest == null) {
-			btnTest = new JButton("앱 Test");
-			btnTest.setBounds(116, 337, 117, 29);
-		}
-		return btnTest;
 	}
 }
