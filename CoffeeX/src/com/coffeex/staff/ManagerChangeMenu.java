@@ -194,7 +194,7 @@ public class ManagerChangeMenu {
 			btnAddButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ManagerChangeMenuDao dao=new ManagerChangeMenuDao();
-					dao.addMenu((String) tbSearchAllMenu.getValueAt(tbSearchAllMenu.getSelectedRow(), 0));
+					dao.addMenu(Integer.parseInt((String) tbSearchAllMenu.getValueAt(tbSearchAllMenu.getSelectedRow(), 0)));
 					SearchTableInit();
 					SearchShopTableInit();
 					SelectTableInit();

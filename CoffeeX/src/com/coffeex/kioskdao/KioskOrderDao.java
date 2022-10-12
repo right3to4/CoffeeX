@@ -93,7 +93,7 @@ public class KioskOrderDao {
 
 			conn_mysql.close();
 
-			if (wkCount == 1) {
+			if (wkCount >= 1) {
 				return true;
 			} else {
 				return false;
@@ -105,7 +105,7 @@ public class KioskOrderDao {
 		return false;
 	}
 
-	public void AddCart(String mmanageid, String custid, int addcartquantity, String addcartoption) {
+	public void AddCart(int mmanageid, String custid, int addcartquantity, String addcartoption) {
 
 		PreparedStatement ps = null;
 		try {
@@ -113,10 +113,10 @@ public class KioskOrderDao {
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 			String whereStatement = "insert into addcart (mmanegeid, custid, addcartdate, addcartquantity, addcartoption) ";
-			String whereStatement1 = "values(?,?,curdate(),?,?) ";
+			String whereStatement1 = "values (?,?,curdate(),?,?); ";
 
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
-			ps.setString(1, mmanageid);
+			ps.setInt(1, mmanageid);
 			ps.setString(2, custid);
 			ps.setInt(3, addcartquantity);
 			ps.setString(4, addcartoption);
@@ -251,7 +251,7 @@ public class KioskOrderDao {
 			ps.setInt(1, staffid);
 			ps.setString(2, DBConnect.shopname);
 			ps.setString(3, custid);
-			ps.setString(4, dao.getMenuId(menuid));
+			ps.setInt(4, dao.getMenuId(menuid));
 			ps.setInt(5, quantity);
 			ps.setString(6, option);
 			ps.setInt(7, price);

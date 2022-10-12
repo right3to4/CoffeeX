@@ -80,7 +80,7 @@ public class KioskSetOption extends JPanel {
 		add(getLblNutSyrup());
 		add(getLblVanillaSyrup());
 		add(getLblMenuName());
-		lblMenuName.setText(KioskInit.menuname);
+		lblMenuName.setText(KioskViewMenu.selectedname);
 	}
 
 	private JSeparator getSeparator() { // 구분선

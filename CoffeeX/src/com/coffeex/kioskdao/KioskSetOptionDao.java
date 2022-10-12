@@ -40,10 +40,10 @@ public class KioskSetOptionDao {
 		this.mmanageid = mmanageid;
 	}
 
-	public String getMenuId(String menuname) {
+	public int getMenuId(String menuname) {
 		String whereStatement = "select menuid from menu ";
 		String WhereStatement2 = "where menuname='" + menuname + "';";
-		String wkMenuID = "";
+		int wkMenuID = 0;
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -52,8 +52,9 @@ public class KioskSetOptionDao {
 			ResultSet rs = stmt_mysql.executeQuery(whereStatement + WhereStatement2);
 
 			while (rs.next()) {
-				wkMenuID = rs.getString(1);
+				wkMenuID = rs.getInt(1);
 			}
+//			System.out.println(wkMenuID);
 		} catch (Exception e) {
 		}
 		return wkMenuID;

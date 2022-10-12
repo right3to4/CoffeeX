@@ -95,10 +95,10 @@ public class KioskInit {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				closingAction();
+//				closingAction();
 			}
 		});
-		frame.setBounds(100, 100, 450, 550);
+		frame.setBounds(100, 100, 456, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getKioskmanage());
@@ -280,7 +280,9 @@ public class KioskInit {
 					KioskSetOptionDao optiondao = new KioskSetOptionDao();
 
 					String wkmenuname = menuname;
-					String wkmmanageid = optiondao.getMenuId(menuname);
+					int wkmmanageid = optiondao.getMenuId(panel.selectedname);
+//					System.out.println(panel.selectedname);
+//					System.out.println(wkmmanageid);
 					String wkcustid = "kiosk";
 					int wkquantity = Integer.parseInt(kioskoption.lblQuantity.getText());
 					String wkoption = kioskoption.hotice + kioskoption.shot + kioskoption.cream + kioskoption.syrup;

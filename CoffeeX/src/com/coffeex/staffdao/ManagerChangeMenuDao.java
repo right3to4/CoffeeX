@@ -99,19 +99,20 @@ public class ManagerChangeMenuDao {
 		return menuInfo;
 	}
 	
-	public void addMenu(String menuid) {
+	public void addMenu(int menuid) {
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 			String whereStatement = "insert into menumanage (mmanageid, mmanagestaffid, mmanageshopid, mmanagemenuid, mmanagecreatedate) ";
-			String whereStatement1 = "values(1,?,?,?,curdate()); ";
+			String whereStatement1 = "values(?,?,?,?,curdate()); ";
 
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
-			ps.setInt(1, 351315);
-			ps.setString(2, DBConnect.shopname);
-			ps.setString(3, menuid);
+			ps.setInt(1, menuid);
+			ps.setInt(2, 351315);
+			ps.setString(3, DBConnect.shopname);
+			ps.setInt(4, menuid);
 			
 			// 실행
 			ps.executeUpdate();

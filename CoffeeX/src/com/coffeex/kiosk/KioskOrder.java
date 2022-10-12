@@ -73,6 +73,7 @@ public class KioskOrder extends JPanel {
 		setBackground(new Color(148, 128, 96));
 		setLayout(null);
 		add(getDialog());
+		add(getPanelPoint());
 		add(getScrollPane_1());
 		add(getLblNewLabel());
 		add(getLblTakeout());
@@ -83,7 +84,6 @@ public class KioskOrder extends JPanel {
 		add(getLblwithcard());
 		add(getLblwithpoint());
 		add(getLblStep3());
-		add(getPanelPoint());
 		add(getLblNewLabel_4());
 		panelPoint.setVisible(false);
 		tableInit();
@@ -103,7 +103,7 @@ public class KioskOrder extends JPanel {
 	private JScrollPane getScrollPane_1() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(0, 44, 250, 261);
+			scrollPane.setBounds(0, 44, 426, 158);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -124,7 +124,7 @@ public class KioskOrder extends JPanel {
 			lblNewLabel.setOpaque(true);
 			lblNewLabel.setBackground(new Color(108, 88, 56));
 			lblNewLabel.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 16));
-			lblNewLabel.setBounds(250, 44, 176, 27);
+			lblNewLabel.setBounds(0, 202, 176, 27);
 		}
 		return lblNewLabel;
 	}
@@ -147,7 +147,7 @@ public class KioskOrder extends JPanel {
 			});
 			lblTakeout.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTakeout.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblTakeout.setBounds(250, 72, 88, 58);
+			lblTakeout.setBounds(0, 230, 88, 50);
 		}
 		return lblTakeout;
 	}
@@ -170,7 +170,7 @@ public class KioskOrder extends JPanel {
 			});
 			lblHere.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHere.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblHere.setBounds(338, 72, 88, 58);
+			lblHere.setBounds(88, 230, 88, 50);
 		}
 		return lblHere;
 	}
@@ -189,11 +189,12 @@ public class KioskOrder extends JPanel {
 					lblAddpointfalse.setBackground(new Color(178, 158, 136));
 					lblAddpointtrue.setBackground(new Color(148, 128, 96));
 					addpoint = false;
+					panelPoint.setVisible(false);
 				}
 			});
 			lblAddpointfalse.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAddpointfalse.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblAddpointfalse.setBounds(338, 159, 88, 58);
+			lblAddpointfalse.setBounds(0, 305, 88, 50);
 		}
 		return lblAddpointfalse;
 	}
@@ -217,7 +218,7 @@ public class KioskOrder extends JPanel {
 			});
 			lblAddpointtrue.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAddpointtrue.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblAddpointtrue.setBounds(250, 159, 88, 58);
+			lblAddpointtrue.setBounds(88, 305, 88, 50);
 		}
 		return lblAddpointtrue;
 	}
@@ -229,7 +230,7 @@ public class KioskOrder extends JPanel {
 			lblStep2.setOpaque(true);
 			lblStep2.setBackground(new Color(108, 88, 56));
 			lblStep2.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 16));
-			lblStep2.setBounds(250, 131, 176, 27);
+			lblStep2.setBounds(0, 278, 176, 27);
 		}
 		return lblStep2;
 	}
@@ -251,7 +252,7 @@ public class KioskOrder extends JPanel {
 			lblwithcard.setOpaque(true);
 			lblwithcard.setHorizontalAlignment(SwingConstants.CENTER);
 			lblwithcard.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblwithcard.setBounds(338, 247, 88, 58);
+			lblwithcard.setBounds(0, 382, 88, 58);
 		}
 		return lblwithcard;
 	}
@@ -273,7 +274,7 @@ public class KioskOrder extends JPanel {
 			});
 			lblwithpoint.setHorizontalAlignment(SwingConstants.CENTER);
 			lblwithpoint.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblwithpoint.setBounds(250, 247, 88, 58);
+			lblwithpoint.setBounds(88, 382, 88, 58);
 		}
 		return lblwithpoint;
 	}
@@ -285,7 +286,7 @@ public class KioskOrder extends JPanel {
 			lblStep3.setBackground(new Color(108, 88, 56));
 			lblStep3.setForeground(new Color(255, 255, 255));
 			lblStep3.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 16));
-			lblStep3.setBounds(250, 219, 176, 27);
+			lblStep3.setBounds(0, 355, 176, 27);
 		}
 		return lblStep3;
 	}
@@ -294,7 +295,7 @@ public class KioskOrder extends JPanel {
 		if (panelPoint == null) {
 			panelPoint = new JPanel();
 			panelPoint.setBackground(new Color(108, 88, 56));
-			panelPoint.setBounds(67, 304, 289, 140);
+			panelPoint.setBounds(137, 253, 289, 140);
 			panelPoint.setLayout(null);
 			panelPoint.add(getTfPhone());
 			panelPoint.add(getLblKey1());
@@ -628,7 +629,7 @@ public class KioskOrder extends JPanel {
 	private Dialog getDialog() {
 		if (dialog == null) {
 			dialog = new Dialog();
-			dialog.setBounds(56, 89, 270, 150);
+			dialog.setBounds(36, 239, 270, 150);
 			dialog.setLayout(null);
 		}
 		return dialog;
@@ -778,7 +779,7 @@ public class KioskOrder extends JPanel {
 		int vColIndex = 0;
 
 		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		int width = 50;
+		int width = 100;
 		col.setPreferredWidth(width);
 
 		vColIndex = 1;
@@ -798,7 +799,7 @@ public class KioskOrder extends JPanel {
 
 		vColIndex = 4;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 50;
+		width = 150;
 		col.setPreferredWidth(width);
 	}
 

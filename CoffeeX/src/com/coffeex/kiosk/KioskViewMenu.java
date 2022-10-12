@@ -143,8 +143,8 @@ public class KioskViewMenu extends JPanel {
 					lblTea.setBackground(new Color(118, 98, 66));
 					lblSmoothie.setBackground(new Color(148, 128, 96));
 					lblSide.setBackground(new Color(148, 128, 96));
-					searchMenuByCategory("티");
 					tableInit();
+					searchMenuByCategory("티");
 				}
 			});
 			lblTea.setOpaque(true);
@@ -168,8 +168,8 @@ public class KioskViewMenu extends JPanel {
 					lblTea.setBackground(new Color(148, 128, 96));
 					lblSmoothie.setBackground(new Color(118, 98, 66));
 					lblSide.setBackground(new Color(148, 128, 96));
-					searchMenuByCategory("스무디");
 					tableInit();
+					searchMenuByCategory("스무디");
 				}
 			});
 			lblSmoothie.setOpaque(true);
@@ -193,8 +193,8 @@ public class KioskViewMenu extends JPanel {
 					lblTea.setBackground(new Color(148, 128, 96));
 					lblSmoothie.setBackground(new Color(148, 128, 96));
 					lblSide.setBackground(new Color(118, 98, 66));
-					searchMenuByCategory("사이드");
 					tableInit();
+					searchMenuByCategory("사이드");
 				}
 			});
 			lblSide.setOpaque(true);
@@ -216,11 +216,7 @@ public class KioskViewMenu extends JPanel {
 
 	private JTable getInner_Table() {
 		if (Inner_Table == null) {
-			Inner_Table = new JTable() {
-				public Class getColumnClass(int column) {
-			        return (column == 0) ? Icon.class : Object.class;
-			      }
-			};
+			Inner_Table = new JTable();
 			Inner_Table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -237,11 +233,10 @@ public class KioskViewMenu extends JPanel {
 
 	private void tableInit() {
 
-		Outer_Table.addColumn("사진");
 		Outer_Table.addColumn("이름");
 		Outer_Table.addColumn("가격");
 
-		Outer_Table.setColumnCount(3);
+		Outer_Table.setColumnCount(2);
 
 		int i = Outer_Table.getRowCount();
 
@@ -255,17 +250,12 @@ public class KioskViewMenu extends JPanel {
 		int vColIndex = 0;
 
 		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		int width = 150;
+		int width = 215;
 		col.setPreferredWidth(width);
 
 		vColIndex = 1;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 150;
-		col.setPreferredWidth(width);
-
-		vColIndex = 2;
-		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 215;
 		col.setPreferredWidth(width);
 	}
 
@@ -277,11 +267,11 @@ public class KioskViewMenu extends JPanel {
 		int listCount = dto.size();
 
 		for (int index = 0; index < listCount; index++) {
-			String filepath=Integer.toString(DBConnect.filename);
-			ImageIcon image = new ImageIcon(dto.get(index).getPhoto());
+//			String filepath=Integer.toString(DBConnect.filename);
+//			ImageIcon image = new ImageIcon(dto.get(index).getPhoto());
 //			File file = new File(dto.get(index).getPhoto());
 			String temp = dto.get(index).getMenuname();
-			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
+			Object[] qTxt = { temp, Integer.toString(dto.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}
 	}
@@ -294,19 +284,19 @@ public class KioskViewMenu extends JPanel {
 		int listCount = dto.size();
 
 		for (int index = 0; index < listCount; index++) {
-			String filepath=Integer.toString(DBConnect.filename);
-			String temp = dto.get(index).getMenuname();
+//			String filepath=Integer.toString(DBConnect.filename);
 //			File file = new File(filepath);
-			ImageIcon image = new ImageIcon("./" + dto.get(index).getPhoto());
+//			ImageIcon image = new ImageIcon("./" + dto.get(index).getPhoto());
 //			file.delete();
-			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
+			String temp = dto.get(index).getMenuname();
+			Object[] qTxt = { temp, Integer.toString(dto.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}
 	}
 
 	private void tableClick() {
 		int i = Inner_Table.getSelectedRow();
-		selectedname = (String) Inner_Table.getValueAt(i, 2);
+		selectedname = (String) Inner_Table.getValueAt(i, 0);
 		KioskInit.lblAddbutton.setVisible(true);
 	}
 }
