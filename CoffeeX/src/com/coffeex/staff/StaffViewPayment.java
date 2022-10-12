@@ -27,6 +27,8 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class StaffViewPayment {
 
@@ -87,6 +89,7 @@ public class StaffViewPayment {
 		frame.getContentPane().add(getCbMonth());
 		frame.getContentPane().add(getBtnSearch());
 		frame.getContentPane().add(getScrollPane());
+		updateCombo();
 	}
 
 	private JLabel getLblNewLabel_1() {
@@ -189,6 +192,10 @@ public class StaffViewPayment {
 	private JButton getBtnSearch() {
 		if (btnSearch == null) {
 			btnSearch = new JButton("조회");
+			btnSearch.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
 			btnSearch.setBounds(225, 66, 117, 29);
 		}
 		return btnSearch;
@@ -210,18 +217,15 @@ public class StaffViewPayment {
 		return listCount;
 	}
 
-//	private void updateCombo(ArrayList<String> abc) {
-//		StaffViewPaymentDao dao = new StaffViewPaymentDao();
-//		for (int i = 0; i < abc.size(); i++) {
-//			abc.get(0);
-//		}
-//	}
-}//////////////////편집점last
-
-
-
-
-
-
-
-////////////////////편집점 
+	private void updateCombo() {
+		StaffViewPaymentDao dao = new StaffViewPaymentDao();
+		ArrayList<String> dtoList = dao.selectPayDate();
+		int i = 0;
+		while (dao.selectPayDate().size() > i) {
+			cbYear.addItem(dtoList.get(i));
+			i++;
+			System.out.println(cbYear.getItemAt(cbYear.getSelectedIndex()).getClass());
+			cbYear.getItemAt(i);
+		}
+	}
+}

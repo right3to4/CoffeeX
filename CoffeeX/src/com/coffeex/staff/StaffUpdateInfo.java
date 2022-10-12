@@ -164,7 +164,6 @@ public class StaffUpdateInfo {
 			pfPwC.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-
 					if (pwCheck()) {
 						lblPwCS.setForeground(new Color(0, 84, 255));
 						lblPwCS.setText("비밀번호가 일치합니다.");
@@ -219,7 +218,15 @@ public class StaffUpdateInfo {
 			btnUpdate = new JButton("수정하기");
 			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					UpdateInfo();
+					if (insertFieldCheck() == 0) {
+						if (pwCheck()) {
+							JOptionPane.showMessageDialog(null, tfStaffName.getText() + " 님의 개인정보 변경을 성공하였습니다");
+							UpdateInfo();
+						} else {
+							JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
+							clearPwC();
+						}
+					}
 				}
 			});
 			btnUpdate.setBounds(33, 426, 117, 29);
@@ -247,15 +254,6 @@ public class StaffUpdateInfo {
 		}
 		StaffUpdateInfoDao dao = new StaffUpdateInfoDao(tfStaffName.getText(), password, tfStaffPhone.getText());
 		boolean ok = dao.UpdateAction(Integer.toString(CustomerInfo.staffid));
-
-		if (ok == true) {
-			if (pwCheck()) {
-				JOptionPane.showMessageDialog(null, tfStaffName.getText() + " 님의 개인정보 변경을 성공하였습니다");
-			} else {
-				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
-				clearPwC();
-			}
-		}
 	}
 
 	public boolean pwCheck() {
@@ -272,6 +270,31 @@ public class StaffUpdateInfo {
 		} else {
 			return false;
 		}
+	}
+
+	private int insertFieldCheck() {
+		int i = 0;
+		String message = "";
+		if (tfStaffName.getText().trim().length() == 0) {
+			i++;
+			message = "이름를";
+			tfStaffName.requestFocus();
+		}
+		if (tfStaffPhone.getText().trim().length() == 0) {
+			i++;
+			message = "전화번호을";
+			tfStaffPhone.requestFocus();
+		}
+		if (pfPw.getPassword().length == 0) {
+			i++;
+			message = "비밀번호를";
+			pfPw.requestFocus();
+		}
+
+		if (i > 0) {
+			JOptionPane.showMessageDialog(null, message + "확인하세요!");
+		}
+		return i;
 	}
 
 }
