@@ -509,14 +509,14 @@ public class ChefUpdateStaff {
 	//시원정보 입력
 	private int insertAction() {
 		
-		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()),tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()),tfPhone.getText(),Integer.parseInt(tfHourlyWage.getText()),positionInsert());
+		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()),tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()),tfPhone.getText(),Integer.parseInt(tfHourlyWage.getText()),cbShopid.getItemAt(cbShopid.getSelectedIndex()).toString(),positionInsert());
 		
 		return dao.insertArcion();
 	}
 	//사원정보 수정
 	private void updateAction() {
 		
-		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()),tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()),tfPhone.getText(),Integer.parseInt(tfHourlyWage.getText()),positionInsert());
+		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()),tfStaffName.getText(), String.valueOf(pwfPassword.getPassword()),tfPhone.getText(),Integer.parseInt(tfHourlyWage.getText()),cbShopid.getItemAt(cbShopid.getSelectedIndex()).toString(),positionInsert());
 		
 		boolean ok = dao.updateAction();
 

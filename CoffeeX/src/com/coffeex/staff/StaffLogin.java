@@ -146,13 +146,13 @@ public class StaffLogin {
 					if (CustomerInfo.position.equals("점장") == true) {
 						ManagerViewOrders.main(null);
 					}else if(CustomerInfo.position.equals("관리자") == true) {
-						//관리자 페이지 
+						ChiefSearchSales.main(null);
 					}
 					else {
-					JOptionPane.showMessageDialog(null, CustomerInfo.position);
+					//알바페이
 
 					}
-					JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+					JOptionPane.showMessageDialog(null, CustomerInfo.staffname + "님 로그인 되었습니다.");
 
 				}else {
 

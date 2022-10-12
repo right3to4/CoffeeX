@@ -38,7 +38,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class chiefSearchSales {
+public class ChiefSearchSales {
 	int click = 0;
 	private JFrame frmCoffeex;
 	private JLabel lblNewLabel;
@@ -46,12 +46,6 @@ public class chiefSearchSales {
 	private JLabel lbChangeMenu;
 	private JLabel lbPayment;
 	private JLabel lbStaffManage;
-	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_3_1;
-	private JScrollPane spOrderMade;
-	private JScrollPane spOrderWait;
-	private JLabel lblNewLabel_3_1_1;
-	private JScrollPane spOrderComplete;
 	private JLabel lbName;
 	private JLabel lbPromote;
 	private JLabel lbStaffPayManege;
@@ -59,12 +53,8 @@ public class chiefSearchSales {
 	private final DefaultTableModel Outer_OrderWait = new DefaultTableModel();
 	private final DefaultTableModel Outer_OrderMade = new DefaultTableModel();
 	private final DefaultTableModel Outer_OrderComplete = new DefaultTableModel();
-	private JTable tbOrderComplete;
-	private JTable tbOrderWait;
-	private JTable tbOrderMade;
 	private JLabel lbNotice;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JLabel lbShopInsert;
 
 	/**
 	 * Launch the application.
@@ -73,7 +63,7 @@ public class chiefSearchSales {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					chiefSearchSales window = new chiefSearchSales();
+					ChiefSearchSales window = new ChiefSearchSales();
 					window.frmCoffeex.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,7 +75,7 @@ public class chiefSearchSales {
 	/**
 	 * Create the application.
 	 */
-	public chiefSearchSales() {
+	public ChiefSearchSales() {
 		initialize();
 	}
 
@@ -99,9 +89,9 @@ public class chiefSearchSales {
 		frmCoffeex.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				OrderWaitTableInit();
-				OrderMadeTableInit();
-				OrderCompleteTableInit();
+//				OrderWaitTableInit();
+//				OrderMadeTableInit();
+//				OrderCompleteTableInit();
 				lbName.setText(CustomerInfo.staffname);
 //				OrderCompleteTableInit();
 //				OrderNoticeTableInit();
@@ -120,7 +110,7 @@ public class chiefSearchSales {
 //						OrderNoticeTableInit();
 //						NoticeSearchAction();
 						
-						refresh();
+//						refresh();
 
 					}
 				};
@@ -137,20 +127,13 @@ public class chiefSearchSales {
 		frmCoffeex.getContentPane().add(getLbPayment());
 		frmCoffeex.getContentPane().add(getLbChangeMenu());
 		frmCoffeex.getContentPane().add(getLbUpdateInfo());
-		frmCoffeex.getContentPane().add(getLblNewLabel_3());
-		frmCoffeex.getContentPane().add(getLblNewLabel_3_1());
-		frmCoffeex.getContentPane().add(getSpOrderMade());
-		frmCoffeex.getContentPane().add(getSpOrderWait());
-		frmCoffeex.getContentPane().add(getLblNewLabel_3_1_1());
-		frmCoffeex.getContentPane().add(getSpOrderComplete());
 		frmCoffeex.getContentPane().add(getLbName());
 		frmCoffeex.getContentPane().add(getLbPromote());
 		frmCoffeex.getContentPane().add(getLbStaffPayManege());
 		frmCoffeex.getContentPane().add(getLbStaffInsertDel());
 		frmCoffeex.getContentPane().add(getLbNotice());
 		frmCoffeex.getContentPane().add(getLblNewLabel());
-		frmCoffeex.getContentPane().add(getBtnNewButton());
-		frmCoffeex.getContentPane().add(getBtnNewButton_1());
+		frmCoffeex.getContentPane().add(getLbShopInsert());
 
 	}
 
@@ -260,10 +243,12 @@ public class chiefSearchSales {
 						lbStaffManage.setForeground(Color.black);
 						lbStaffPayManege.setVisible(true);
 						lbStaffInsertDel.setVisible(true);
+						lbShopInsert.setVisible(true);
 					} else {
 						lbStaffManage.setForeground(Color.white);
 						lbStaffPayManege.setVisible(false);
 						lbStaffInsertDel.setVisible(false);
+						lbShopInsert.setVisible(false);
 					}
 					click++;
 				}
@@ -313,95 +298,6 @@ public class chiefSearchSales {
 		return lbNotice;
 	}
 
-	private JLabel getLblNewLabel_3() {
-		if (lblNewLabel_3 == null) {
-			lblNewLabel_3 = new JLabel("주문 대기");
-			lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3.setBounds(81, 118, 117, 25);
-		}
-		return lblNewLabel_3;
-	}
-
-	private JLabel getLblNewLabel_3_1() {
-		if (lblNewLabel_3_1 == null) {
-			lblNewLabel_3_1 = new JLabel("제조 중");
-			lblNewLabel_3_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1.setBounds(491, 118, 117, 25);
-		}
-		return lblNewLabel_3_1;
-	}
-
-	private JScrollPane getSpOrderMade() {
-		if (spOrderMade == null) {
-			spOrderMade = new JScrollPane();
-			spOrderMade.setBounds(491, 155, 350, 170);
-			spOrderMade.setViewportView(getTbOrderMade());
-
-		}
-		return spOrderMade;
-	}
-
-	private JScrollPane getSpOrderWait() {
-		if (spOrderWait == null) {
-			spOrderWait = new JScrollPane();
-			spOrderWait.setBounds(81, 155, 350, 170);
-			spOrderWait.setViewportView(getTbOrderWait());
-
-		}
-		return spOrderWait;
-	}
-
-	private JScrollPane getSpOrderComplete() {
-		if (spOrderComplete == null) {
-			spOrderComplete = new JScrollPane();
-			spOrderComplete.setBounds(172, 383, 602, 170);
-			spOrderComplete.setViewportView(getTbOrderComplete());
-		}
-		return spOrderComplete;
-	}
-
-	private JTable getTbOrderWait() {
-		if (tbOrderWait == null) {
-			tbOrderWait = new JTable();
-			tbOrderWait.setShowVerticalLines(false);
-			tbOrderWait.setShowHorizontalLines(false);
-			tbOrderWait.setShowGrid(false);
-			tbOrderWait.setModel(Outer_OrderWait);
-		}
-		return tbOrderWait;
-	}
-
-	private JTable getTbOrderMade() {
-		if (tbOrderMade == null) {
-			tbOrderMade = new JTable();
-			tbOrderMade.setShowVerticalLines(false);
-			tbOrderMade.setShowHorizontalLines(false);
-			tbOrderMade.setShowGrid(false);
-			tbOrderMade.setModel(Outer_OrderMade);
-		}
-		return tbOrderMade;
-	}
-
-	private JTable getTbOrderComplete() {
-		if (tbOrderComplete == null) {
-			tbOrderComplete = new JTable();
-			tbOrderComplete.setShowVerticalLines(false);
-			tbOrderComplete.setShowHorizontalLines(false);
-			tbOrderComplete.setShowGrid(false);
-			tbOrderComplete.setModel(Outer_OrderComplete);
-		}
-		return tbOrderComplete;
-	}
-
-	private JLabel getLblNewLabel_3_1_1() {
-		if (lblNewLabel_3_1_1 == null) {
-			lblNewLabel_3_1_1 = new JLabel("제조 완료 현황");
-			lblNewLabel_3_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1_1.setBounds(172, 346, 145, 25);
-		}
-		return lblNewLabel_3_1_1;
-	}
-
 	private JLabel getLbName() {
 		if (lbName == null) {
 			lbName = new JLabel("이름");
@@ -428,6 +324,7 @@ public class chiefSearchSales {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					ManagerViewPayment.main(null);
+					lbShopInsert.setVisible(false);
 					lbStaffInsertDel.setVisible(false);
 					lbStaffPayManege.setVisible(false);
 					lbStaffManage.setForeground(Color.white);
@@ -449,7 +346,8 @@ public class chiefSearchSales {
 			lbStaffInsertDel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					ManagerAddStaff.main(null);
+					ChefUpdateStaff.main(null);
+					lbShopInsert.setVisible(false);
 					lbStaffInsertDel.setVisible(false);
 					lbStaffPayManege.setVisible(false);
 					lbStaffManage.setForeground(Color.white);
@@ -464,38 +362,29 @@ public class chiefSearchSales {
 		lbStaffInsertDel.setVisible(false);
 		return lbStaffInsertDel;
 	}
+	private JLabel getLbShopInsert() {
+		if (lbShopInsert == null) {
+			lbShopInsert = new JLabel("지점등록");
+			lbShopInsert.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					ChefManageShop.main(null);
+					lbShopInsert.setVisible(false);
+					lbStaffInsertDel.setVisible(false);
+					lbStaffPayManege.setVisible(false);
+					lbStaffManage.setForeground(Color.white);
 
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("제조");
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-					int orderid = orderWaitTableClick();
-					dao.AlterStatus(orderid, "제조중");
-					refresh();
 				}
 			});
-			btnNewButton.setBounds(339, 122, 91, 23);
+			lbShopInsert.setHorizontalAlignment(SwingConstants.CENTER);
+			lbShopInsert.setForeground(Color.BLACK);
+			lbShopInsert.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+			lbShopInsert.setBounds(304, 100, 140, 25);
 		}
-		return btnNewButton;
+		lbShopInsert.setVisible(false);
+		return lbShopInsert;
 	}
-
-	private JButton getBtnNewButton_1() {
-		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("완료");
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-					int orderid = orderMadeTableClick();
-					dao.AlterStatus(orderid, "제조완료");
-					refresh();
-				}
-			});
-			btnNewButton_1.setBounds(750, 122, 91, 23);
-		}
-		return btnNewButton_1;
-	}
+	
 
 	// ----------------------------function---------------------------------
 	private void OrderCompleteTableInit() {
@@ -700,5 +589,5 @@ public class chiefSearchSales {
 		searchMenuWait();
 		searchMenuComplete();
 	}
-
+	
 }
