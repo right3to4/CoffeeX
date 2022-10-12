@@ -50,11 +50,19 @@ public class ChiefSearchSales {
 	private JLabel lbPromote;
 	private JLabel lbStaffPayManege;
 	private JLabel lbStaffInsertDel;
-	private final DefaultTableModel Outer_OrderWait = new DefaultTableModel();
-	private final DefaultTableModel Outer_OrderMade = new DefaultTableModel();
-	private final DefaultTableModel Outer_OrderComplete = new DefaultTableModel();
+	private final DefaultTableModel Outer_Shop= new DefaultTableModel();
+	private final DefaultTableModel Outer_Menu = new DefaultTableModel();
+	private final DefaultTableModel Outer_Staff = new DefaultTableModel();
 	private JLabel lbNotice;
 	private JLabel lbShopInsert;
+	private JScrollPane scrollPane;
+	private JTable Inner_Shop;
+	private JScrollPane scrollPane_1;
+	private JScrollPane scrollPane_1_1;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_1_1;
+	private JLabel lblNewLabel_1_1_1;
+	private JLabel lblNewLabel_1_1_2;
 
 	/**
 	 * Launch the application.
@@ -95,6 +103,7 @@ public class ChiefSearchSales {
 				lbName.setText(CustomerInfo.staffname);
 //				OrderCompleteTableInit();
 //				OrderNoticeTableInit();
+				shopTableInit();
 			}
 
 			@Override
@@ -134,6 +143,13 @@ public class ChiefSearchSales {
 		frmCoffeex.getContentPane().add(getLbNotice());
 		frmCoffeex.getContentPane().add(getLblNewLabel());
 		frmCoffeex.getContentPane().add(getLbShopInsert());
+		frmCoffeex.getContentPane().add(getScrollPane());
+		frmCoffeex.getContentPane().add(getScrollPane_1());
+		frmCoffeex.getContentPane().add(getScrollPane_1_1());
+		frmCoffeex.getContentPane().add(getLblNewLabel_1());
+		frmCoffeex.getContentPane().add(getLblNewLabel_1_1());
+		frmCoffeex.getContentPane().add(getLblNewLabel_1_1_1());
+		frmCoffeex.getContentPane().add(getLblNewLabel_1_1_2());
 
 	}
 
@@ -384,210 +400,320 @@ public class ChiefSearchSales {
 		lbShopInsert.setVisible(false);
 		return lbShopInsert;
 	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBounds(114, 131, 749, 124);
+			scrollPane.setViewportView(getInner_Shop());
+		}
+		return scrollPane;
+	}
+	private JTable getInner_Shop() {
+		if (Inner_Shop == null) {
+			Inner_Shop = new JTable();
+			Inner_Shop.setModel(Outer_Shop);
+		}
+		return Inner_Shop;
+	}
+	private JScrollPane getScrollPane_1() {
+		if (scrollPane_1 == null) {
+			scrollPane_1 = new JScrollPane();
+			scrollPane_1.setBounds(114, 280, 749, 124);
+		}
+		return scrollPane_1;
+	}
+	private JScrollPane getScrollPane_1_1() {
+		if (scrollPane_1_1 == null) {
+			scrollPane_1_1 = new JScrollPane();
+			scrollPane_1_1.setBounds(114, 430, 749, 124);
+		}
+		return scrollPane_1_1;
+	}
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("매출현황");
+			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_1.setBounds(413, 85, 152, 34);
+		}
+		return lblNewLabel_1;
+	}
+	private JLabel getLblNewLabel_1_1() {
+		if (lblNewLabel_1_1 == null) {
+			lblNewLabel_1_1 = new JLabel("지점");
+			lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblNewLabel_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+			lblNewLabel_1_1.setBounds(6, 173, 96, 34);
+		}
+		return lblNewLabel_1_1;
+	}
+	private JLabel getLblNewLabel_1_1_1() {
+		if (lblNewLabel_1_1_1 == null) {
+			lblNewLabel_1_1_1 = new JLabel("메뉴");
+			lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblNewLabel_1_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+			lblNewLabel_1_1_1.setBounds(6, 326, 96, 34);
+		}
+		return lblNewLabel_1_1_1;
+	}
+	private JLabel getLblNewLabel_1_1_2() {
+		if (lblNewLabel_1_1_2 == null) {
+			lblNewLabel_1_1_2 = new JLabel("직원");
+			lblNewLabel_1_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblNewLabel_1_1_2.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
+			lblNewLabel_1_1_2.setBounds(6, 476, 96, 34);
+		}
+		return lblNewLabel_1_1_2;
+	}
 	
 
 	// ----------------------------function---------------------------------
-	private void OrderCompleteTableInit() {
+//	private void OrderCompleteTableInit() {
+//
+//		Outer_OrderComplete.addColumn("주문번호");
+//		Outer_OrderComplete.addColumn("메뉴");
+//		Outer_OrderComplete.addColumn("옵션");
+//		Outer_OrderComplete.addColumn("수량");
+//
+//		Outer_OrderComplete.setColumnCount(4);
+//
+//		int i = Outer_OrderComplete.getRowCount();
+//
+//		for (int j = 0; j < i; j++) {
+//			Outer_OrderComplete.removeRow(0);
+//		}
+//
+//		tbOrderComplete.setAutoResizeMode(tbOrderComplete.AUTO_RESIZE_OFF);
+//
+//		int vColIndex = 0;
+//
+//		TableColumn col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+//		int width = 50;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 1;
+//		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+//		width = 100;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 2;
+//		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+//		width = 150;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 3;
+//		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+//		width = 50;
+//		col.setPreferredWidth(width);
+//
+//	}
+//
+//	private void OrderMadeTableInit() {
+//
+//		Outer_OrderMade.addColumn("주문번호");
+//		Outer_OrderMade.addColumn("메뉴");
+//		Outer_OrderMade.addColumn("옵션");
+//		Outer_OrderMade.addColumn("수량");
+//
+//		Outer_OrderMade.setColumnCount(4);
+//
+//		int i = Outer_OrderMade.getRowCount();
+//
+//		for (int j = 0; j < i; j++) {
+//			Outer_OrderMade.removeRow(0);
+//		}
+//
+//		tbOrderMade.setAutoResizeMode(tbOrderMade.AUTO_RESIZE_OFF);
+//
+//		int vColIndex = 0;
+//
+//		TableColumn col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+//		int width = 50;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 1;
+//		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+//		width = 100;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 2;
+//		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+//		width = 150;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 3;
+//		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+//		width = 50;
+//		col.setPreferredWidth(width);
+//
+//	}
+//
+//	private void OrderWaitTableInit() {
+//
+//		Outer_OrderWait.addColumn("주문번호");
+//		Outer_OrderWait.addColumn("메뉴");
+//		Outer_OrderWait.addColumn("옵션");
+//		Outer_OrderWait.addColumn("수량");
+//
+//		Outer_OrderWait.setColumnCount(4);
+//
+//		int i = Outer_OrderWait.getRowCount();
+//
+//		for (int j = 0; j < i; j++) {
+//			Outer_OrderWait.removeRow(0);
+//		}
+//
+//		tbOrderWait.setAutoResizeMode(tbOrderWait.AUTO_RESIZE_OFF);
+//
+//		int vColIndex = 0;
+//
+//		TableColumn col = tbOrderWait.getColumnModel().getColumn(vColIndex);
+//		int width = 50;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 1;
+//		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
+//		width = 100;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 2;
+//		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
+//		width = 150;
+//		col.setPreferredWidth(width);
+//
+//		vColIndex = 3;
+//		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
+//		width = 50;
+//		col.setPreferredWidth(width);
+//
+//	}
+//
+//	private int orderWaitTableClick() {
+//		int i = tbOrderWait.getSelectedRow();
+//		int orderid = Integer.parseInt((String) tbOrderWait.getValueAt(i, 0));
+//		return orderid;
+//	}
+//
+//	private int orderMadeTableClick() {
+//		int i = tbOrderMade.getSelectedRow();
+//		int orderid = Integer.parseInt((String) tbOrderMade.getValueAt(i, 0));
+//		return orderid;
+//	}
 
-		Outer_OrderComplete.addColumn("주문번호");
-		Outer_OrderComplete.addColumn("메뉴");
-		Outer_OrderComplete.addColumn("옵션");
-		Outer_OrderComplete.addColumn("수량");
+//	private void searchMenuWait() {
+//		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+//		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("주문접수");
+//
+//		int listCount = dtoList.size();
+//
+//		for (int index = 0; index < listCount; index++) {
+//			int orderid = dtoList.get(index).getOrderid();
+//			String menu = dtoList.get(index).getMenuname();
+//			String option = dtoList.get(index).getOrdersoptions();
+//			int quantity = dtoList.get(index).getQuantity();
+//			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+//			Outer_OrderWait.addRow(qTxt);
+//		}
+//	}
+//
+//	private void searchMenuMade() {
+//		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+//		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("제조중");
+//
+//		int listCount = dtoList.size();
+//
+//		for (int index = 0; index < listCount; index++) {
+//			int orderid = dtoList.get(index).getOrderid();
+//			String menu = dtoList.get(index).getMenuname();
+//			String option = dtoList.get(index).getOrdersoptions();
+//			int quantity = dtoList.get(index).getQuantity();
+//			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+//			Outer_OrderMade.addRow(qTxt);
+//		}
+//	}
+//
+//	private void searchMenuComplete() {
+//		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
+//		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("제조완료");
+//
+//		int listCount = dtoList.size();
+//
+//		for (int index = 0; index < listCount; index++) {
+//			int orderid = dtoList.get(index).getOrderid();
+//			String menu = dtoList.get(index).getMenuname();
+//			String option = dtoList.get(index).getOrdersoptions();
+//			int quantity = dtoList.get(index).getQuantity();
+//			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+//			Outer_OrderComplete.addRow(qTxt);
+//		}
+//	}
+//	
+//	public void refresh() {
+//		int i = Outer_OrderWait.getRowCount();
+//
+//		for (int j = 0; j < i; j++) {
+//			Outer_OrderWait.removeRow(0);
+//		}
+//
+//		i = Outer_OrderMade.getRowCount();
+//
+//		for (int j = 0; j < i; j++) {
+//			Outer_OrderMade.removeRow(0);
+//		}
+//
+//		i = Outer_OrderComplete.getRowCount();
+//
+//		for (int j = 0; j < i; j++) {
+//			Outer_OrderComplete.removeRow(0);
+//		}
+//		searchMenuMade();
+//		searchMenuWait();
+//		searchMenuComplete();
+//	}
+	private void shopTableInit() {
 
-		Outer_OrderComplete.setColumnCount(4);
+		Outer_Shop.addColumn("주문번호");
+		Outer_Shop.addColumn("메뉴");
+		Outer_Shop.addColumn("옵션");
+		Outer_Shop.addColumn("수량");
+		Outer_Shop.addColumn("포장");
 
-		int i = Outer_OrderComplete.getRowCount();
+		Outer_Shop.setColumnCount(5);
+
+		int i = Outer_Shop.getRowCount();
 
 		for (int j = 0; j < i; j++) {
-			Outer_OrderComplete.removeRow(0);
+			Outer_Shop.removeRow(0);
 		}
 
-		tbOrderComplete.setAutoResizeMode(tbOrderComplete.AUTO_RESIZE_OFF);
+		Inner_Shop.setAutoResizeMode(Inner_Shop.AUTO_RESIZE_OFF);
 
 		int vColIndex = 0;
 
-		TableColumn col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+		TableColumn col = Inner_Shop.getColumnModel().getColumn(vColIndex);
 		int width = 50;
 		col.setPreferredWidth(width);
 
 		vColIndex = 1;
-		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+		col = Inner_Shop.getColumnModel().getColumn(vColIndex);
 		width = 100;
 		col.setPreferredWidth(width);
 
 		vColIndex = 2;
-		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 150;
-		col.setPreferredWidth(width);
-
-		vColIndex = 3;
-		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 50;
-		col.setPreferredWidth(width);
-
-	}
-
-	private void OrderMadeTableInit() {
-
-		Outer_OrderMade.addColumn("주문번호");
-		Outer_OrderMade.addColumn("메뉴");
-		Outer_OrderMade.addColumn("옵션");
-		Outer_OrderMade.addColumn("수량");
-
-		Outer_OrderMade.setColumnCount(4);
-
-		int i = Outer_OrderMade.getRowCount();
-
-		for (int j = 0; j < i; j++) {
-			Outer_OrderMade.removeRow(0);
-		}
-
-		tbOrderMade.setAutoResizeMode(tbOrderMade.AUTO_RESIZE_OFF);
-
-		int vColIndex = 0;
-
-		TableColumn col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		int width = 50;
-		col.setPreferredWidth(width);
-
-		vColIndex = 1;
-		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+		col = Inner_Shop.getColumnModel().getColumn(vColIndex);
 		width = 100;
 		col.setPreferredWidth(width);
 
-		vColIndex = 2;
-		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 150;
-		col.setPreferredWidth(width);
-
 		vColIndex = 3;
-		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+		col = Inner_Shop.getColumnModel().getColumn(vColIndex);
 		width = 50;
 		col.setPreferredWidth(width);
-
-	}
-
-	private void OrderWaitTableInit() {
-
-		Outer_OrderWait.addColumn("주문번호");
-		Outer_OrderWait.addColumn("메뉴");
-		Outer_OrderWait.addColumn("옵션");
-		Outer_OrderWait.addColumn("수량");
-
-		Outer_OrderWait.setColumnCount(4);
-
-		int i = Outer_OrderWait.getRowCount();
-
-		for (int j = 0; j < i; j++) {
-			Outer_OrderWait.removeRow(0);
-		}
-
-		tbOrderWait.setAutoResizeMode(tbOrderWait.AUTO_RESIZE_OFF);
-
-		int vColIndex = 0;
-
-		TableColumn col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		int width = 50;
+		
+		vColIndex = 4;
+		col = Inner_Shop.getColumnModel().getColumn(vColIndex);
+		width = 60;
 		col.setPreferredWidth(width);
 
-		vColIndex = 1;
-		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 100;
-		col.setPreferredWidth(width);
-
-		vColIndex = 2;
-		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 150;
-		col.setPreferredWidth(width);
-
-		vColIndex = 3;
-		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 50;
-		col.setPreferredWidth(width);
-
-	}
-
-	private int orderWaitTableClick() {
-		int i = tbOrderWait.getSelectedRow();
-		int orderid = Integer.parseInt((String) tbOrderWait.getValueAt(i, 0));
-		return orderid;
-	}
-
-	private int orderMadeTableClick() {
-		int i = tbOrderMade.getSelectedRow();
-		int orderid = Integer.parseInt((String) tbOrderMade.getValueAt(i, 0));
-		return orderid;
-	}
-
-	private void searchMenuWait() {
-		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("주문접수");
-
-		int listCount = dtoList.size();
-
-		for (int index = 0; index < listCount; index++) {
-			int orderid = dtoList.get(index).getOrderid();
-			String menu = dtoList.get(index).getMenuname();
-			String option = dtoList.get(index).getOrdersoptions();
-			int quantity = dtoList.get(index).getQuantity();
-			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
-			Outer_OrderWait.addRow(qTxt);
-		}
-	}
-
-	private void searchMenuMade() {
-		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("제조중");
-
-		int listCount = dtoList.size();
-
-		for (int index = 0; index < listCount; index++) {
-			int orderid = dtoList.get(index).getOrderid();
-			String menu = dtoList.get(index).getMenuname();
-			String option = dtoList.get(index).getOrdersoptions();
-			int quantity = dtoList.get(index).getQuantity();
-			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
-			Outer_OrderMade.addRow(qTxt);
-		}
-	}
-
-	private void searchMenuComplete() {
-		ManagerViewOrdersDao dao = new ManagerViewOrdersDao();
-		ArrayList<OrdersViewDto> dtoList = dao.ShowOrdersListByStatus("제조완료");
-
-		int listCount = dtoList.size();
-
-		for (int index = 0; index < listCount; index++) {
-			int orderid = dtoList.get(index).getOrderid();
-			String menu = dtoList.get(index).getMenuname();
-			String option = dtoList.get(index).getOrdersoptions();
-			int quantity = dtoList.get(index).getQuantity();
-			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
-			Outer_OrderComplete.addRow(qTxt);
-		}
-	}
-	
-	public void refresh() {
-		int i = Outer_OrderWait.getRowCount();
-
-		for (int j = 0; j < i; j++) {
-			Outer_OrderWait.removeRow(0);
-		}
-
-		i = Outer_OrderMade.getRowCount();
-
-		for (int j = 0; j < i; j++) {
-			Outer_OrderMade.removeRow(0);
-		}
-
-		i = Outer_OrderComplete.getRowCount();
-
-		for (int j = 0; j < i; j++) {
-			Outer_OrderComplete.removeRow(0);
-		}
-		searchMenuMade();
-		searchMenuWait();
-		searchMenuComplete();
 	}
 	
 }
