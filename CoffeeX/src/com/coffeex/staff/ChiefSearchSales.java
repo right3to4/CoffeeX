@@ -97,12 +97,7 @@ public class ChiefSearchSales {
 		frmCoffeex.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-//				OrderWaitTableInit();
-//				OrderMadeTableInit();
-//				OrderCompleteTableInit();
 				lbName.setText(CustomerInfo.staffname);
-//				OrderCompleteTableInit();
-//				OrderNoticeTableInit();
 				shopTableInit();
 			}
 
@@ -115,9 +110,7 @@ public class ChiefSearchSales {
 					public void run() {
 						// TODO Auto-generated method stub
 
-						// Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
-//						OrderNoticeTableInit();
-//						NoticeSearchAction();
+
 						
 //						refresh();
 
@@ -715,5 +708,6 @@ public class ChiefSearchSales {
 		col.setPreferredWidth(width);
 
 	}
+	
 	
 }
