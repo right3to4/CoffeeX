@@ -189,6 +189,7 @@ public class KioskOrder extends JPanel {
 					lblAddpointfalse.setBackground(new Color(178, 158, 136));
 					lblAddpointtrue.setBackground(new Color(148, 128, 96));
 					addpoint = false;
+					panelPoint.setVisible(false);
 				}
 			});
 			lblAddpointfalse.setHorizontalAlignment(SwingConstants.CENTER);

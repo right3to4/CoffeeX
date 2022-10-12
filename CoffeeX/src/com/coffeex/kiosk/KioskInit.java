@@ -18,6 +18,8 @@ import java.util.Random;
 
 import javax.swing.SwingConstants;
 
+import com.coffeex.dto.MenuViewDto;
+import com.coffeex.dto.OrdersViewDto;
 import com.coffeex.kioskdao.KioskOrderDao;
 import com.coffeex.kioskdao.KioskSetOptionDao;
 import com.coffeex.kioskdao.KioskViewMenuDao;
@@ -94,7 +96,7 @@ public class KioskInit {
 				kioskmanage.setVisible(false);
 			}
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosed(WindowEvent e) {
 				closingAction();
 			}
 		});
@@ -334,6 +336,9 @@ public class KioskInit {
 					if (kioskorder.addpoint == true) {
 						dao.addPoint(kioskorder.tfPhone.getText(), (int) (sumPrice() * 0.1));
 					}
+					
+					closingAction();
+					
 				}
 
 				@Override
@@ -386,6 +391,7 @@ public class KioskInit {
 					kioskorder.lblwithcard.setBackground(new Color(148, 128, 96));
 					kioskorder.lblwithpoint.setBackground(new Color(148, 128, 96));
 					dao00.ShowTodaysMenuList();
+					closingAction();
 				}
 
 				@Override
@@ -525,14 +531,12 @@ public class KioskInit {
 		return price;
 	}
 	
-	private void closingAction() {
+	public void closingAction() {
 		
-		for(int index=0; index < panel.dto.size(); index++) {
-			File file = new File(panel.dto.get(index).getPhoto());
+		for(int index=0; index <= 1000; index++) {
+			File file = new File("./" + index);
 			file.delete();
-			
 		}
-		
 	}
 
 }

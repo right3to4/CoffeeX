@@ -107,7 +107,7 @@ public class ManagerChangeMenu {
 	private JScrollPane getSpSearchMenu() {
 		if (spSearchMenu == null) {
 			spSearchMenu = new JScrollPane();
-			spSearchMenu.setBounds(6, 80, 588, 126);
+			spSearchMenu.setBounds(6, 80, 568, 126);
 			spSearchMenu.setViewportView(getTbSearchMenu());
 		}
 		return spSearchMenu;
@@ -115,7 +115,7 @@ public class ManagerChangeMenu {
 	private JScrollPane getSpSelectMenu() {
 		if (spSelectMenu == null) {
 			spSelectMenu = new JScrollPane();
-			spSelectMenu.setBounds(6, 229, 588, 55);
+			spSelectMenu.setBounds(6, 229, 568, 55);
 			spSelectMenu.setViewportView(getTbSelectMenu());
 		}
 		return spSelectMenu;
@@ -174,7 +174,7 @@ public class ManagerChangeMenu {
 		if (editorPane == null) {
 			editorPane = new JEditorPane();
 			editorPane.setText("소개글을 작성해 주세요.");
-			editorPane.setBounds(266, 323, 328, 143);
+			editorPane.setBounds(266, 323, 308, 143);
 			
 		}
 		return editorPane;

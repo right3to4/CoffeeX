@@ -25,7 +25,7 @@ public class ManagerViewOrdersDao {
 
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
 		String whereStatement = "select orderid, menu, quantity, ordersoption, place from orderview ";
-		String whereStatement2 = "where ordersstatus='" + status + "'";
+		String whereStatement2 = "where ordersstatus='" + status + "' and shop='" + DBConnect.shopname + "';";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
