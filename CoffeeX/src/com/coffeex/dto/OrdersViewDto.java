@@ -11,6 +11,7 @@ public class OrdersViewDto {
 	int quantity;
 	int price;
 	String ordersoptions;
+	String orderplace;
 
 	public OrdersViewDto(String orderyear, String ordermonth, int price) {
 		super();
@@ -19,12 +20,13 @@ public class OrdersViewDto {
 		this.price = price;
 	}
 
-	public OrdersViewDto(int orderid, String menuname, int quantity, String ordersoptions) {
+	public OrdersViewDto(int orderid, String menuname, int quantity, String ordersoptions, String orderplace) {
 		super();
 		this.orderid = orderid;
 		this.menuname = menuname;
 		this.quantity = quantity;
 		this.ordersoptions = ordersoptions;
+		this.orderplace = orderplace;
 	}
 
 	public OrdersViewDto(String menuname, int quantity, int price) {
@@ -32,6 +34,16 @@ public class OrdersViewDto {
 		this.menuname = menuname;
 		this.quantity = quantity;
 		this.price = price;
+	}
+	
+	
+
+	public String getOrderplace() {
+		return orderplace;
+	}
+
+	public void setOrderplace(String orderplace) {
+		this.orderplace = orderplace;
 	}
 
 	public int getStaffid() {

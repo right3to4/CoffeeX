@@ -278,9 +278,8 @@ public class KioskViewMenu extends JPanel {
 
 		for (int index = 0; index < listCount; index++) {
 			String filepath=Integer.toString(DBConnect.filename);
-			ImageIcon image = new ImageIcon(filepath);
-			File file = new File(filepath);
-			file.delete();
+			ImageIcon image = new ImageIcon(dto.get(index).getPhoto());
+//			File file = new File(dto.get(index).getPhoto());
 			String temp = dto.get(index).getMenuname();
 			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
@@ -297,9 +296,9 @@ public class KioskViewMenu extends JPanel {
 		for (int index = 0; index < listCount; index++) {
 			String filepath=Integer.toString(DBConnect.filename);
 			String temp = dto.get(index).getMenuname();
-			File file = new File(filepath);
-			ImageIcon image = new ImageIcon("./" + file.getName());
-			file.delete();
+//			File file = new File(filepath);
+			ImageIcon image = new ImageIcon("./" + dto.get(index).getPhoto());
+//			file.delete();
 			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
 			Outer_Table.addRow(qTxt);
 		}

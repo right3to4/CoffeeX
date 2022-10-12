@@ -84,6 +84,8 @@ public class MenuViewDto {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+	
+	
 
 	public String getUpdatedate() {
 		return updatedate;

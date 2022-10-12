@@ -120,7 +120,7 @@ public class ManagerViewOrders {
 						// Outer_Notice.fireTableRowsUpdated(0, NoticeSearchAction());
 //						OrderNoticeTableInit();
 //						NoticeSearchAction();
-						
+
 						refresh();
 
 					}
@@ -508,8 +508,9 @@ public class ManagerViewOrders {
 		Outer_OrderComplete.addColumn("메뉴");
 		Outer_OrderComplete.addColumn("옵션");
 		Outer_OrderComplete.addColumn("수량");
+		Outer_OrderWait.addColumn("포장");
 
-		Outer_OrderComplete.setColumnCount(4);
+		Outer_OrderComplete.setColumnCount(5);
 
 		int i = Outer_OrderComplete.getRowCount();
 
@@ -532,12 +533,17 @@ public class ManagerViewOrders {
 
 		vColIndex = 2;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 150;
+		width = 100;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
 		width = 50;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 4;
+		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
+		width = 60;
 		col.setPreferredWidth(width);
 
 	}
@@ -548,8 +554,9 @@ public class ManagerViewOrders {
 		Outer_OrderMade.addColumn("메뉴");
 		Outer_OrderMade.addColumn("옵션");
 		Outer_OrderMade.addColumn("수량");
+		Outer_OrderWait.addColumn("포장");
 
-		Outer_OrderMade.setColumnCount(4);
+		Outer_OrderMade.setColumnCount(5);
 
 		int i = Outer_OrderMade.getRowCount();
 
@@ -572,12 +579,17 @@ public class ManagerViewOrders {
 
 		vColIndex = 2;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 150;
+		width = 100;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
 		width = 50;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 4;
+		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
+		width = 60;
 		col.setPreferredWidth(width);
 
 	}
@@ -588,8 +600,9 @@ public class ManagerViewOrders {
 		Outer_OrderWait.addColumn("메뉴");
 		Outer_OrderWait.addColumn("옵션");
 		Outer_OrderWait.addColumn("수량");
+		Outer_OrderWait.addColumn("포장");
 
-		Outer_OrderWait.setColumnCount(4);
+		Outer_OrderWait.setColumnCount(5);
 
 		int i = Outer_OrderWait.getRowCount();
 
@@ -612,12 +625,17 @@ public class ManagerViewOrders {
 
 		vColIndex = 2;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 150;
+		width = 100;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
 		width = 50;
+		col.setPreferredWidth(width);
+
+		vColIndex = 4;
+		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
+		width = 60;
 		col.setPreferredWidth(width);
 
 	}
@@ -645,7 +663,8 @@ public class ManagerViewOrders {
 			String menu = dtoList.get(index).getMenuname();
 			String option = dtoList.get(index).getOrdersoptions();
 			int quantity = dtoList.get(index).getQuantity();
-			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+			String place = dtoList.get(index).getOrderplace();
+			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity), place };
 			Outer_OrderWait.addRow(qTxt);
 		}
 	}
@@ -661,7 +680,8 @@ public class ManagerViewOrders {
 			String menu = dtoList.get(index).getMenuname();
 			String option = dtoList.get(index).getOrdersoptions();
 			int quantity = dtoList.get(index).getQuantity();
-			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+			String place = dtoList.get(index).getOrderplace();
+			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity), place };
 			Outer_OrderMade.addRow(qTxt);
 		}
 	}
@@ -677,11 +697,12 @@ public class ManagerViewOrders {
 			String menu = dtoList.get(index).getMenuname();
 			String option = dtoList.get(index).getOrdersoptions();
 			int quantity = dtoList.get(index).getQuantity();
-			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity) };
+			String place = dtoList.get(index).getOrderplace();
+			String[] qTxt = { Integer.toString(orderid), menu, option, Integer.toString(quantity), place };
 			Outer_OrderComplete.addRow(qTxt);
 		}
 	}
-	
+
 	public void refresh() {
 		int i = Outer_OrderWait.getRowCount();
 
@@ -707,6 +728,7 @@ public class ManagerViewOrders {
 		lblOrdersMaking.setText("총 " + Outer_OrderMade.getRowCount() + "건");
 		lblOrdersComplete.setText("총 " + Outer_OrderComplete.getRowCount() + "건");
 	}
+
 	private JLabel getLblOrdersWaiting() {
 		if (lblOrdersWaiting == null) {
 			lblOrdersWaiting = new JLabel("New label");
@@ -715,6 +737,7 @@ public class ManagerViewOrders {
 		}
 		return lblOrdersWaiting;
 	}
+
 	private JLabel getLblOrdersMaking() {
 		if (lblOrdersMaking == null) {
 			lblOrdersMaking = new JLabel("New label");
@@ -723,6 +746,7 @@ public class ManagerViewOrders {
 		}
 		return lblOrdersMaking;
 	}
+
 	private JLabel getLblOrdersComplete() {
 		if (lblOrdersComplete == null) {
 			lblOrdersComplete = new JLabel("New label");

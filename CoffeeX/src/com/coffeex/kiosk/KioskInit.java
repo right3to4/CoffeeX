@@ -527,8 +527,8 @@ public class KioskInit {
 	
 	private void closingAction() {
 		
-		for(int index=0; index < panel.dto.size()-1; index++) {
-			File file = new File("./" + panel.dto.get(index).getPhoto());
+		for(int index=0; index < panel.dto.size(); index++) {
+			File file = new File(panel.dto.get(index).getPhoto());
 			file.delete();
 			
 		}
