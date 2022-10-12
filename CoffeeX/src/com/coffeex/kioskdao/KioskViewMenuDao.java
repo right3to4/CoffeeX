@@ -27,7 +27,8 @@ public class KioskViewMenuDao {
 		ArrayList<MenuViewDto> dtoList = new ArrayList<MenuViewDto>();
 		String whereStatement = "select menuname, price from mmanage ";
 		String WhereStatement2 = "where date(updatedate)=curdate() or date(createdate)=curdate() ";
-		String whereStatement3 = "and shopname='" + DBConnect.shopname + "';";
+		String whereStatement3 = "and shopname='" + "신림점" + "';";
+//		String whereStatement3 = "and shopname='" + DBConnect.shopname + "';";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

@@ -779,7 +779,7 @@ public class KioskOrder extends JPanel {
 		int vColIndex = 0;
 
 		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		int width = 100;
+		int width = 80;
 		col.setPreferredWidth(width);
 
 		vColIndex = 1;
@@ -799,7 +799,7 @@ public class KioskOrder extends JPanel {
 
 		vColIndex = 4;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 150;
+		width = 190;
 		col.setPreferredWidth(width);
 	}
 
