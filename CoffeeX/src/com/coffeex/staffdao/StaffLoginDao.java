@@ -35,7 +35,7 @@ public class StaffLoginDao {
 		int check =0;
 		try{
 			String whereStatement = "select count(staffid),staffname from staff ";
-			String whereStatement2 = "where staffid = '" + staffid + "' and staffpw = '" + staffpw + "'"; 
+			String whereStatement2 = "where staffid = '" + staffid + "' and staffpw = '" + staffpw + "' and staffdeletedate is null"; 
 			
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

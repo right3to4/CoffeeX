@@ -28,3 +28,9 @@ public class DBConnect {
 //select customer.custid as custid, menu.menuname as menu, menu.mprice as price, addcart.addcartquantity as quantity, addcart.addcartoption as addoption
 //from customer, menu, addcart
 //where customer.custid=addcart.custid and menu.menuid=addcart.mmanegeid;
+//
+//create view managermenumanage as
+//select menu.menuid as menuid, menu.mcategory as category, menu.menuname as menuname, menu.mprice as price, menu.menuphoto as photo,
+//menu.menuinfo as info, date(menumanage.mmanagecreatedate) as createdate, menu.mupdatedate as updatedate, shop.shopid as shopname
+//from menu, shop, menumanage
+//where menumanage.mmanagemenuid=menu.menuid and menumanage.mmanageshopid=shop.shopid and menu.mdeletedate is null;
