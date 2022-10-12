@@ -10,7 +10,7 @@ public class DBConnect {
 	public static final String id_mysql = "root";
 	public static final String pw = "qwer1234";
 	public static int filename = 0;
-	public static String shopname="신림점";
+	public static String shopname="강남점";
 }
 //create view mmanage as
 //select menu.mcategory as category, menu.menuname as menuname, menu.mprice as price, menu.menuphoto as photo,

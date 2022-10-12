@@ -44,9 +44,8 @@ public class KioskInit {
 	public static String menuname;
 	public static JLabel lblPayButton;
 
-
 	KioskOrderDao dao0 = new KioskOrderDao();
-	KioskViewMenuDao dao00=new KioskViewMenuDao();
+	KioskViewMenuDao dao00 = new KioskViewMenuDao();
 	public static JLabel lblNewLabel;
 
 	/**
@@ -93,6 +92,7 @@ public class KioskInit {
 				lblPayButton.setVisible(false);
 				kioskmanage.setVisible(false);
 			}
+
 			@Override
 			public void windowClosing(WindowEvent e) {
 //				closingAction();
@@ -131,7 +131,7 @@ public class KioskInit {
 					lblCancelbutton.setVisible(true);
 					lblorderbutton.setVisible(false);
 					lblNewLabel.setVisible(false);
-					
+
 				}
 
 				@Override
@@ -154,7 +154,8 @@ public class KioskInit {
 			lblAd = new JLabel("");
 			lblAd.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblAd.setHorizontalAlignment(SwingConstants.CENTER);
-			lblAd.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/KakaoTalk_20221011_213641747.jpg")));
+			lblAd.setIcon(new ImageIcon(
+					KioskInit.class.getResource("/com/coffeex/kiosk/image/KakaoTalk_20221011_213641747.jpg")));
 			lblAd.setBounds(12, 10, 426, 426);
 		}
 		return lblAd;
@@ -168,8 +169,6 @@ public class KioskInit {
 		}
 		return panel;
 	}
-	
-
 
 	private KioskManage getKioskmanage() {
 		if (kioskmanage == null) {
@@ -210,7 +209,7 @@ public class KioskInit {
 					int i = panel.Inner_Table.getSelectedRow();
 					menuname = (String) panel.Inner_Table.getValueAt(i, 1);
 					lblConfirm.setVisible(true);
-					kioskoption.lblMenuName.setText(menuname);
+					kioskoption.lblMenuName.setText(KioskViewMenu.selectedname);
 				}
 
 				@Override
@@ -293,9 +292,9 @@ public class KioskInit {
 						orderdao.AddCart(wkmmanageid, wkcustid, wkquantity, wkoption);
 					}
 					kioskorder.searchCart(wkcustid);
-					
+
 					kioskorder.lblNewLabel_4.setText("총 금액: " + sumPrice());
-					
+
 				}
 
 				@Override
@@ -333,7 +332,7 @@ public class KioskInit {
 					} else {
 						Pay();
 					}
-					JOptionPane.showMessageDialog(null,"결제가 완료되었습니다");
+					JOptionPane.showMessageDialog(null, "결제가 완료되었습니다");
 
 					if (kioskorder.addpoint == true) {
 						dao.addPoint(kioskorder.tfPhone.getText(), (int) (sumPrice() * 0.1));
@@ -533,15 +532,15 @@ public class KioskInit {
 		}
 		return price;
 	}
-	
+
 	private void closingAction() {
-		
-		for(int index=0; index < panel.dto.size(); index++) {
+
+		for (int index = 0; index < panel.dto.size(); index++) {
 			File file = new File(panel.dto.get(index).getPhoto());
 			file.delete();
-			
+
 		}
-		
+
 	}
 
 }
