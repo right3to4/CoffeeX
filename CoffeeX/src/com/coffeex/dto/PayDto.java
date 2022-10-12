@@ -19,8 +19,10 @@ public class PayDto {
 		this.paydate = paydate;
 	}
 
-	public PayDto(String paydate) {
+	public PayDto(int payamount, int payincentive, String paydate) {
 		super();
+		this.payamount = payamount;
+		this.payincentive = payincentive;
 		this.paydate = paydate;
 	}
 
