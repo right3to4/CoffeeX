@@ -102,7 +102,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("HOT/ICE");
-			lblNewLabel_1.setForeground(new Color(255, 255, 255));
+			lblNewLabel_1.setForeground(Color.BLACK);
 			lblNewLabel_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_1.setBounds(12, 130, 120, 50);
@@ -114,20 +114,20 @@ public class KioskSetOption extends JPanel {
 		if (lblICE == null) {
 			lblICE = new JLabel("ICE");
 			lblICE.setBackground(new Color(108, 88, 56));
-			lblICE.setForeground(new Color(255, 255, 255));
+			lblICE.setForeground(Color.BLACK);
 			lblICE.setOpaque(true);
 			lblICE.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					lblHOT.setBackground(new Color(108, 88, 56));
-					lblICE.setForeground(new Color(255, 255, 255));
+					lblICE.setForeground(new Color(0, 0, 0));
 					lblICE.setBackground(new Color(0, 0, 255));
 					hotice = "ICE";
 				}
 			});
 			lblICE.setHorizontalAlignment(SwingConstants.CENTER);
 			lblICE.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblICE.setBounds(287, 130, 65, 50);
+			lblICE.setBounds(312, 132, 73, 50);
 		}
 		return lblICE;
 	}
@@ -136,12 +136,12 @@ public class KioskSetOption extends JPanel {
 		if (lblHOT == null) {
 			lblHOT = new JLabel("HOT");
 			lblHOT.setOpaque(true);
-			lblHOT.setForeground(new Color(255, 255, 255));
+			lblHOT.setForeground(Color.BLACK);
 			lblHOT.setBackground(new Color(255, 0, 0));
 			lblHOT.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					lblHOT.setForeground(new Color(255, 255, 255));
+					lblHOT.setForeground(new Color(0, 0, 0));
 					lblHOT.setBackground(new Color(255, 0, 0));
 					lblICE.setBackground(new Color(108, 88, 56));
 					hotice = "HOT";
@@ -149,7 +149,7 @@ public class KioskSetOption extends JPanel {
 			});
 			lblHOT.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHOT.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblHOT.setBounds(161, 130, 65, 50);
+			lblHOT.setBounds(144, 132, 73, 50);
 		}
 		return lblHOT;
 	}
@@ -157,7 +157,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("+");
-			lblNewLabel_2.setForeground(new Color(255, 255, 255));
+			lblNewLabel_2.setForeground(Color.BLACK);
 			lblNewLabel_2.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) { // 수량 늘리기 버튼
@@ -186,7 +186,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblNewLabel_2_2() {
 		if (lblNewLabel_2_2 == null) {
 			lblNewLabel_2_2 = new JLabel("-");
-			lblNewLabel_2_2.setForeground(new Color(255, 255, 255));
+			lblNewLabel_2_2.setForeground(Color.BLACK);
 			lblNewLabel_2_2.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) { // 수량 줄이기 버튼
@@ -218,7 +218,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblQuantity() {
 		if (lblQuantity == null) {
 			lblQuantity = new JLabel("1");
-			lblQuantity.setForeground(new Color(255, 255, 255));
+			lblQuantity.setForeground(Color.BLACK);
 			lblQuantity.setHorizontalAlignment(SwingConstants.CENTER);
 			lblQuantity.setFont(new Font("굴림", Font.PLAIN, 20));
 			lblQuantity.setBounds(273, 58, 65, 50);
@@ -229,7 +229,8 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblOption() {
 		if (lblOption == null) {
 			lblOption = new JLabel("옵션선택");
-			lblOption.setForeground(new Color(255, 255, 255));
+			lblOption.setBackground(Color.WHITE);
+			lblOption.setForeground(Color.BLACK);
 			lblOption.setFont(new Font("굴림", Font.BOLD, 20));
 			lblOption.setHorizontalAlignment(SwingConstants.CENTER);
 			lblOption.setBounds(161, 10, 103, 38);
@@ -240,7 +241,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblNewLabel_1_1() {
 		if (lblNewLabel_1_1 == null) {
 			lblNewLabel_1_1 = new JLabel("샷 양");
-			lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
+			lblNewLabel_1_1.setForeground(Color.BLACK);
 			lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblNewLabel_1_1.setBounds(12, 202, 120, 50);
@@ -251,7 +252,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblLightShot() {
 		if (lblLightShot == null) {
 			lblLightShot = new JLabel("연하게");
-			lblLightShot.setForeground(new Color(255, 255, 255));
+			lblLightShot.setForeground(Color.BLACK);
 			lblLightShot.setBackground(new Color(108, 88, 56));
 			lblLightShot.setOpaque(true);
 			lblLightShot.addMouseListener(new MouseAdapter() {
@@ -274,7 +275,7 @@ public class KioskSetOption extends JPanel {
 		if (lblHeavyShot == null) {
 			lblHeavyShot = new JLabel("진하게");
 			lblHeavyShot.setBackground(new Color(108, 88, 56));
-			lblHeavyShot.setForeground(new Color(255, 255, 255));
+			lblHeavyShot.setForeground(Color.BLACK);
 			lblHeavyShot.setOpaque(true);
 			lblHeavyShot.addMouseListener(new MouseAdapter() {
 				@Override
@@ -296,7 +297,7 @@ public class KioskSetOption extends JPanel {
 		if (lblBasicShot == null) {
 			lblBasicShot = new JLabel("기본");
 			lblBasicShot.setOpaque(true);
-			lblBasicShot.setForeground(new Color(255, 255, 255));
+			lblBasicShot.setForeground(Color.BLACK);
 			lblBasicShot.setBackground(new Color(148, 128, 96));
 			lblBasicShot.addMouseListener(new MouseAdapter() {
 				@Override
@@ -324,7 +325,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblNewLabel_1_1_1() {
 		if (lblNewLabel_1_1_1 == null) {
 			lblNewLabel_1_1_1 = new JLabel("휘핑크림");
-			lblNewLabel_1_1_1.setForeground(new Color(255, 255, 255));
+			lblNewLabel_1_1_1.setForeground(Color.BLACK);
 			lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_1_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblNewLabel_1_1_1.setBounds(12, 273, 120, 50);
@@ -336,7 +337,7 @@ public class KioskSetOption extends JPanel {
 		if (lblNoCream == null) {
 			lblNoCream = new JLabel("안 함");
 			lblNoCream.setOpaque(true);
-			lblNoCream.setForeground(new Color(255, 255, 255));
+			lblNoCream.setForeground(Color.BLACK);
 			lblNoCream.setBackground(new Color(148, 128, 96));
 			lblNoCream.addMouseListener(new MouseAdapter() {
 				@Override
@@ -347,7 +348,7 @@ public class KioskSetOption extends JPanel {
 			});
 			lblNoCream.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNoCream.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblNoCream.setBounds(161, 274, 65, 50);
+			lblNoCream.setBounds(144, 276, 73, 50);
 		}
 		return lblNoCream;
 	}
@@ -355,7 +356,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblWithCream() {
 		if (lblWithCream == null) {
 			lblWithCream = new JLabel("추가");
-			lblWithCream.setForeground(new Color(255, 255, 255));
+			lblWithCream.setForeground(Color.BLACK);
 			lblWithCream.setBackground(new Color(108, 88, 56));
 			lblWithCream.setOpaque(true);
 			lblWithCream.addMouseListener(new MouseAdapter() {
@@ -368,7 +369,7 @@ public class KioskSetOption extends JPanel {
 			});
 			lblWithCream.setHorizontalAlignment(SwingConstants.CENTER);
 			lblWithCream.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-			lblWithCream.setBounds(287, 274, 65, 50);
+			lblWithCream.setBounds(312, 273, 73, 50);
 		}
 		return lblWithCream;
 	}
@@ -376,7 +377,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblNewLabel_1_1_1_1() {
 		if (lblNewLabel_1_1_1_1 == null) {
 			lblNewLabel_1_1_1_1 = new JLabel("시럽");
-			lblNewLabel_1_1_1_1.setForeground(new Color(255, 255, 255));
+			lblNewLabel_1_1_1_1.setForeground(Color.BLACK);
 			lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_1_1_1_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
 			lblNewLabel_1_1_1_1.setBounds(12, 345, 120, 50);
@@ -395,7 +396,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblNoSyrup() {
 		if (lblNoSyrup == null) {
 			lblNoSyrup = new JLabel("안 함");
-			lblNoSyrup.setForeground(new Color(255, 255, 255));
+			lblNoSyrup.setForeground(Color.BLACK);
 			lblNoSyrup.setOpaque(true);
 			lblNoSyrup.setBackground(new Color(148, 128, 96));
 			lblNoSyrup.addMouseListener(new MouseAdapter() {
@@ -404,7 +405,7 @@ public class KioskSetOption extends JPanel {
 					lblNoSyrup.setBackground(new Color(148, 128, 96));
 					lblNutSyrup.setBackground(new Color(108, 88, 56));
 					lblVanillaSyrup.setBackground(new Color(108, 88, 56));
-					lblVanillaSyrup.setForeground(new Color(255, 255, 255));
+					lblVanillaSyrup.setForeground(new Color(0,0,0));
 				}
 			});
 			lblNoSyrup.setHorizontalAlignment(SwingConstants.CENTER);
@@ -418,7 +419,7 @@ public class KioskSetOption extends JPanel {
 		if (lblNutSyrup == null) {
 			lblNutSyrup = new JLabel("헤이즐넛");
 			lblNutSyrup.setBackground(new Color(108, 88, 56));
-			lblNutSyrup.setForeground(new Color(255, 255, 255));
+			lblNutSyrup.setForeground(Color.BLACK);
 			lblNutSyrup.setOpaque(true);
 			lblNutSyrup.addMouseListener(new MouseAdapter() {
 				@Override
@@ -426,7 +427,7 @@ public class KioskSetOption extends JPanel {
 					lblNutSyrup.setBackground(new Color(0xae, 0x9f, 0x80));
 					lblNoSyrup.setBackground(new Color(108, 88, 56));
 					lblVanillaSyrup.setBackground(new Color(108, 88, 56));
-					lblVanillaSyrup.setForeground(new Color(255, 255, 255));
+					lblVanillaSyrup.setForeground(new Color(0,0,0));
 					syrup = ", 헤이즐넛시럽";
 				}
 			});
@@ -440,7 +441,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblVanillaSyrup() {
 		if (lblVanillaSyrup == null) {
 			lblVanillaSyrup = new JLabel("바닐라");
-			lblVanillaSyrup.setForeground(new Color(255, 255, 255));
+			lblVanillaSyrup.setForeground(Color.BLACK);
 			lblVanillaSyrup.setBackground(new Color(108, 88, 56));
 			lblVanillaSyrup.setOpaque(true);
 			lblVanillaSyrup.addMouseListener(new MouseAdapter() {
@@ -463,7 +464,7 @@ public class KioskSetOption extends JPanel {
 	private JLabel getLblMenuName() {
 		if (lblMenuName == null) {
 			lblMenuName = new JLabel(KioskInit.menuname);
-			lblMenuName.setForeground(new Color(255, 255, 255));
+			lblMenuName.setForeground(Color.BLACK);
 			lblMenuName.setHorizontalAlignment(SwingConstants.CENTER);
 			lblMenuName.setFont(new Font("굴림", Font.PLAIN, 15));
 			lblMenuName.setBounds(12, 79, 91, 29);
@@ -473,7 +474,7 @@ public class KioskSetOption extends JPanel {
 
 	public void setOptionDefault() {
 		// HOT or ICE
-		lblHOT.setForeground(new Color(255, 255, 255));
+		lblHOT.setForeground(new Color(0,0,0));
 		lblHOT.setBackground(new Color(255, 0, 0));
 		lblICE.setBackground(new Color(240, 240, 240));
 		lblICE.setForeground(new Color(0, 0, 0));
@@ -491,7 +492,7 @@ public class KioskSetOption extends JPanel {
 		// SYRUP
 		lblNoSyrup.setBackground(new Color(200, 200, 200));
 		lblNutSyrup.setBackground(new Color(240, 240, 240));
-		lblVanillaSyrup.setBackground(new Color(240, 240, 240));
+		lblVanillaSyrup.setBackground(new Color(0, 0, 0));
 		syrup = "";
 		// QUANTITY
 		lblQuantity.setText("1");

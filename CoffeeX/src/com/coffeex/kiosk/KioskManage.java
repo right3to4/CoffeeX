@@ -3,7 +3,6 @@ package com.coffeex.kiosk;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -17,8 +16,8 @@ import com.coffeex.util.DBConnect;
 import javax.swing.JTextField;
 
 public class KioskManage extends JPanel {
-	private JButton btnLogout;
-	private JButton btnExit;
+	private JButton btnNewButton_1;
+	private JButton btnNewButton_2;
 	private JPanel panel;
 	private JButton btnNewButton_3;
 	private JButton btnNewButton_3_1;
@@ -36,7 +35,7 @@ public class KioskManage extends JPanel {
 	private JLabel lblNewLabel;
 
 	ArrayList<String> pw = new ArrayList<String>();
-	private JButton btnShopSetup;
+	private JButton btnNewButton_2_1;
 	private JPanel panel_1;
 	private JTextField tfShopName;
 	private JLabel lblNewLabel_1;
@@ -47,54 +46,51 @@ public class KioskManage extends JPanel {
 	 */
 	public KioskManage() {
 		setLayout(null);
-		add(getPanel_1());
 		add(getPanel());
-		add(getBtnLogout());
-		add(getBtnExit());
-		add(getBtnShopSetup());
+		add(getBtnNewButton_1());
+		add(getBtnNewButton_2());
+		add(getBtnNewButton_2_1());
 		panel_1.setVisible(false);
-		btnLogout.setVisible(false);
-		btnExit.setVisible(false);
-		btnShopSetup.setVisible(false);
+		btnNewButton_1.setVisible(false);
+		btnNewButton_2.setVisible(false);
+		btnNewButton_2_1.setVisible(false);
 	}
 
-	private JButton getBtnLogout() {
-		if (btnLogout == null) {
-			btnLogout = new JButton("관리자 로그아웃");
-			btnLogout.addActionListener(new ActionListener() {
+	private JButton getBtnNewButton_1() {
+		if (btnNewButton_1 == null) {
+			btnNewButton_1 = new JButton("관리자 로그아웃");
+			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					KioskInit.lblCancelbutton.setVisible(false);
+					KioskInit.lblNewLabel.setVisible(true);
 					panel.setVisible(true);
 					setVisible(false);
 					passwordField.setText(null);
+					
 				}
 			});
-			btnLogout.setBounds(130, 114, 114, 50);
+			btnNewButton_1.setBounds(130, 114, 114, 50);
 		}
-		return btnLogout;
+		return btnNewButton_1;
 	}
 
-	private JButton getBtnExit() {
-		if (btnExit == null) {
-			btnExit = new JButton("키오스크 종료");
-			btnExit.addActionListener(new ActionListener() {
+	private JButton getBtnNewButton_2() {
+		if (btnNewButton_2 == null) {
+			btnNewButton_2 = new JButton("키오스크 종료");
+			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					for(int index=1; index <= 1000; index++) {
-						File file = new File("./" + index);
-						file.delete();
-					}
-					System.out.println(DBConnect.filename);
 					System.exit(0);
 				}
 			});
-			btnExit.setBounds(130, 174, 114, 50);
+			btnNewButton_2.setBounds(130, 174, 114, 50);
 		}
-		return btnExit;
+		return btnNewButton_2;
 	}
 
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(66, 77, 261, 306);
+			panel.setBounds(69, 68, 261, 306);
 			panel.setLayout(null);
 			panel.add(getBtnNewButton_3());
 			panel.add(getBtnNewButton_3_1());
@@ -110,6 +106,7 @@ public class KioskManage extends JPanel {
 			panel.add(getBtnNewButton_3_11());
 			panel.add(getPasswordField());
 			panel.add(getLblNewLabel());
+			panel.add(getPanel_1());
 		}
 		return panel;
 	}
@@ -280,9 +277,9 @@ public class KioskManage extends JPanel {
 
 					if (check == true) {
 						panel.setVisible(false);
-						btnLogout.setVisible(true);
-						btnExit.setVisible(true);
-						btnShopSetup.setVisible(true);
+						btnNewButton_1.setVisible(true);
+						btnNewButton_2.setVisible(true);
+						btnNewButton_2_1.setVisible(true);
 						passwordField.setText(null);
 					} else {
 						passwordField.setText(null);
@@ -313,20 +310,12 @@ public class KioskManage extends JPanel {
 		return lblNewLabel;
 	}
 
-	private JButton getBtnShopSetup() {
-		if (btnShopSetup == null) {
-			btnShopSetup = new JButton("지점설정");
-			btnShopSetup.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					panel_1.setVisible(true);
-					btnExit.setVisible(false);
-					btnShopSetup.setVisible(false);
-					btnLogout.setVisible(false);
-				}
-			});
-			btnShopSetup.setBounds(130, 234, 114, 50);
+	private JButton getBtnNewButton_2_1() {
+		if (btnNewButton_2_1 == null) {
+			btnNewButton_2_1 = new JButton("지점설정");
+			btnNewButton_2_1.setBounds(130, 234, 114, 50);
 		}
-		return btnShopSetup;
+		return btnNewButton_2_1;
 	}
 
 	private String ArrtoString(ArrayList<String> arr) {
@@ -348,7 +337,7 @@ public class KioskManage extends JPanel {
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
-			panel_1.setBounds(109, 174, 158, 113);
+			panel_1.setBounds(54, 111, 158, 113);
 			panel_1.setLayout(null);
 			panel_1.add(getTfShopName());
 			panel_1.add(getLblNewLabel_1());
@@ -384,13 +373,10 @@ public class KioskManage extends JPanel {
 					boolean check = dao.checkShopName(tfShopName.getText());
 					if (check == true) {
 						DBConnect.shopname = tfShopName.getText();
-//						JOptionPane.showMessageDialog(null, "변경이 완료되었습니다");
+						JOptionPane.showMessageDialog(null, "변경이 완료되었습니다");
 						panel_1.setVisible(false);
-						btnExit.setVisible(true);
-						btnShopSetup.setVisible(true);
-						btnLogout.setVisible(true);
 					} else {
-//						JOptionPane.showMessageDialog(null, "잘못된 지점명입니다");
+						JOptionPane.showMessageDialog(null, "잘못된 지점명입니다");
 					}
 				}
 			});

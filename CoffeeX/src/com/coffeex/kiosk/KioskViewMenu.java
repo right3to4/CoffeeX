@@ -32,9 +32,10 @@ public class KioskViewMenu extends JPanel {
 	private JScrollPane scrollPane;
 	public JTable Inner_Table;
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
-
+	
 	public static String selectedname;
-	public ArrayList<MenuViewDto> dto = new ArrayList<MenuViewDto>();
+	public ArrayList<MenuViewDto> dto=null;
+	
 
 	/**
 	 * Create the panel.
@@ -71,11 +72,6 @@ public class KioskViewMenu extends JPanel {
 					lblSide.setBackground(new Color(148, 128, 96));
 					tableInit();
 					searchTodaysMenu();
-//					for (int index = 0; index < dto.size(); index++) {
-//						File file = new File("./" + dto.get(index).getPhoto());
-//						System.out.println("./" + dto.get(index).getPhoto());
-//						file.delete();
-//					}
 				}
 			});
 			lblTodaysMenu.setBounds(0, 0, 71, 31);
@@ -102,10 +98,6 @@ public class KioskViewMenu extends JPanel {
 					lblSide.setBackground(new Color(148, 128, 96));
 					tableInit();
 					searchMenuByCategory("커피");
-					for (int index = 0; index < dto.size(); index++) {
-						File file = new File("./" + dto.get(index).getPhoto());
-						file.delete();
-					}
 				}
 			});
 			lblCoffee.setBounds(71, 0, 71, 31);
@@ -130,10 +122,6 @@ public class KioskViewMenu extends JPanel {
 					lblSide.setBackground(new Color(148, 128, 96));
 					tableInit();
 					searchMenuByCategory("에이드");
-					for (int index = 0; index < dto.size(); index++) {
-						File file = new File("./" + dto.get(index).getPhoto());
-						file.delete();
-					}
 				}
 			});
 			lblAide.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,10 +145,6 @@ public class KioskViewMenu extends JPanel {
 					lblSide.setBackground(new Color(148, 128, 96));
 					searchMenuByCategory("티");
 					tableInit();
-					for (int index = 0; index < dto.size(); index++) {
-						File file = new File("./" + dto.get(index).getPhoto());
-						file.delete();
-					}
 				}
 			});
 			lblTea.setOpaque(true);
@@ -186,10 +170,6 @@ public class KioskViewMenu extends JPanel {
 					lblSide.setBackground(new Color(148, 128, 96));
 					searchMenuByCategory("스무디");
 					tableInit();
-					for (int index = 0; index < dto.size(); index++) {
-						File file = new File("./" + dto.get(index).getPhoto());
-						file.delete();
-					}
 				}
 			});
 			lblSmoothie.setOpaque(true);
@@ -215,10 +195,6 @@ public class KioskViewMenu extends JPanel {
 					lblSide.setBackground(new Color(118, 98, 66));
 					searchMenuByCategory("사이드");
 					tableInit();
-					for (int index = 0; index < dto.size(); index++) {
-						File file = new File("./" + dto.get(index).getPhoto());
-						file.delete();
-					}
 				}
 			});
 			lblSide.setOpaque(true);
@@ -242,8 +218,8 @@ public class KioskViewMenu extends JPanel {
 		if (Inner_Table == null) {
 			Inner_Table = new JTable() {
 				public Class getColumnClass(int column) {
-					return (column == 0) ? Icon.class : Object.class;
-				}
+			        return (column == 0) ? Icon.class : Object.class;
+			      }
 			};
 			Inner_Table.addMouseListener(new MouseAdapter() {
 				@Override
@@ -295,60 +271,42 @@ public class KioskViewMenu extends JPanel {
 
 	private void searchTodaysMenu() {
 
-//		if (dto.size() != 0) {
-//			for (int index2 = 0; index2 < dto.size(); index2++) {
-//				File file2 = new File("./" + dto.get(index2).getPhoto());
-////			System.out.println("./" + dto.get(index2).getPhoto());
-//				file2.delete();
-//
-//			}
-			dto = new ArrayList<MenuViewDto>();
-			KioskViewMenuDao dao = new KioskViewMenuDao();
-			dto = dao.ShowTodaysMenuList();
+		KioskViewMenuDao dao = new KioskViewMenuDao();
+		dto = dao.ShowTodaysMenuList();
 
-			int listCount = dto.size();
+		int listCount = dto.size();
 
-			for (int index = 0; index < listCount; index++) {
-				ImageIcon image = new ImageIcon(dto.get(index).getPhoto());
-				File file = new File("./" + dto.get(index).getPhoto());
-				String temp = dto.get(index).getMenuname();
-				Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
-				Outer_Table.addRow(qTxt);
-			}
-
+		for (int index = 0; index < listCount; index++) {
+			String filepath=Integer.toString(DBConnect.filename);
+			ImageIcon image = new ImageIcon(dto.get(index).getPhoto());
+//			File file = new File(dto.get(index).getPhoto());
+			String temp = dto.get(index).getMenuname();
+			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
+			Outer_Table.addRow(qTxt);
 		}
-	
+	}
 
 	private void searchMenuByCategory(String category) {
 
-//		if (dto.size() != 0) {
-//			for (int index2 = 0; index2 < dto.size(); index2++) {
-//				File file2 = new File("./" + dto.get(index2).getPhoto());
-////			System.out.println("./" + dto.get(index2).getPhoto());
-//				file2.delete();
-//
-//			}
-			dto = new ArrayList<MenuViewDto>();
-			KioskViewMenuDao dao = new KioskViewMenuDao();
-			dto = dao.ShowMenuListByCondition(category);
+		KioskViewMenuDao dao = new KioskViewMenuDao();
+		dto = dao.ShowMenuListByCondition(category);
 
-			int listCount = dto.size();
+		int listCount = dto.size();
 
-			for (int index = 0; index < listCount; index++) {
-				String temp = dto.get(index).getMenuname();
-				File file = new File(dto.get(index).getPhoto());
-				ImageIcon image = new ImageIcon("./" + dto.get(index).getPhoto());
-				Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
-				Outer_Table.addRow(qTxt);
-				file.delete();
-			}
+		for (int index = 0; index < listCount; index++) {
+			String filepath=Integer.toString(DBConnect.filename);
+			String temp = dto.get(index).getMenuname();
+//			File file = new File(filepath);
+			ImageIcon image = new ImageIcon("./" + dto.get(index).getPhoto());
+//			file.delete();
+			Object[] qTxt = { image, temp, Integer.toString(dto.get(index).getPrice()) };
+			Outer_Table.addRow(qTxt);
 		}
-	
+	}
 
 	private void tableClick() {
 		int i = Inner_Table.getSelectedRow();
 		selectedname = (String) Inner_Table.getValueAt(i, 2);
 		KioskInit.lblAddbutton.setVisible(true);
 	}
-
 }

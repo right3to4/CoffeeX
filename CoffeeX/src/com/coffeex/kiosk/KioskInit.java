@@ -18,8 +18,6 @@ import java.util.Random;
 
 import javax.swing.SwingConstants;
 
-import com.coffeex.dto.MenuViewDto;
-import com.coffeex.dto.OrdersViewDto;
 import com.coffeex.kioskdao.KioskOrderDao;
 import com.coffeex.kioskdao.KioskSetOptionDao;
 import com.coffeex.kioskdao.KioskViewMenuDao;
@@ -39,7 +37,7 @@ public class KioskInit {
 	private KioskOrder kioskorder; // 최종 결제 패널
 	private KioskManage kioskmanage; // 관리자 메뉴 패널
 	public static JLabel lblAddbutton;
-	private JLabel lblCancelbutton;
+	public static JLabel lblCancelbutton;
 	private JLabel lblAd;
 	private JLabel lblConfirm;
 	private JLabel lblReButton;
@@ -49,7 +47,7 @@ public class KioskInit {
 
 	KioskOrderDao dao0 = new KioskOrderDao();
 	KioskViewMenuDao dao00=new KioskViewMenuDao();
-	private JLabel lblNewLabel;
+	public static JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -96,11 +94,11 @@ public class KioskInit {
 				kioskmanage.setVisible(false);
 			}
 			@Override
-			public void windowClosed(WindowEvent e) {
+			public void windowClosing(WindowEvent e) {
 				closingAction();
 			}
 		});
-		frame.setBounds(100, 100, 466, 550);
+		frame.setBounds(100, 100, 450, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getKioskmanage());
@@ -132,6 +130,8 @@ public class KioskInit {
 					panel.setVisible(true);
 					lblCancelbutton.setVisible(true);
 					lblorderbutton.setVisible(false);
+					lblNewLabel.setVisible(false);
+					
 				}
 
 				@Override
@@ -336,9 +336,6 @@ public class KioskInit {
 					if (kioskorder.addpoint == true) {
 						dao.addPoint(kioskorder.tfPhone.getText(), (int) (sumPrice() * 0.1));
 					}
-					
-					closingAction();
-					
 				}
 
 				@Override
@@ -391,7 +388,6 @@ public class KioskInit {
 					kioskorder.lblwithcard.setBackground(new Color(148, 128, 96));
 					kioskorder.lblwithpoint.setBackground(new Color(148, 128, 96));
 					dao00.ShowTodaysMenuList();
-					closingAction();
 				}
 
 				@Override
@@ -413,13 +409,16 @@ public class KioskInit {
 
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("관리자 메뉴");
+			lblNewLabel = new JLabel("");
+//			lblResult.setIcon(new ImageIcon(Main.class.getResource("/com/javalec/image/bee.png")));
+			lblNewLabel.setIcon(new ImageIcon(KioskInit.class.getResource("/com/coffeex/kiosk/image/keyicon.png")));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					kioskmanage.setVisible(true);
 					lblCancelbutton.setVisible(true);
+					lblNewLabel.setVisible(false);
 				}
 
 				@Override
@@ -432,12 +431,14 @@ public class KioskInit {
 					lblNewLabel.setBackground(new Color(148, 128, 96));
 				}
 			});
-			lblNewLabel.setBounds(85, 474, 70, 22);
+			lblNewLabel.setBounds(0, 457, 59, 61);
 		}
 		return lblNewLabel;
 	}
 
 	private void reset() {
+		lblCancelbutton.setVisible(false);
+		lblNewLabel.setVisible(true);
 		panel.Inner_Table.clearSelection();
 		lblAddbutton.setVisible(false);
 		lblCancelbutton.setVisible(false);
@@ -531,12 +532,14 @@ public class KioskInit {
 		return price;
 	}
 	
-	public void closingAction() {
+	private void closingAction() {
 		
-		for(int index=0; index <= 1000; index++) {
-			File file = new File("./" + index);
+		for(int index=0; index < panel.dto.size(); index++) {
+			File file = new File(panel.dto.get(index).getPhoto());
 			file.delete();
+			
 		}
+		
 	}
 
 }
