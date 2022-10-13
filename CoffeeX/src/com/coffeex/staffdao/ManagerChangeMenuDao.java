@@ -110,7 +110,7 @@ public class ManagerChangeMenuDao {
 
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
 			ps.setInt(1, menuid);
-			ps.setInt(2, 351315);
+			ps.setInt(2, CustomerInfo.staffid);
 			ps.setString(3, DBConnect.shopname);
 			ps.setInt(4, menuid);
 			

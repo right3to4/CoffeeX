@@ -80,4 +80,31 @@ public class KioskManagerDao {
 			return false;
 		}
 	}
+	
+	public String checkShopName(int staffid) {
+		PreparedStatement ps = null;
+		String wkShopid = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			String whereStatement = "select belongshopid from belong ";
+			String whereStatement1 = " where belongstaffid='" + staffid + "';";
+
+			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
+
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement1);
+
+			if (rs.next()) {
+				wkShopid = rs.getString(1);
+			}
+
+			conn_mysql.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return wkShopid;
+	}
 }

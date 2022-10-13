@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.coffeex.dto.OrdersViewDto;
+import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
 public class ManagerViewSalesDao {
@@ -17,7 +18,8 @@ public class ManagerViewSalesDao {
 
 	public ArrayList<OrdersViewDto> searchSalesByMonth() {
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
-		String whereStatement = "select substring(dates, 1, 7), sum(quantity), sum(price) from orderview group by month(dates), year(dates)";
+		String whereStatement = "select substring(dates, 1, 7), sum(quantity), sum(price) from orderview";
+		String whereStatement2=	"where staffid=" + CustomerInfo.staffid + "group by month(dates), year(dates)";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

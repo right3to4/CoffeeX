@@ -35,10 +35,6 @@ public class KioskManage extends JPanel {
 	private JLabel lblNewLabel;
 
 	public static ArrayList<String> pw = new ArrayList<String>();
-	private JPanel panel_1;
-	private JTextField tfShopName;
-	private JLabel lblNewLabel_1;
-	private JButton btnNewButton;
 
 	/**
 	 * Create the panel.
@@ -48,7 +44,6 @@ public class KioskManage extends JPanel {
 		add(getPanel());
 		add(getBtnNewButton_1());
 		add(getBtnNewButton_2());
-		panel_1.setVisible(false);
 		btnNewButton_1.setVisible(false);
 		btnNewButton_2.setVisible(false);
 	}
@@ -107,7 +102,6 @@ public class KioskManage extends JPanel {
 			panel.add(getBtnNewButton_3_11());
 			panel.add(getPasswordField());
 			panel.add(getLblNewLabel());
-			panel.add(getPanel_1());
 		}
 		return panel;
 	}
@@ -275,11 +269,16 @@ public class KioskManage extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					KioskManagerDao dao = new KioskManagerDao();
 					boolean check = dao.loginCheck(ArrtoString(passwordField.getPassword()));
+					String staffid="";
 
 					if (check == true) {
 						panel.setVisible(false);
 						btnNewButton_1.setVisible(true);
 						btnNewButton_2.setVisible(true);
+						for (int i=0;i<passwordField.getPassword().length;i++) {
+							staffid=staffid+passwordField.getPassword()[i];
+						}
+						DBConnect.shopname=dao.checkShopName(Integer.parseInt(staffid));
 						
 						passwordField.setText(null);
 					} else {
@@ -326,56 +325,5 @@ public class KioskManage extends JPanel {
 			str = str + arr[i];
 		}
 		return str;
-	}
-
-	private JPanel getPanel_1() {
-		if (panel_1 == null) {
-			panel_1 = new JPanel();
-			panel_1.setBounds(54, 111, 158, 113);
-			panel_1.setLayout(null);
-			panel_1.add(getTfShopName());
-			panel_1.add(getLblNewLabel_1());
-			panel_1.add(getBtnNewButton());
-		}
-		return panel_1;
-	}
-
-	private JTextField getTfShopName() {
-		if (tfShopName == null) {
-			tfShopName = new JTextField();
-			tfShopName.setBounds(33, 28, 96, 21);
-			tfShopName.setColumns(10);
-		}
-		return tfShopName;
-	}
-
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("지점명 입력");
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1.setBounds(33, 10, 96, 15);
-		}
-		return lblNewLabel_1;
-	}
-
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("확인");
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					KioskManagerDao dao = new KioskManagerDao();
-					boolean check = dao.checkShopName(tfShopName.getText());
-					if (check == true) {
-						DBConnect.shopname = tfShopName.getText();
-						JOptionPane.showMessageDialog(null, "변경이 완료되었습니다");
-						panel_1.setVisible(false);
-					} else {
-						JOptionPane.showMessageDialog(null, "잘못된 지점명입니다");
-					}
-				}
-			});
-			btnNewButton.setBounds(33, 59, 96, 23);
-		}
-		return btnNewButton;
 	}
 }

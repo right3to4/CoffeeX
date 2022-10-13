@@ -40,13 +40,14 @@ public class StaffViewPaymentDao {
 
 		ArrayList<PayDto> paydto = new ArrayList<PayDto>();
 
-		String whereStatement = "select payamount, payincentive, substring(paydate, 1, 10) from pay order by paydate";
+		String whereStatement = "select payamount, payincentive, substring(paydate, 1, 10) from pay";
+		String whereStatement2=" where paystaffid = " + CustomerInfo.staffid + " order by paydate;";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-			ResultSet rs = stmt_mysql.executeQuery(whereStatement);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
 
 			while (rs.next()) {
 
