@@ -100,7 +100,7 @@ public class ChiefSearchSales {
 		frmCoffeex.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				lbName.setText(CustomerInfo.staffname);
+				lbName.setText(CustomerInfo.position + "\t" + CustomerInfo.staffname + "님");
 				shopTableInit();
 				menuTableInit();
 				staffTableInit();
@@ -317,8 +317,8 @@ public class ChiefSearchSales {
 	private JLabel getLbName() {
 		if (lbName == null) {
 			lbName = new JLabel("이름");
-			lbName.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
-			lbName.setBounds(47, 62, 125, 28);
+			lbName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+			lbName.setBounds(16, 51, 150, 28);
 		}
 		return lbName;
 	}
@@ -441,8 +441,7 @@ public class ChiefSearchSales {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("매출현황");
 			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1.setBounds(140, 60, 152, 34);
+			lblNewLabel_1.setBounds(16, 85, 152, 34);
 		}
 		return lblNewLabel_1;
 	}

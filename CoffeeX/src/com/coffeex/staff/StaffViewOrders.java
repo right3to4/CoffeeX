@@ -154,7 +154,7 @@ public class StaffViewOrders {
 		frmCoffeex.getContentPane().add(getLblOrdersWaiting());
 		frmCoffeex.getContentPane().add(getLblOrdersMaking());
 		frmCoffeex.getContentPane().add(getLblOrdersComplete());
-		lblNewLabel_2_1.setText(CustomerInfo.staffname);
+		lblNewLabel_2_1.setText(CustomerInfo.position + "\t" + CustomerInfo.staffname + "님");
 
 	}
 
@@ -372,8 +372,8 @@ public class StaffViewOrders {
 	private JLabel getLblNewLabel_2_1() {
 		if (lblNewLabel_2_1 == null) {
 			lblNewLabel_2_1 = new JLabel("이름");
-			lblNewLabel_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
-			lblNewLabel_2_1.setBounds(47, 62, 125, 28);
+			lblNewLabel_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+			lblNewLabel_2_1.setBounds(10, 58, 140, 28);
 		}
 		return lblNewLabel_2_1;
 	}

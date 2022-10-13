@@ -22,6 +22,7 @@ import com.coffeex.staffdao.ManagerAddStaffDao;
 import com.coffeex.staffdao.ManagerViewOrdersDao;
 import com.coffeex.staffdao.StaffViewPaymentDao;
 import com.coffeex.staffdao.StaffViewSalesDao;
+import com.coffeex.util.CustomerInfo;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -56,6 +57,11 @@ public class StaffViewPayment {
 	private JLabel lblSumSalesprice;
 	private JLabel lblNewLabel_1_1;
 	private JComboBox cbSalesMonth;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_2_1;
+	private JLabel lblNewLabel_3;
+	private JButton btnSearchPay;
+	private JButton btnSearchSales;
 
 	/**
 	 * Launch the application.
@@ -96,8 +102,8 @@ public class StaffViewPayment {
 				frame.setDefaultCloseOperation(2);
 			}
 		});
-		frame.setTitle("판매내역조회");
-		frame.setBounds(100, 100, 600, 500);
+		frame.setTitle("급여 및 판매내역조회");
+		frame.setBounds(100, 100, 600, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getLblNewLabel());
@@ -111,14 +117,19 @@ public class StaffViewPayment {
 		frame.getContentPane().add(getLblSumSalesprice());
 		frame.getContentPane().add(getLblNewLabel_1_1());
 		frame.getContentPane().add(getCbSalesMonth());
+		frame.getContentPane().add(getLblNewLabel_2());
+		frame.getContentPane().add(getLblNewLabel_2_1());
+		frame.getContentPane().add(getLblNewLabel_3());
+		frame.getContentPane().add(getBtnSearchPay());
+		frame.getContentPane().add(getBtnSearchSales());
 		updatePayCombo();
 		updateSalesCombo();
 	}
 
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("날짜조회");
-			lblNewLabel_1.setBounds(20, 68, 50, 23);
+			lblNewLabel_1 = new JLabel("날짜선택");
+			lblNewLabel_1.setBounds(20, 120, 50, 23);
 		}
 		return lblNewLabel_1;
 	}
@@ -132,21 +143,21 @@ public class StaffViewPayment {
 					cbPayDateSearch();
 				}
 			});
-			cbPayMonth.setBounds(75, 67, 107, 27);
+			cbPayMonth.setBounds(75, 119, 107, 27);
 		}
 		return cbPayMonth;
 	}
-	
+
 	private JComboBox getCbSalesMonth() {
 		if (cbSalesMonth == null) {
 			cbSalesMonth = new JComboBox();
 			cbSalesMonth.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent e) {
-						TableInitSales();
-						cbSalesDateSearch();
+					TableInitSales();
+					cbSalesDateSearch();
 				}
 			});
-			cbSalesMonth.setBounds(75, 256, 107, 27);
+			cbSalesMonth.setBounds(75, 334, 107, 27);
 		}
 		return cbSalesMonth;
 	}
@@ -154,7 +165,7 @@ public class StaffViewPayment {
 	private JScrollPane getSPPay() {
 		if (SPPay == null) {
 			SPPay = new JScrollPane();
-			SPPay.setBounds(20, 108, 550, 140);
+			SPPay.setBounds(20, 155, 550, 140);
 			SPPay.setViewportView(getTbPay());
 		}
 		return SPPay;
@@ -163,7 +174,7 @@ public class StaffViewPayment {
 	private JScrollPane getSPSales() {
 		if (SPSales == null) {
 			SPSales = new JScrollPane();
-			SPSales.setBounds(20, 288, 550, 140);
+			SPSales.setBounds(20, 370, 550, 140);
 			SPSales.setViewportView(getTbSales());
 		}
 		return SPSales;
@@ -172,6 +183,7 @@ public class StaffViewPayment {
 	private JTable getTbPay() {
 		if (tbPay == null) {
 			tbPay = new JTable();
+			tbPay.setEnabled(false);
 			tbPay.setShowVerticalLines(false);
 			tbPay.setShowHorizontalLines(false);
 			tbPay.setShowGrid(false);
@@ -186,6 +198,8 @@ public class StaffViewPayment {
 			tbSales.setShowVerticalLines(false);
 			tbSales.setShowHorizontalLines(false);
 			tbSales.setShowGrid(false);
+			tbSales.setFillsViewportHeight(true);
+			tbSales.setEnabled(false);
 			tbSales.setModel(Outer_tbSales);
 		}
 		return tbSales;
@@ -207,7 +221,7 @@ public class StaffViewPayment {
 	private JLabel getLblSumPayAmount() {
 		if (lblSumPayAmount == null) {
 			lblSumPayAmount = new JLabel("급여합계");
-			lblSumPayAmount.setBounds(194, 71, 156, 16);
+			lblSumPayAmount.setBounds(194, 123, 156, 16);
 		}
 		return lblSumPayAmount;
 	}
@@ -215,7 +229,7 @@ public class StaffViewPayment {
 	private JLabel getLblSumPayIncentive() {
 		if (lblSumPayIncentive == null) {
 			lblSumPayIncentive = new JLabel("인센티브합계");
-			lblSumPayIncentive.setBounds(362, 71, 163, 16);
+			lblSumPayIncentive.setBounds(362, 123, 163, 16);
 		}
 		return lblSumPayIncentive;
 	}
@@ -223,7 +237,7 @@ public class StaffViewPayment {
 	private JLabel getLblSumSalesquantity() {
 		if (lblSumSalesquantity == null) {
 			lblSumSalesquantity = new JLabel("총 판매수량");
-			lblSumSalesquantity.setBounds(194, 260, 156, 16);
+			lblSumSalesquantity.setBounds(194, 338, 156, 16);
 		}
 		return lblSumSalesquantity;
 	}
@@ -231,26 +245,76 @@ public class StaffViewPayment {
 	private JLabel getLblSumSalesprice() {
 		if (lblSumSalesprice == null) {
 			lblSumSalesprice = new JLabel("총 판매금액");
-			lblSumSalesprice.setBounds(362, 260, 163, 16);
+			lblSumSalesprice.setBounds(362, 338, 163, 16);
 		}
 		return lblSumSalesprice;
 	}
 
 	private JLabel getLblNewLabel_1_1() {
 		if (lblNewLabel_1_1 == null) {
-			lblNewLabel_1_1 = new JLabel("날짜조회");
-			lblNewLabel_1_1.setBounds(20, 253, 50, 23);
+			lblNewLabel_1_1 = new JLabel("날짜선택");
+			lblNewLabel_1_1.setBounds(20, 335, 50, 23);
 		}
 		return lblNewLabel_1_1;
 	}
 
+	private JButton getBtnSearchPay() {
+		if (btnSearchPay == null) {
+			btnSearchPay = new JButton("전체조회");
+			btnSearchPay.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					TableInitPay();
+					staffPaySearch();
+				}
+			});
+			btnSearchPay.setBounds(89, 87, 81, 29);
+		}
+		return btnSearchPay;
+	}
 
+	private JButton getBtnSearchSales() {
+		if (btnSearchSales == null) {
+			btnSearchSales = new JButton("전체조회");
+			btnSearchSales.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					TableInitSales();
+					staffSalesSearch();
+				}
+			});
+			btnSearchSales.setBounds(89, 302, 81, 29);
+		}
+		return btnSearchSales;
+	}
+
+	private JLabel getLblNewLabel_2() {
+		if (lblNewLabel_2 == null) {
+			lblNewLabel_2 = new JLabel("판매내역조회");
+			lblNewLabel_2.setBounds(20, 307, 74, 16);
+		}
+		return lblNewLabel_2;
+	}
+
+	private JLabel getLblNewLabel_2_1() {
+		if (lblNewLabel_2_1 == null) {
+			lblNewLabel_2_1 = new JLabel("급여내역조회");
+			lblNewLabel_2_1.setBounds(20, 92, 74, 16);
+		}
+		return lblNewLabel_2_1;
+	}
+
+	private JLabel getLblNewLabel_3() {
+		if (lblNewLabel_3 == null) {
+			lblNewLabel_3 = new JLabel(CustomerInfo.position + "\t" + CustomerInfo.staffname + "님");
+			lblNewLabel_3.setBounds(21, 65, 132, 16);
+		}
+		return lblNewLabel_3;
+	}
 
 	// ------------------------------------
 
 	private void TableInitPay() {
 
-		Outer_tbPay.addColumn("사번");
+		Outer_tbPay.addColumn("순번");
 		Outer_tbPay.addColumn("급여지급내역");
 		Outer_tbPay.addColumn("인센티브지급내역");
 		Outer_tbPay.addColumn("지급일자");
@@ -268,7 +332,7 @@ public class StaffViewPayment {
 		int vColIndex = 0;
 
 		TableColumn col = tbPay.getColumnModel().getColumn(vColIndex);
-		int width = 100;
+		int width = 50;
 		col.setPreferredWidth(width);
 
 		vColIndex = 1;
@@ -290,7 +354,7 @@ public class StaffViewPayment {
 
 	private void TableInitSales() {
 
-		Outer_tbSales.addColumn("사번");
+		Outer_tbSales.addColumn("순번");
 		Outer_tbSales.addColumn("음료");
 		Outer_tbSales.addColumn("수량");
 		Outer_tbSales.addColumn("금액");
@@ -339,12 +403,20 @@ public class StaffViewPayment {
 		ArrayList<PayDto> dtoList = dao.selectStaffPay();
 		int listCount = dtoList.size();
 
+		int wkPayAmount = 0;
+		int wkPayIncentive = 0;
+
 		for (int i = 0; i < listCount; i++) {
 			int temp = dtoList.get(i).getPaystaffid();
-			String[] qTxt = { Integer.toString(temp), Integer.toString(dtoList.get(i).getPayamount()) + "원",
+			String[] qTxt = { Integer.toString(i + 1), Integer.toString(dtoList.get(i).getPayamount()) + "원",
 					Integer.toString(dtoList.get(i).getPayincentive()) + "원", dtoList.get(i).getPaydate() };
 			Outer_tbPay.addRow(qTxt);
+
+			wkPayAmount += dtoList.get(i).getPayamount();
+			wkPayIncentive += dtoList.get(i).getPayincentive();
 		}
+		lblSumPayAmount.setText("급여합계 = " + Integer.toString(wkPayAmount) + "원");
+		lblSumPayIncentive.setText("인센티브합계 = " + Integer.toString(wkPayIncentive) + "원");
 
 		return listCount;
 	}
@@ -360,18 +432,15 @@ public class StaffViewPayment {
 		int listCount = dtoList.size();
 		int wkPayAmount = 0;
 		int wkPayIncentive = 0;
-		String wkPayDate = "";
 		for (int i = 0; i < listCount; i++) {
 			int temp = dtoList.get(i).getPaystaffid();
-			String[] qTxt = { Integer.toString(temp), Integer.toString(dtoList.get(i).getPayamount()) + "원",
+			String[] qTxt = { Integer.toString(i + 1), Integer.toString(dtoList.get(i).getPayamount()) + "원",
 					Integer.toString(dtoList.get(i).getPayincentive()) + "원", dtoList.get(i).getPaydate() };
 			Outer_tbPay.addRow(qTxt);
 
 			wkPayAmount += dtoList.get(i).getPayamount();
 			wkPayIncentive += dtoList.get(i).getPayincentive();
-//			wkPayDate = dtoList.get(i).getPaydate().substring(0, 7);
 		}
-//		lblSumPayDate.setText("조회날짜 = " + wkPayDate);
 		lblSumPayAmount.setText("급여합계 = " + Integer.toString(wkPayAmount) + "원");
 		lblSumPayIncentive.setText("인센티브합계 = " + Integer.toString(wkPayIncentive) + "원");
 
@@ -382,27 +451,34 @@ public class StaffViewPayment {
 		StaffViewPaymentDao dao = new StaffViewPaymentDao();
 		ArrayList<String> cbPayDate = dao.loadPayYM();
 		int i = 0;
-		cbPayMonth.addItem("");
-		cbPayMonth.getItemAt(i);
 		while (dao.loadPayYM().size() > i) {
 			cbPayMonth.addItem(cbPayDate.get(i));
 			i++;
-			cbPayMonth.getItemAt(i);
 		}
 	}
 
 	private int staffSalesSearch() {
 		StaffViewSalesDao dao = new StaffViewSalesDao();
 		ArrayList<OrdersDto> dtoList = dao.selectStaffSales();
+
 		int listCount = dtoList.size();
+
+		int wkOrdersQuantity = 0;
+		int wkOrdersSaleprice = 0;
 
 		for (int i = 0; i < listCount; i++) {
 			int temp = dtoList.get(i).getOrdersstaffid();
-			String[] qTxt = { Integer.toString(temp), dtoList.get(i).getOrdersmmanageid(),
+			String[] qTxt = { Integer.toString(i + 1), dtoList.get(i).getOrdersmmanageid(),
 					Integer.toString(dtoList.get(i).getOrdersquantity()),
 					Integer.toString(dtoList.get(i).getOrderssaleprice()), dtoList.get(i).getOrdersdate() };
 			Outer_tbSales.addRow(qTxt);
+
+			wkOrdersQuantity += dtoList.get(i).getOrdersquantity();
+			wkOrdersSaleprice += dtoList.get(i).getOrderssaleprice();
 		}
+
+		lblSumSalesquantity.setText("총 판매수량 = " + Integer.toString(wkOrdersQuantity) + "개");
+		lblSumSalesprice.setText("총 판매금액 = " + Integer.toString(wkOrdersSaleprice) + "원");
 
 		return listCount;
 	}
@@ -416,22 +492,20 @@ public class StaffViewPayment {
 		ArrayList<OrdersDto> dtoList = dao.selectSalesYM();
 		// 출력
 		int listCount = dtoList.size();
-//		String wkOrdersMmanageid = "";
+
 		int wkOrdersQuantity = 0;
 		int wkOrdersSaleprice = 0;
-		String wkOrdersDate = "";
+
 		for (int i = 0; i < listCount; i++) {
 			int temp = dtoList.get(i).getOrdersstaffid();
-			String[] qTxt = { Integer.toString(temp), dtoList.get(i).getOrdersmmanageid(),
+			String[] qTxt = { Integer.toString(i + 1), dtoList.get(i).getOrdersmmanageid(),
 					Integer.toString(dtoList.get(i).getOrdersquantity()),
 					Integer.toString(dtoList.get(i).getOrderssaleprice()), dtoList.get(i).getOrdersdate() };
 			Outer_tbSales.addRow(qTxt);
 
 			wkOrdersQuantity += dtoList.get(i).getOrdersquantity();
 			wkOrdersSaleprice += dtoList.get(i).getOrderssaleprice();
-//			wkOrdersDate = dtoList.get(i).getOrdersdate().substring(0, 7);
 		}
-//		lblSumSalesDate.setText("조회날짜 = " + wkOrdersDate);
 		lblSumSalesquantity.setText("총 판매수량 = " + Integer.toString(wkOrdersQuantity) + "개");
 		lblSumSalesprice.setText("총 판매금액 = " + Integer.toString(wkOrdersSaleprice) + "원");
 
@@ -442,12 +516,10 @@ public class StaffViewPayment {
 		StaffViewSalesDao dao = new StaffViewSalesDao();
 		ArrayList<String> cbSalesDate = dao.loadSalesYM();
 		int i = 0;
-		//cbSalesMonth.addItem("");
-		cbSalesMonth.getItemAt(i);
 		while (dao.loadSalesYM().size() > i) {
 			cbSalesMonth.addItem(cbSalesDate.get(i));
 			i++;
-//			cbSalesMonth.getItemAt(i);
 		}
 	}
+
 }
