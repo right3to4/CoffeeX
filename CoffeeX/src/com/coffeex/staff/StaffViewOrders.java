@@ -45,7 +45,6 @@ public class StaffViewOrders {
 	private JLabel lbUpdateInfo;
 	private JLabel lbChangeMenu;
 	private JLabel lbPayment;
-	private JLabel lbStaffManage;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_3_1;
 	private JScrollPane spOrderMade;
@@ -135,8 +134,8 @@ public class StaffViewOrders {
 		frmCoffeex.setBounds(100, 100, 900, 600);
 		frmCoffeex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCoffeex.getContentPane().setLayout(null);
-		frmCoffeex.getContentPane().add(getLbStaffManage());
 		frmCoffeex.getContentPane().add(getLbPayment());
+//		frmCoffeex.getContentPane().add(getLbChangeMenu());
 		frmCoffeex.getContentPane().add(getLbUpdateInfo());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3());
 		frmCoffeex.getContentPane().add(getLblNewLabel_3_1());
@@ -146,9 +145,9 @@ public class StaffViewOrders {
 		frmCoffeex.getContentPane().add(getSpOrderComplete());
 		frmCoffeex.getContentPane().add(getLblNewLabel_2_1());
 		frmCoffeex.getContentPane().add(getLbPromote());
-		frmCoffeex.getContentPane().add(getLbStaffPayManege());
-		frmCoffeex.getContentPane().add(getLbStaffInsertDel());
-		frmCoffeex.getContentPane().add(getLbNotice());
+//		frmCoffeex.getContentPane().add(getLbStaffPayManege());
+//		frmCoffeex.getContentPane().add(getLbStaffInsertDel());
+//		frmCoffeex.getContentPane().add(getLbNotice());
 		frmCoffeex.getContentPane().add(getLblNewLabel());
 		frmCoffeex.getContentPane().add(getBtnNewButton());
 		frmCoffeex.getContentPane().add(getBtnNewButton_1());
@@ -156,7 +155,6 @@ public class StaffViewOrders {
 		frmCoffeex.getContentPane().add(getLblOrdersMaking());
 		frmCoffeex.getContentPane().add(getLblOrdersComplete());
 		lblNewLabel_2_1.setText(CustomerInfo.staffname);
-		frmCoffeex.setDefaultCloseOperation(2);
 
 	}
 
@@ -230,11 +228,11 @@ public class StaffViewOrders {
 
 	private JLabel getLbPayment() {
 		if (lbPayment == null) {
-			lbPayment = new JLabel("판매내역조회");
+			lbPayment = new JLabel("급여 및 판매내역");
 			lbPayment.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					ManagerViewSales.main(null);
+					StaffViewPayment.main(null);
 				}
 
 				@Override
@@ -250,71 +248,43 @@ public class StaffViewOrders {
 			lbPayment.setHorizontalAlignment(SwingConstants.CENTER);
 			lbPayment.setForeground(Color.WHITE);
 			lbPayment.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lbPayment.setBounds(623, 0, 140, 50);
+			lbPayment.setBounds(566, 0, 182, 50);
 		}
 		return lbPayment;
 	}
 
-	private JLabel getLbStaffManage() {
-		if (lbStaffManage == null) {
-			lbStaffManage = new JLabel("급여내역조회");
-			lbStaffManage.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-				StaffViewPayment.main(null);
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					lbStaffManage.setForeground(Color.black);
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					lbStaffManage.setForeground(Color.white);
-				}
-			});
-			lbStaffManage.setHorizontalAlignment(SwingConstants.CENTER);
-			lbStaffManage.setForeground(Color.WHITE);
-			lbStaffManage.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lbStaffManage.setBounds(482, 0, 140, 50);
-		}
-		return lbStaffManage;
-	}
-
-	private JLabel getLbNotice() {
-		if (lbNotice == null) {
-			lbNotice = new JLabel("공지사항");
-			lbNotice.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					StaffViewNotice.main(null);
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					lbNotice.setForeground(Color.black);
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					lbNotice.setForeground(Color.white);
-				}
-			});
-			lbNotice.setHorizontalAlignment(SwingConstants.CENTER);
-			lbNotice.setForeground(Color.WHITE);
-			lbNotice.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lbNotice.setBounds(353, 0, 140, 50);
-		}
-		return lbNotice;
-	}
+//	private JLabel getLbNotice() {
+//		if (lbNotice == null) {
+//			lbNotice = new JLabel("공지사항");
+//			lbNotice.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					StaffViewNotice.main(null);
+//				}
+//
+//				@Override
+//				public void mousePressed(MouseEvent e) {
+//					lbNotice.setForeground(Color.black);
+//				}
+//
+//				@Override
+//				public void mouseReleased(MouseEvent e) {
+//					lbNotice.setForeground(Color.white);
+//				}
+//			});
+//			lbNotice.setHorizontalAlignment(SwingConstants.CENTER);
+//			lbNotice.setForeground(Color.WHITE);
+//			lbNotice.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+//			lbNotice.setBounds(405, 0, 117, 50);
+//		}
+//		return lbNotice;
+//	}
 
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("주문 대기");
 			lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3.setBounds(81, 118, 117, 25);
+			lblNewLabel_3.setBounds(145, 60, 117, 25);
 		}
 		return lblNewLabel_3;
 	}
@@ -323,7 +293,7 @@ public class StaffViewOrders {
 		if (lblNewLabel_3_1 == null) {
 			lblNewLabel_3_1 = new JLabel("제조 중");
 			lblNewLabel_3_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1.setBounds(491, 118, 117, 25);
+			lblNewLabel_3_1.setBounds(145, 216, 117, 25);
 		}
 		return lblNewLabel_3_1;
 	}
@@ -331,7 +301,7 @@ public class StaffViewOrders {
 	private JScrollPane getSpOrderMade() {
 		if (spOrderMade == null) {
 			spOrderMade = new JScrollPane();
-			spOrderMade.setBounds(491, 155, 350, 170);
+			spOrderMade.setBounds(145, 253, 550, 110);
 			spOrderMade.setViewportView(getTbOrderMade());
 
 		}
@@ -341,7 +311,7 @@ public class StaffViewOrders {
 	private JScrollPane getSpOrderWait() {
 		if (spOrderWait == null) {
 			spOrderWait = new JScrollPane();
-			spOrderWait.setBounds(81, 155, 350, 170);
+			spOrderWait.setBounds(145, 97, 550, 110);
 			spOrderWait.setViewportView(getTbOrderWait());
 
 		}
@@ -351,7 +321,7 @@ public class StaffViewOrders {
 	private JScrollPane getSpOrderComplete() {
 		if (spOrderComplete == null) {
 			spOrderComplete = new JScrollPane();
-			spOrderComplete.setBounds(172, 383, 602, 170);
+			spOrderComplete.setBounds(145, 417, 550, 110);
 			spOrderComplete.setViewportView(getTbOrderComplete());
 		}
 		return spOrderComplete;
@@ -392,9 +362,9 @@ public class StaffViewOrders {
 
 	private JLabel getLblNewLabel_3_1_1() {
 		if (lblNewLabel_3_1_1 == null) {
-			lblNewLabel_3_1_1 = new JLabel("제조 완료 현황");
+			lblNewLabel_3_1_1 = new JLabel("제조 완료");
 			lblNewLabel_3_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1_1.setBounds(172, 346, 145, 25);
+			lblNewLabel_3_1_1.setBounds(145, 380, 145, 25);
 		}
 		return lblNewLabel_3_1_1;
 	}
@@ -418,49 +388,49 @@ public class StaffViewOrders {
 		return lbPromote;
 	}
 
-	private JLabel getLbStaffPayManege() {
-		if (lbStaffPayManege == null) {
-			lbStaffPayManege = new JLabel("사원급여관리");
-			lbStaffPayManege.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					ManagerViewPayment.main(null);
-					lbStaffInsertDel.setVisible(false);
-					lbStaffPayManege.setVisible(false);
-					lbStaffManage.setForeground(Color.white);
-				}
-			});
+//	private JLabel getLbStaffPayManege() {
+//		if (lbStaffPayManege == null) {
+//			lbStaffPayManege = new JLabel("사원급여관리");
+//			lbStaffPayManege.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					ManagerViewPayment.main(null);
+//					lbStaffInsertDel.setVisible(false);
+//					lbStaffPayManege.setVisible(false);
+//					lbStaffManage.setForeground(Color.white);
+//				}
+//			});
+//
+//			lbStaffPayManege.setHorizontalAlignment(SwingConstants.CENTER);
+//			lbStaffPayManege.setForeground(Color.BLACK);
+//			lbStaffPayManege.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+//			lbStaffPayManege.setBounds(304, 50, 140, 25);
+//		}
+//		lbStaffPayManege.setVisible(false);
+//		return lbStaffPayManege;
+//	}
 
-			lbStaffPayManege.setHorizontalAlignment(SwingConstants.CENTER);
-			lbStaffPayManege.setForeground(Color.BLACK);
-			lbStaffPayManege.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-			lbStaffPayManege.setBounds(304, 50, 140, 25);
-		}
-		lbStaffPayManege.setVisible(false);
-		return lbStaffPayManege;
-	}
-
-	private JLabel getLbStaffInsertDel() {
-		if (lbStaffInsertDel == null) {
-			lbStaffInsertDel = new JLabel("사원등록/삭제");
-			lbStaffInsertDel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					ManagerAddStaff.main(null);
-					lbStaffInsertDel.setVisible(false);
-					lbStaffPayManege.setVisible(false);
-					lbStaffManage.setForeground(Color.white);
-
-				}
-			});
-			lbStaffInsertDel.setHorizontalAlignment(SwingConstants.CENTER);
-			lbStaffInsertDel.setForeground(Color.BLACK);
-			lbStaffInsertDel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-			lbStaffInsertDel.setBounds(304, 75, 140, 25);
-		}
-		lbStaffInsertDel.setVisible(false);
-		return lbStaffInsertDel;
-	}
+//	private JLabel getLbStaffInsertDel() {
+//		if (lbStaffInsertDel == null) {
+//			lbStaffInsertDel = new JLabel("사원등록/삭제");
+//			lbStaffInsertDel.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					ManagerAddStaff.main(null);
+//					lbStaffInsertDel.setVisible(false);
+//					lbStaffPayManege.setVisible(false);
+//					lbStaffManage.setForeground(Color.white);
+//
+//				}
+//			});
+//			lbStaffInsertDel.setHorizontalAlignment(SwingConstants.CENTER);
+//			lbStaffInsertDel.setForeground(Color.BLACK);
+//			lbStaffInsertDel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+//			lbStaffInsertDel.setBounds(304, 75, 140, 25);
+//		}
+//		lbStaffInsertDel.setVisible(false);
+//		return lbStaffInsertDel;
+//	}
 
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
@@ -473,7 +443,7 @@ public class StaffViewOrders {
 					refresh();
 				}
 			});
-			btnNewButton.setBounds(339, 122, 91, 23);
+			btnNewButton.setBounds(604, 60, 91, 23);
 		}
 		return btnNewButton;
 	}
@@ -489,7 +459,7 @@ public class StaffViewOrders {
 					refresh();
 				}
 			});
-			btnNewButton_1.setBounds(750, 122, 91, 23);
+			btnNewButton_1.setBounds(604, 220, 91, 23);
 		}
 		return btnNewButton_1;
 	}
@@ -501,7 +471,7 @@ public class StaffViewOrders {
 		Outer_OrderComplete.addColumn("메뉴");
 		Outer_OrderComplete.addColumn("옵션");
 		Outer_OrderComplete.addColumn("수량");
-		Outer_OrderWait.addColumn("포장");
+		Outer_OrderComplete.addColumn("포장");
 
 		Outer_OrderComplete.setColumnCount(5);
 
@@ -521,12 +491,12 @@ public class StaffViewOrders {
 
 		vColIndex = 1;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
 
 		vColIndex = 2;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 200;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
@@ -536,7 +506,7 @@ public class StaffViewOrders {
 		
 		vColIndex = 4;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 60;
+		width = 100;
 		col.setPreferredWidth(width);
 
 	}
@@ -547,7 +517,7 @@ public class StaffViewOrders {
 		Outer_OrderMade.addColumn("메뉴");
 		Outer_OrderMade.addColumn("옵션");
 		Outer_OrderMade.addColumn("수량");
-		Outer_OrderWait.addColumn("포장");
+		Outer_OrderMade.addColumn("포장");
 
 		Outer_OrderMade.setColumnCount(5);
 
@@ -567,12 +537,12 @@ public class StaffViewOrders {
 
 		vColIndex = 1;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
 
 		vColIndex = 2;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 200;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
@@ -582,7 +552,7 @@ public class StaffViewOrders {
 		
 		vColIndex = 4;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 60;
+		width = 100;
 		col.setPreferredWidth(width);
 
 	}
@@ -613,12 +583,12 @@ public class StaffViewOrders {
 
 		vColIndex = 1;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
 
 		vColIndex = 2;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 200;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
@@ -628,7 +598,7 @@ public class StaffViewOrders {
 
 		vColIndex = 4;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 60;
+		width = 100;
 		col.setPreferredWidth(width);
 
 	}
@@ -726,7 +696,7 @@ public class StaffViewOrders {
 		if (lblOrdersWaiting == null) {
 			lblOrdersWaiting = new JLabel("New label");
 			lblOrdersWaiting.setFont(new Font("굴림", Font.PLAIN, 15));
-			lblOrdersWaiting.setBounds(254, 118, 63, 23);
+			lblOrdersWaiting.setBounds(707, 184, 63, 23);
 		}
 		return lblOrdersWaiting;
 	}
@@ -735,7 +705,7 @@ public class StaffViewOrders {
 		if (lblOrdersMaking == null) {
 			lblOrdersMaking = new JLabel("New label");
 			lblOrdersMaking.setFont(new Font("굴림", Font.PLAIN, 15));
-			lblOrdersMaking.setBounds(672, 118, 63, 23);
+			lblOrdersMaking.setBounds(707, 340, 63, 23);
 		}
 		return lblOrdersMaking;
 	}
@@ -744,7 +714,7 @@ public class StaffViewOrders {
 		if (lblOrdersComplete == null) {
 			lblOrdersComplete = new JLabel("New label");
 			lblOrdersComplete.setFont(new Font("굴림", Font.PLAIN, 15));
-			lblOrdersComplete.setBounds(711, 350, 63, 23);
+			lblOrdersComplete.setBounds(707, 504, 63, 23);
 		}
 		return lblOrdersComplete;
 	}

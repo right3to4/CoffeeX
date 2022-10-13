@@ -67,6 +67,7 @@ public class StaffViewNotice {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("공지사항");
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

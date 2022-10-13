@@ -149,6 +149,7 @@ public class StaffLogin {
 						ChiefSearchSales.main(null);
 					}
 					else {
+						StaffViewOrders.main(null);
 					//알바페이
 
 					}

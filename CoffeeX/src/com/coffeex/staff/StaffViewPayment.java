@@ -442,7 +442,7 @@ public class StaffViewPayment {
 		StaffViewSalesDao dao = new StaffViewSalesDao();
 		ArrayList<String> cbSalesDate = dao.loadSalesYM();
 		int i = 0;
-		cbSalesMonth.addItem("");
+		//cbSalesMonth.addItem("");
 		cbSalesMonth.getItemAt(i);
 		while (dao.loadSalesYM().size() > i) {
 			cbSalesMonth.addItem(cbSalesDate.get(i));

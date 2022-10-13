@@ -734,8 +734,7 @@ public class ChefUpdateStaff {
 
 		int i = 0;
 		while (dao.cbInsertShopid().size() > i) {
-			
-			System.out.println(dtoList.get(i).getShopid());
+		
 			cbShopid.addItem(dtoList.get(i).getShopid());
 			i++;
 			// 인덱스 번호의 아이템 가져오기
