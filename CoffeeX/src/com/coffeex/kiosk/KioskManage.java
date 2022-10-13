@@ -31,10 +31,10 @@ public class KioskManage extends JPanel {
 	private JButton btnNewButton_3_9;
 	private JButton btnNewButton_3_10;
 	private JButton btnNewButton_3_11;
-	private JPasswordField passwordField;
+	public JPasswordField passwordField;
 	private JLabel lblNewLabel;
 
-	ArrayList<String> pw = new ArrayList<String>();
+	public static ArrayList<String> pw = new ArrayList<String>();
 	private JButton btnNewButton_2_1;
 	private JPanel panel_1;
 	private JTextField tfShopName;
@@ -66,6 +66,10 @@ public class KioskManage extends JPanel {
 					panel.setVisible(true);
 					setVisible(false);
 					passwordField.setText(null);
+
+					pw.removeAll(pw);
+					
+					
 					
 				}
 			});
@@ -283,6 +287,7 @@ public class KioskManage extends JPanel {
 						passwordField.setText(null);
 					} else {
 						passwordField.setText(null);
+						pw.removeAll(pw);
 					}
 				}
 			});

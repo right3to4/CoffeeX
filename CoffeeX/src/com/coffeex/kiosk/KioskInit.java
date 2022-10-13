@@ -236,7 +236,8 @@ public class KioskInit {
 				@Override
 				public void mouseClicked(MouseEvent e) { // 초기화면으로 돌아가기
 					reset();
-
+					KioskManage.pw.removeAll(KioskManage.pw);
+					kioskmanage.passwordField.setText(null);
 					KioskOrderDao dao = new KioskOrderDao();
 					dao.emptyCart("kiosk");
 				}
@@ -420,6 +421,7 @@ public class KioskInit {
 					kioskmanage.setVisible(true);
 					lblCancelbutton.setVisible(true);
 					lblNewLabel.setVisible(false);
+					lblorderbutton.setVisible(false);
 				}
 
 				@Override
