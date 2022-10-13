@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
@@ -15,6 +17,7 @@ import javax.swing.table.TableColumn;
 import com.coffeex.dto.NoticeDto;
 import com.coffeex.staffdao.ChefCreateNoticeDao;
 import com.coffeex.staffdao.ChefUpdateStaffDao;
+import com.coffeex.staffdao.ManagerAddStaffDao;
 import com.coffeex.staffdao.StaffViewNoticeDao;
 import com.coffeex.util.CustomerInfo;
 
@@ -51,6 +54,8 @@ public class ChefCreateNotice {
 	private JButton btnDeleteNotice;
 	private JButton btnUpdateNotice;
 	private JButton btnInsertNotice;
+	
+	int clickNoticeName = 0;
 
 	/**
 	 * Launch the application.
@@ -226,6 +231,14 @@ public class ChefCreateNotice {
 	private JButton getBtnWriteNotice() {
 		if (btnWriteNotice == null) {
 			btnWriteNotice = new JButton("공지사항작성");
+			btnWriteNotice.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					tfTitle.setText("");
+					tfInsertDate.setText("");
+					tfUpdateDate.setText("");
+					epText.setText("");
+				}
+			});
 			btnWriteNotice.setBounds(452, 76, 117, 29);
 		}
 		return btnWriteNotice;
@@ -234,6 +247,25 @@ public class ChefCreateNotice {
 	private JButton getBtnDeleteNotice() {
 		if (btnDeleteNotice == null) {
 			btnDeleteNotice = new JButton("삭제");
+			btnDeleteNotice.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					
+					if (deleteAction() == true) {
+						JOptionPane.showMessageDialog(null, "공지사항이 삭제 되었습니다.");
+						tfTitle.setText("");
+						epText.setText("");
+						tfInsertDate.setText("");
+						tfUpdateDate.setText("");
+						OrderNoticeTableInit();
+						searchAction();
+
+					} else {
+						JOptionPane.showMessageDialog(null, "DB작업중 문제가 발생했습니다. \n행정실로 문의 하세요.");
+					}
+
+				}
+			});
 			btnDeleteNotice.setBounds(452, 558, 117, 29);
 		}
 		return btnDeleteNotice;
@@ -242,6 +274,11 @@ public class ChefCreateNotice {
 	private JButton getBtnUpdateNotice() {
 		if (btnUpdateNotice == null) {
 			btnUpdateNotice = new JButton("수정");
+			btnUpdateNotice.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					updateAction();
+				}
+			});
 			btnUpdateNotice.setBounds(323, 558, 117, 29);
 		}
 		return btnUpdateNotice;
@@ -252,7 +289,12 @@ public class ChefCreateNotice {
 			btnInsertNotice = new JButton("등록");
 			btnInsertNotice.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					insertAction();
+					int check = 0;
+					check = insertFieldCheck();  
+					if(check == 0) {
+						insertAction();						
+					}
+					
 				}
 			});
 			btnInsertNotice.setBounds(194, 558, 117, 29);
@@ -327,16 +369,66 @@ public class ChefCreateNotice {
 		tfInsertDate.setText(dto.getNoticeinsertdate());
 		tfUpdateDate.setText(dto.getNoticeupdatedate());
 		epText.setText(dto.getNoticetext());
+		clickNoticeName = dto.getNoticeid();
+		
 	}
 	
-	private int insertAction() {
+	private void insertAction() {
 
 		ChefCreateNoticeDao dao = new ChefCreateNoticeDao(CustomerInfo.staffid,tfTitle.getText(),epText.getText());
 		
 		tfTitle.setText("");
 		epText.setText("");
 		
-		return dao.insertArcion();
+		if(dao.insertArcion() == 1) {
+			JOptionPane.showMessageDialog(null, "공지사항이 등록되었습니다.");
+		}else {
+			JOptionPane.showMessageDialog(null, "공지사항이 등록되지 않았습니다.\n 다시 시도해주세요.");
+		}
+		
+	}
+	
+	private int insertFieldCheck() {
+		int i = 0;
+		String message = "";
+		if (tfTitle.getText().trim().length() == 0) {
+			i++;
+			message = "제목을";
+			tfTitle.requestFocus();
+		}
+		if (epText.getText().trim().length() == 0) {
+			i++;
+			message = "내용를";
+			epText.requestFocus();
+		}
+		
+
+		if (i > 0) {
+			JOptionPane.showMessageDialog(null, message + "확인하세요!");
+		}
+		return i;
+	}
+	
+	private void updateAction() {
+
+		ChefCreateNoticeDao dao = new ChefCreateNoticeDao(tfTitle.getText(),epText.getText(),clickNoticeName);
+
+		boolean ok = dao.updateAction();
+
+		if (ok == true) {
+			JOptionPane.showMessageDialog(null, "공지사항이 수정 되었습니다.");
+		} else {
+			JOptionPane.showMessageDialog(null, "DB작업중 문제가 발생했습니다. \n 개발자에게 문의주세요");
+		}
+	}
+	private Boolean deleteAction() {
+
+		int noticeid = clickNoticeName;
+
+		ChefCreateNoticeDao dao = new ChefCreateNoticeDao();
+		boolean check = dao.deleteAction(noticeid);
+
+		return check;
 	}
 
 }

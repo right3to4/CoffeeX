@@ -293,7 +293,7 @@ public class ChiefSearchSales {
 			lbNotice.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					StaffViewNotice.main(null);
+					ChefCreateNotice.main(null);
 				}
 
 				@Override
