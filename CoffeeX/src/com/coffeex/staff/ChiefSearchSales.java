@@ -104,9 +104,9 @@ public class ChiefSearchSales {
 				shopTableInit();
 				menuTableInit();
 				staffTableInit();
-				showSalesByShop("sum(price)", "asc");
-				showSalesByMenu("sum(price)", "asc");
-				showSalesByStaff("sum(price)", "asc");
+				showSalesByShop("sum(price)", "desc");
+				showSalesByMenu("sum(price)", "desc");
+				showSalesByStaff("sum(price)", "desc");
 			}
 
 			@Override
