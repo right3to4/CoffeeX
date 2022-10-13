@@ -21,26 +21,79 @@ public class ChiefSearchSalesDao {
 
 	}
 
-	public ArrayList<OrdersViewDto> ShowOrdersListByStatus(String status) {
+	public ArrayList<OrdersViewDto> ShowSalesByShops(String group, String ad) {
 
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
-		String whereStatement = "select orderid, menu, quantity, ordersoption, place from orderview ";
-		String whereStatement2 = "where ordersstatus='" + status + "'";
+		String whereStatement = "select shop, sum(quantity), sum(price) from orderview group by shop order by " + group + " " + ad;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement);
 
 			while (rs.next()) {
-				int wkOrderid = rs.getInt(1);
-				String wkMenu = rs.getString(2);
-				int wkQuantity = rs.getInt(3);
-				String wkOption = rs.getString(4);
-				String wkPlace = rs.getString(5);
+				String wkShop = rs.getString(1);
+				int wkSum = rs.getInt(2);
+				int wkPrice = rs.getInt(3);
 
-				OrdersViewDto dto = new OrdersViewDto(wkOrderid, wkMenu, wkQuantity, wkOption, wkPlace);
+				OrdersViewDto dto = new OrdersViewDto(wkShop, wkSum, wkPrice);
+				dtoList.add(dto);
+			}
+
+			conn_mysql.close(); // Close DB connection for others to connect
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dtoList;
+	}
+	
+	public ArrayList<OrdersViewDto> ShowSalesByMenu(String group, String ad) {
+
+		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
+		String whereStatement = "select menu, sum(quantity), sum(price) from orderview group by menu order by " + group + " " + ad;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement);
+
+			while (rs.next()) {
+				String wkMenu = rs.getString(1);
+				int wkSum = rs.getInt(2);
+				int wkPrice = rs.getInt(3);
+
+				OrdersViewDto dto = new OrdersViewDto(wkMenu, wkSum, wkPrice);
+				dtoList.add(dto);
+			}
+
+			conn_mysql.close(); // Close DB connection for others to connect
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dtoList;
+	}
+	
+	public ArrayList<OrdersViewDto> ShowSalesByStaff(String group, String ad) {
+
+		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
+		String whereStatement = "select staff, sum(quantity), sum(price) from orderview group by staff order by " + group + " " + ad;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement);
+
+			while (rs.next()) {
+				String wkStaff = rs.getString(1);
+				int wkSum = rs.getInt(2);
+				int wkPrice = rs.getInt(3);
+
+				OrdersViewDto dto = new OrdersViewDto(wkStaff, wkSum, wkPrice);
 				dtoList.add(dto);
 			}
 

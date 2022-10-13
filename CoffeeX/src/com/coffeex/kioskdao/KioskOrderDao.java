@@ -301,16 +301,16 @@ public class KioskOrderDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
-			String whereStatement = "select punchstaffid from punchinout ";
-			String whereStatement1 = "where now()> (select punchintime from punchinout where date(punchintime)=curdate()) ";
-			String whereStatement2 = "and (now()<(select punchouttime from punchinout where date(punchouttime)=curdate()) ";
-			String whereStatement3 = "or (select punchouttime from punchinout where date(punchouttime)=curdate()) is null) ";
-			String whereStatement4 = "and punchshopid='" + DBConnect.shopname;
+//			String whereStatement = "select punchstaffid from punchinout ";
+//			String whereStatement1 = "where now()> (select punchintime from punchinout where date(punchintime)=curdate()) ";
+//			String whereStatement2 = "and (now()<(select punchouttime from punchinout where date(punchouttime)=curdate()) ";
+//			String whereStatement3 = "or (select punchouttime from punchinout where date(punchouttime)=curdate()) is null) ";
+//			String whereStatement4 = "and punchshopid='" + DBConnect.shopname;
+			String whereStatement="Select staffid from staff";
 
-			ps = conn_mysql.prepareStatement(
-					whereStatement + whereStatement1 + whereStatement2 + whereStatement3 + whereStatement4);
+			ps = conn_mysql.prepareStatement(whereStatement);
 
-			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement1);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement);
 
 			while (rs.next()) {
 				wkStaffid = rs.getInt(1);

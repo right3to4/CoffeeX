@@ -484,6 +484,12 @@ public class KioskInit {
 		kioskorder.lblwithcard.setBackground(new Color(148, 128, 96));
 		kioskorder.lblwithpoint.setBackground(new Color(148, 128, 96));
 		dao00.ShowTodaysMenuList();
+		panel.lblTodaysMenu.setBackground(new Color(118, 98, 66));
+		panel.lblCoffee.setBackground(new Color(148, 128, 96));
+		panel.lblAide.setBackground(new Color(148, 128, 96));
+		panel.lblTea.setBackground(new Color(148, 128, 96));
+		panel.lblSmoothie.setBackground(new Color(148, 128, 96));
+		panel.lblSide.setBackground(new Color(148, 128, 96));
 	}
 
 	private int getCost() {

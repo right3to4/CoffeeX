@@ -23,12 +23,12 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class KioskViewMenu extends JPanel {
-	private JLabel lblTodaysMenu;
-	private JLabel lblCoffee;
-	private JLabel lblAide;
-	private JLabel lblTea;
-	private JLabel lblSmoothie;
-	private JLabel lblSide;
+	public JLabel lblTodaysMenu;
+	public JLabel lblCoffee;
+	public JLabel lblAide;
+	public JLabel lblTea;
+	public JLabel lblSmoothie;
+	public JLabel lblSide;
 	private JScrollPane scrollPane;
 	public JTable Inner_Table;
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
