@@ -380,7 +380,7 @@ public class StaffViewOrders {
 
 	private JLabel getLbPromote() {
 		if (lbPromote == null) {
-			lbPromote = new JLabel("사원");
+			lbPromote = new JLabel("직원");
 			lbPromote.setForeground(Color.WHITE);
 			lbPromote.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
 			lbPromote.setBounds(130, 8, 97, 30);

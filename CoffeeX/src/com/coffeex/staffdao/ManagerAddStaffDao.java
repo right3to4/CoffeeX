@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.coffeex.dto.StaffDto;
+import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
 
@@ -136,8 +137,8 @@ public class ManagerAddStaffDao {
 		
 		ArrayList<StaffDto> dtoList = new ArrayList<StaffDto>();
 		
-		String whereStatement = "select staffid, staffname, staffphone, staffinitdate from staff,promote ";
-		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and staffdeletedate is null and promotestaffid = staffid and position = '알바'";
+		String whereStatement = "select staffid, staffname, staffphone, staffinitdate from staff,promote,belong ";
+		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and staffdeletedate is null and promotestaffid = staffid and position = '직원' and '"+ CustomerInfo.shopname + "' = belongshopid and belongstaffid = staffid ";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql,DBConnect.id_mysql,DBConnect.pw);
