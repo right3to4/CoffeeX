@@ -40,7 +40,7 @@ public class StaffViewPaymentDao {
 
 		ArrayList<PayDto> paydto = new ArrayList<PayDto>();
 
-		String whereStatement = "select paystaffid, payamount, payincentive, substring(paydate, 1, 10) from pay order by paydate";
+		String whereStatement = "select payamount, payincentive, substring(paydate, 1, 10) from pay order by paydate";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
@@ -50,10 +50,10 @@ public class StaffViewPaymentDao {
 
 			while (rs.next()) {
 
-				int wkpaystaffid = rs.getInt(1);
-				int wkpayamount = rs.getInt(2);
-				int wkpayincentive = rs.getInt(3);
-				String wkpaydate = rs.getString(4);
+				int wkpaystaffid = CustomerInfo.staffid;
+				int wkpayamount = rs.getInt(1);
+				int wkpayincentive = rs.getInt(2);
+				String wkpaydate = rs.getString(3);
 
 				PayDto dto = new PayDto(wkpaystaffid, wkpayamount, wkpayincentive, wkpaydate);
 				paydto.add(dto);
@@ -97,8 +97,8 @@ public class StaffViewPaymentDao {
 	}
 
 	public ArrayList<String> loadPayYM() {
-		ArrayList<String> cbDate = new ArrayList<>();
-		String sql = "select concat(year(paydate), '-', month(paydate)) ym from pay group by ym";
+		ArrayList<String> cbPayDate = new ArrayList<>();
+		String sql = "select substring(paydate, 1, 7) from pay group by substring(paydate, 1, 7) order by substring(paydate, 1, 7)";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
@@ -106,34 +106,13 @@ public class StaffViewPaymentDao {
 			ResultSet rs = stmt_mysql.executeQuery(sql);
 			while (rs.next()) {
 
-				cbDate.add(rs.getString(1));
+				cbPayDate.add(rs.getString(1));
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return cbDate;
+		return cbPayDate;
 	}
-
-//	public PayDto selectSum() {
-//		PayDto dto = null;
-//		String sql = "select concat(year(paydate), '-', month(paydate)) ym, sum(payamount), sum(payincentive) from pay group by ym";
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
-//			Statement stmt_mysql = conn_mysql.createStatement();
-//			ResultSet rs = stmt_mysql.executeQuery(sql);
-//			while (rs.next()) {
-//				String wkpaydate = rs.getString(1);
-//				int wkpayamount = rs.getInt(2);
-//				int wkincentive = rs.getInt(3);
-//
-//				dto = new PayDto(wkpayamount, wkincentive, wkpaydate);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return dto;
-//	}
 
 }

@@ -2,8 +2,9 @@ package com.coffeex.dto;
 
 public class OrdersDto {
 
-	int orderid;
-	int orderstaffid;
+	int ordersid;
+	int ordersstaffid;
+	String ordersmmanageid;
 	String ordersshopid;
 	String orderscustid;
 	String ordersstatus;
@@ -14,27 +15,43 @@ public class OrdersDto {
 	int ordersplaceselect;
 	String ordersdate;
 	int ordersrevervationtime;
-
+	
 	public OrdersDto() {
 
 	}
-	
-	
 
-	public int getOrderid() {
-		return orderid;
+	public OrdersDto(int ordersstaffid, String ordersmmanageid, int ordersquantity, int orderssaleprice,
+			String ordersdate) {
+		super();
+		this.ordersstaffid = ordersstaffid;
+		this.ordersmmanageid = ordersmmanageid;
+		this.ordersquantity = ordersquantity;
+		this.orderssaleprice = orderssaleprice;
+		this.ordersdate = ordersdate;
 	}
 
-	public void setOrderid(int orderid) {
-		this.orderid = orderid;
+	public int getOrdersid() {
+		return ordersid;
 	}
 
-	public int getOrderstaffid() {
-		return orderstaffid;
+	public void setOrderid(int ordersid) {
+		this.ordersid = ordersid;
 	}
 
-	public void setOrderstaffid(int orderstaffid) {
-		this.orderstaffid = orderstaffid;
+	public int getOrdersstaffid() {
+		return ordersstaffid;
+	}
+
+	public void setOrderstaffid(int ordersstaffid) {
+		this.ordersstaffid = ordersstaffid;
+	}
+
+	public String getOrdersmmanageid() {
+		return ordersmmanageid;
+	}
+
+	public void setOrdersmmanageid(String ordersmmanageid) {
+		this.ordersmmanageid = ordersmmanageid;
 	}
 
 	public String getOrdersshopid() {
