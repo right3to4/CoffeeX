@@ -529,8 +529,7 @@ public class KioskInit {
 			place = kioskorder.place;
 			stf = stfid.get(rd.nextInt(stfid.size()));
 			dao.Order(stf, menuid, option, quantity, custid, price, place);
-			System.out.println(stf);
-		}
+			System.out.println(stf);		}
 		reset();
 	}
 

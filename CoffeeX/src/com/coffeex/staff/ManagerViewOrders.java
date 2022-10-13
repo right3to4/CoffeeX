@@ -323,7 +323,7 @@ public class ManagerViewOrders {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("주문 대기");
 			lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3.setBounds(81, 118, 117, 25);
+			lblNewLabel_3.setBounds(145, 60, 117, 25);
 		}
 		return lblNewLabel_3;
 	}
@@ -332,7 +332,7 @@ public class ManagerViewOrders {
 		if (lblNewLabel_3_1 == null) {
 			lblNewLabel_3_1 = new JLabel("제조 중");
 			lblNewLabel_3_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1.setBounds(491, 118, 117, 25);
+			lblNewLabel_3_1.setBounds(145, 216, 117, 25);
 		}
 		return lblNewLabel_3_1;
 	}
@@ -340,7 +340,7 @@ public class ManagerViewOrders {
 	private JScrollPane getSpOrderMade() {
 		if (spOrderMade == null) {
 			spOrderMade = new JScrollPane();
-			spOrderMade.setBounds(491, 155, 350, 170);
+			spOrderMade.setBounds(145, 253, 550, 110);
 			spOrderMade.setViewportView(getTbOrderMade());
 
 		}
@@ -350,7 +350,7 @@ public class ManagerViewOrders {
 	private JScrollPane getSpOrderWait() {
 		if (spOrderWait == null) {
 			spOrderWait = new JScrollPane();
-			spOrderWait.setBounds(81, 155, 350, 170);
+			spOrderWait.setBounds(145, 97, 550, 110);
 			spOrderWait.setViewportView(getTbOrderWait());
 
 		}
@@ -360,7 +360,7 @@ public class ManagerViewOrders {
 	private JScrollPane getSpOrderComplete() {
 		if (spOrderComplete == null) {
 			spOrderComplete = new JScrollPane();
-			spOrderComplete.setBounds(172, 383, 602, 170);
+			spOrderComplete.setBounds(145, 417, 550, 110);
 			spOrderComplete.setViewportView(getTbOrderComplete());
 		}
 		return spOrderComplete;
@@ -401,9 +401,9 @@ public class ManagerViewOrders {
 
 	private JLabel getLblNewLabel_3_1_1() {
 		if (lblNewLabel_3_1_1 == null) {
-			lblNewLabel_3_1_1 = new JLabel("제조 완료 현황");
+			lblNewLabel_3_1_1 = new JLabel("제조 완료");
 			lblNewLabel_3_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_3_1_1.setBounds(172, 346, 145, 25);
+			lblNewLabel_3_1_1.setBounds(145, 380, 145, 25);
 		}
 		return lblNewLabel_3_1_1;
 	}
@@ -482,7 +482,7 @@ public class ManagerViewOrders {
 					refresh();
 				}
 			});
-			btnNewButton.setBounds(339, 122, 91, 23);
+			btnNewButton.setBounds(604, 60, 91, 23);
 		}
 		return btnNewButton;
 	}
@@ -498,7 +498,7 @@ public class ManagerViewOrders {
 					refresh();
 				}
 			});
-			btnNewButton_1.setBounds(750, 122, 91, 23);
+			btnNewButton_1.setBounds(604, 220, 91, 23);
 		}
 		return btnNewButton_1;
 	}
@@ -510,7 +510,7 @@ public class ManagerViewOrders {
 		Outer_OrderComplete.addColumn("메뉴");
 		Outer_OrderComplete.addColumn("옵션");
 		Outer_OrderComplete.addColumn("수량");
-		Outer_OrderWait.addColumn("포장");
+		Outer_OrderComplete.addColumn("포장");
 
 		Outer_OrderComplete.setColumnCount(5);
 
@@ -530,12 +530,12 @@ public class ManagerViewOrders {
 
 		vColIndex = 1;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
 
 		vColIndex = 2;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 200;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
@@ -545,7 +545,7 @@ public class ManagerViewOrders {
 		
 		vColIndex = 4;
 		col = tbOrderComplete.getColumnModel().getColumn(vColIndex);
-		width = 60;
+		width = 100;
 		col.setPreferredWidth(width);
 
 	}
@@ -556,7 +556,7 @@ public class ManagerViewOrders {
 		Outer_OrderMade.addColumn("메뉴");
 		Outer_OrderMade.addColumn("옵션");
 		Outer_OrderMade.addColumn("수량");
-		Outer_OrderWait.addColumn("포장");
+		Outer_OrderMade.addColumn("포장");
 
 		Outer_OrderMade.setColumnCount(5);
 
@@ -576,12 +576,12 @@ public class ManagerViewOrders {
 
 		vColIndex = 1;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
 
 		vColIndex = 2;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 200;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
@@ -591,7 +591,7 @@ public class ManagerViewOrders {
 		
 		vColIndex = 4;
 		col = tbOrderMade.getColumnModel().getColumn(vColIndex);
-		width = 60;
+		width = 100;
 		col.setPreferredWidth(width);
 
 	}
@@ -622,12 +622,12 @@ public class ManagerViewOrders {
 
 		vColIndex = 1;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 150;
 		col.setPreferredWidth(width);
 
 		vColIndex = 2;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 100;
+		width = 200;
 		col.setPreferredWidth(width);
 
 		vColIndex = 3;
@@ -637,7 +637,7 @@ public class ManagerViewOrders {
 
 		vColIndex = 4;
 		col = tbOrderWait.getColumnModel().getColumn(vColIndex);
-		width = 60;
+		width = 100;
 		col.setPreferredWidth(width);
 
 	}
@@ -735,7 +735,7 @@ public class ManagerViewOrders {
 		if (lblOrdersWaiting == null) {
 			lblOrdersWaiting = new JLabel("New label");
 			lblOrdersWaiting.setFont(new Font("굴림", Font.PLAIN, 15));
-			lblOrdersWaiting.setBounds(254, 118, 63, 23);
+			lblOrdersWaiting.setBounds(707, 184, 63, 23);
 		}
 		return lblOrdersWaiting;
 	}
@@ -744,7 +744,7 @@ public class ManagerViewOrders {
 		if (lblOrdersMaking == null) {
 			lblOrdersMaking = new JLabel("New label");
 			lblOrdersMaking.setFont(new Font("굴림", Font.PLAIN, 15));
-			lblOrdersMaking.setBounds(672, 118, 63, 23);
+			lblOrdersMaking.setBounds(707, 340, 63, 23);
 		}
 		return lblOrdersMaking;
 	}
@@ -753,7 +753,7 @@ public class ManagerViewOrders {
 		if (lblOrdersComplete == null) {
 			lblOrdersComplete = new JLabel("New label");
 			lblOrdersComplete.setFont(new Font("굴림", Font.PLAIN, 15));
-			lblOrdersComplete.setBounds(711, 350, 63, 23);
+			lblOrdersComplete.setBounds(707, 504, 63, 23);
 		}
 		return lblOrdersComplete;
 	}
