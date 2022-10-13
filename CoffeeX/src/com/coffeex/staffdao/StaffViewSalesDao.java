@@ -46,13 +46,14 @@ public class StaffViewSalesDao {
 		ArrayList<OrdersDto> ordersdto = new ArrayList<OrdersDto>();
 
 		String whereStatement1 = "select m.menuname, o.ordersquantity, o.orderssaleprice, substring(o.ordersdate, 1, 10) ";
-		String whereStatement2 = "from orders o, menu m where m.menuid = o.ordersmmanageid order by ordersdate";
+		String whereStatement2 = "from orders o, menu m where m.menuid = o.ordersmmanageid";
+		String whereStatement3 = " and ordersstaffid='" + CustomerInfo.staffid + "' order by ordersdate";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-			ResultSet rs = stmt_mysql.executeQuery(whereStatement1 + whereStatement2);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement1 + whereStatement2 + whereStatement3);
 
 			while (rs.next()) {
 				int wkordersstaffid = CustomerInfo.staffid;
@@ -77,13 +78,14 @@ public class StaffViewSalesDao {
 		ArrayList<OrdersDto> ordersdto = new ArrayList<OrdersDto>();
 
 		String whereStatement1 = "select m.menuname, o.ordersquantity, o.orderssaleprice, substring(o.ordersdate, 1, 10) ";
-		String whereStatement2 = "from orders o, menu m where m.menuid = o.ordersmmanageid and ordersdate like '" + cbDate + "%' order by ordersdate";
+		String whereStatement2 = "from orders o, menu m where m.menuid = o.ordersmmanageid and ordersdate like '" + cbDate + "%'";
+		String whereStatement3 = " and ordersstaffid=' " + CustomerInfo.staffid + "' order by ordersdate";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-			ResultSet rs = stmt_mysql.executeQuery(whereStatement1 + whereStatement2);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement1 + whereStatement2 + whereStatement3);
 
 			while (rs.next()) {
 

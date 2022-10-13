@@ -155,6 +155,7 @@ public class StaffLogin {
 					}
 					JOptionPane.showMessageDialog(null, CustomerInfo.staffname + "님 로그인 되었습니다.");
 					frmCoffeex.setVisible(false);
+					staffLoginDao.belongAction();
 
 				}else {
 

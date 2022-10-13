@@ -307,7 +307,7 @@ public class KioskOrderDao {
 //			String whereStatement2 = "and (now()<(select punchouttime from punchinout where date(punchouttime)=curdate()) ";
 //			String whereStatement3 = "or (select punchouttime from punchinout where date(punchouttime)=curdate()) is null) ";
 //			String whereStatement4 = "and punchshopid='" + DBConnect.shopname;
-			String whereStatement="Select staffid from staff";
+			String whereStatement="Select staffid from staff, belong where staffid=belongstaffid and belongshopid='" + CustomerInfo.shopname + "';";
 
 			ps = conn_mysql.prepareStatement(whereStatement);
 

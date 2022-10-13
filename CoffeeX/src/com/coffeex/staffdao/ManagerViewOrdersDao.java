@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import com.coffeex.dto.MenuViewDto;
 import com.coffeex.dto.NoticeDto;
 import com.coffeex.dto.OrdersViewDto;
+import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
 public class ManagerViewOrdersDao {
@@ -25,7 +26,7 @@ public class ManagerViewOrdersDao {
 
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
 		String whereStatement = "select orderid, menu, quantity, ordersoption, place from orderview ";
-		String whereStatement2 = "where ordersstatus='" + status + "'";
+		String whereStatement2 = "where ordersstatus='" + status + "' and shop='" + CustomerInfo.shopname + "' and date(dates)=curdate();";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

@@ -71,7 +71,7 @@ public class StaffViewPaymentDao {
 		ArrayList<PayDto> paydto = new ArrayList<PayDto>();
 
 		String whereStatement1 = "select payamount, payincentive, substring(paydate, 1, 10) ";
-		String whereStatement2 = "from pay where paydate like '" + cbDate + "%' order by paydate";
+		String whereStatement2 = "from pay where paydate like '" + cbDate + "%' and paystaffid='" + CustomerInfo.staffid + "' order by paydate";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

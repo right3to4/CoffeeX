@@ -89,7 +89,7 @@ public class StaffLoginDao {
 	}
 	public void belongAction() {
 		try{
-			String whereStatement = "select belong from belongshopid where belongstaffid = '"+ staffid+"'";
+			String whereStatement = "select belongshopid from belong where belongstaffid = '"+ staffid+"'";
 			
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
