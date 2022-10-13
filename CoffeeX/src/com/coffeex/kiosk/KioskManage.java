@@ -35,7 +35,6 @@ public class KioskManage extends JPanel {
 	private JLabel lblNewLabel;
 
 	public static ArrayList<String> pw = new ArrayList<String>();
-	private JButton btnNewButton_2_1;
 	private JPanel panel_1;
 	private JTextField tfShopName;
 	private JLabel lblNewLabel_1;
@@ -49,16 +48,14 @@ public class KioskManage extends JPanel {
 		add(getPanel());
 		add(getBtnNewButton_1());
 		add(getBtnNewButton_2());
-		add(getBtnNewButton_2_1());
 		panel_1.setVisible(false);
 		btnNewButton_1.setVisible(false);
 		btnNewButton_2.setVisible(false);
-		btnNewButton_2_1.setVisible(false);
 	}
 
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("관리자 로그아웃");
+			btnNewButton_1 = new JButton("로그아웃");
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					KioskInit.lblCancelbutton.setVisible(false);
@@ -283,7 +280,7 @@ public class KioskManage extends JPanel {
 						panel.setVisible(false);
 						btnNewButton_1.setVisible(true);
 						btnNewButton_2.setVisible(true);
-						btnNewButton_2_1.setVisible(true);
+						
 						passwordField.setText(null);
 					} else {
 						passwordField.setText(null);
@@ -313,14 +310,6 @@ public class KioskManage extends JPanel {
 			lblNewLabel.setBounds(44, 10, 162, 26);
 		}
 		return lblNewLabel;
-	}
-
-	private JButton getBtnNewButton_2_1() {
-		if (btnNewButton_2_1 == null) {
-			btnNewButton_2_1 = new JButton("지점설정");
-			btnNewButton_2_1.setBounds(130, 234, 114, 50);
-		}
-		return btnNewButton_2_1;
 	}
 
 	private String ArrtoString(ArrayList<String> arr) {
