@@ -15,7 +15,6 @@ import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.ShopDto;
 import com.coffeex.staffdao.ChefManageShopDao;
-import com.coffeex.staffdao.ManagerAddStaffDao;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -251,9 +250,10 @@ public class ChefManageShop {
 			btnDelete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(deleteAction() == true) {
-						JOptionPane.showMessageDialog(null, tfAddress.getText()+"님의 정보가 삭제 되었습니다.");
-						conditionQuery();
-//						tableInit();
+						JOptionPane.showMessageDialog(null, tfId.getText()+"님의 정보가 삭제 되었습니다.");
+	//					conditionQuery();
+						tableInit();
+						queryAction();
 						clearColumn();
 					}else {
 						JOptionPane.showMessageDialog(null,"DB작업중 문제가 발생했습니다. \n행정실로 문의 하세요.");
@@ -274,18 +274,11 @@ public class ChefManageShop {
 					if(i_chk == 0) {
 						insertAction();
 						JOptionPane.showMessageDialog(null, tfId.getText()+"님의 정보가 입력 되었습니다.");
-//						conditionQuery();
+						conditionQuery();
 						clearColumn();
 					}else {
 						JOptionPane.showMessageDialog(null, tfId.getText()+"님의 중복확인을 확인해주세요.");
 					}
-//						int check = insertAction();
-//						if(check == 1) {
-//							JOptionPane.showMessageDialog(null, tfStaffName.getText()+"님의 정보가 입력 되었습니다.");
-//							conditionQuery();
-//							clearColumn();
-//						}
-//					}
 				}
 			});
 			btnInsert.setBounds(317, 399, 117, 29);
@@ -331,21 +324,21 @@ public class ChefManageShop {
 			        return (column == 0) ? Icon.class : Object.class; 	// <--****************
 			      }
 			};
-		/*
+		
 			Inner_Table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if(e.getButton() == 1) {
-					//	tableClick();
+						tableClick();
 					}
 				}
 			});
-		*/
+		
 			Inner_Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			Inner_Table.setRowHeight(100); 		// <--***************************************************
 			Inner_Table.setShowVerticalLines(false);
 			Inner_Table.setShowHorizontalLines(false);
-			//Inner_Table.setShowGrid(false);
+			Inner_Table.setShowGrid(false);
 			Inner_Table.setModel(Outer_Table);
 		}
 		return Inner_Table;
@@ -357,8 +350,9 @@ public class ChefManageShop {
 		Outer_Table.addColumn("ShopID");
 		Outer_Table.addColumn("주소");
 		Outer_Table.addColumn("전화번호");
+		Outer_Table.addColumn("매장운영시간");
 		
-		Outer_Table.setColumnCount(4);
+		Outer_Table.setColumnCount(5);
 		
 		int i = Outer_Table.getRowCount();
 		
@@ -371,7 +365,7 @@ public class ChefManageShop {
 		
 		int vColIndex = 0;
 		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		int width = 50;
+		int width = 100;
 		col.setPreferredWidth(width);
 		
 		vColIndex = 1;
@@ -386,8 +380,14 @@ public class ChefManageShop {
 		
 		vColIndex = 3;
 		col = Inner_Table.getColumnModel().getColumn(vColIndex);
-		width = 200;
+		width = 100;
 		col.setPreferredWidth(width);
+		
+		vColIndex = 4;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
 		
 	}
 	//가게정보 입력
@@ -414,12 +414,13 @@ public class ChefManageShop {
 		ChefManageShopDao dbaction = new ChefManageShopDao(id, address, phone, f.getName(), input, opening); 
 		
 		boolean aaa = dbaction.insertAction();
+	/*
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, tfId.getText()+" 님의 정보가 입력 되었습니다.!");                    
 		}else{
 	          JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");                    
 		}		
-		
+		*/
 		//return aaa;
 	}
 	//등록시 빈칸 체크
@@ -449,6 +450,12 @@ public class ChefManageShop {
 			message = "이미지 파일의 경로를";
 			tfFilePath.requestFocus();
 		}
+		
+		if(tfOpening.getText().trim().length() == 0) {
+			i++;
+			message = "오픈 시간을";
+			tfOpening.requestFocus();
+		}
 
 		if(i>0) {
 			JOptionPane.showMessageDialog(null, message + "확인하세요!");
@@ -457,13 +464,13 @@ public class ChefManageShop {
 	}
 	
 
-	//사원정보 삭제
+	//가게정보 삭제
 	private Boolean deleteAction() {
 		
-		int custid = Integer.parseInt(tfId.getText());
+		String shopid = tfId.getText().trim();
 		
-		ManagerAddStaffDao dao = new ManagerAddStaffDao();
-		boolean check = dao.deleteAction(custid);
+		ChefManageShopDao dao = new ChefManageShopDao(tfId.getText().trim());
+		boolean check = dao.deleteAction(shopid);
 		
 		return check;
 	}
@@ -472,6 +479,7 @@ public class ChefManageShop {
 		tfAddress.setText("");
 		tfPhone.setText("");
 		tfFilePath.setText("");
+		tfOpening.setText("");
 	}
 	private void conditionQuery() {
 		
@@ -479,21 +487,21 @@ public class ChefManageShop {
 		String conditionQueryColumn = "";
 		switch(i) {
 		case 0:
-			conditionQueryColumn = "staffid";
+			conditionQueryColumn = "shopid";
 			break;
 		case 1:
-			conditionQueryColumn = "staffname";
+			conditionQueryColumn = "shopaddress";
 			break;
 		case 2:
-			conditionQueryColumn = "staffphone";
+			conditionQueryColumn = "shopphone";
 			break;
 		default:
 			break;
 		}
 		tableInit();
 		clearColumn();
-		queryAction();
-		//conditionQueryAction(conditionQueryColumn);
+		//queryAction();
+		conditionQueryAction(conditionQueryColumn);
 	}
 	
 	private void FilePath() {
@@ -511,42 +519,29 @@ public class ChefManageShop {
 		lblImage1.setIcon(new ImageIcon(filePath));
 		lblImage1.setHorizontalAlignment(SwingConstants.CENTER);
 	}	
-	
-	
-	/*
+
 	private void conditionQueryAction(String conditionQueryColumn) {
-		
-		ChefManageShopDao dao = new ChefManageShopDao();
-		ArrayList<ShopDto> dtoList = dao.conditionList();
-		
-		int listCount = dtoList.size();
+		ChefManageShopDao dao = new ChefManageShopDao(conditionQueryColumn, tfSearch.getText().trim());
+		beanList = dao.conditionList();
+		int listCount = beanList.size();
 		
 		for(int index=0; index<listCount; index++) {
-			String temp = Integer.toString(dtoList.get(index).getStaffid());
-			String[] qTxt = {temp, dtoList.get(index).getStaffname(), dtoList.get(index).getStaffphone(),dtoList.get(index).getStaffinitdate()};
-			Outer_Table.addRow(qTxt);
-			
+			ImageIcon icon = new ImageIcon("./"+beanList.get(index).getShopphotoname());
+			Object[] tempData = {icon, beanList.get(index).getShopid(),beanList.get(index).getShopaddress(),beanList.get(index).getShopphone(),beanList.get(index).getOpeninghours()};
+			Outer_Table.addRow(tempData);
 		}
 	}
-	*/
 	
 	private void queryAction() {
 		ChefManageShopDao dbAction = new ChefManageShopDao();
 		beanList = dbAction.selectList();
-		
 		int listcount = beanList.size();
 		
 		for(int index=0; index < listcount; index++) {
 			ImageIcon icon = new ImageIcon("./"+beanList.get(index).getShopphotoname());
-			
-			
-			
-			Object[] tempData = {icon, beanList.get(index).getShopid(),beanList.get(index).getShopaddress(),beanList.get(index).getShopphone()};
-			Outer_Table.addRow(tempData);		
+			Object[] tempData = {icon, beanList.get(index).getShopid(),beanList.get(index).getShopaddress(),beanList.get(index).getShopphone(),beanList.get(index).getOpeninghours()};
+			Outer_Table.addRow(tempData);
 		}
-		
-		
-		
 	}
 	
 	private void closingAction() {
@@ -577,4 +572,38 @@ public class ChefManageShop {
 		}
 		return tfOpening;
 	}
+	
+	private void tableClick() {
+        int i = Inner_Table.getSelectedRow();
+        //String tkSequence = (String)Inner_Table.getValueAt(i, 1);
+        /*
+        //JOptionPane.showMessageDialog(null, "tkSequence = " + tkSequence);    
+        
+        ChefManageShopDao dbAction = new ChefManageShopDao(tkSequence.trim());
+        ShopDto dto = dbAction.tableClick();
+        */
+        tfId.setText((String)Inner_Table.getValueAt(i, 1));
+        tfAddress.setText((String)Inner_Table.getValueAt(i, 2));
+        tfPhone.setText((String)Inner_Table.getValueAt(i, 3));
+        tfOpening.setText((String)Inner_Table.getValueAt(i, 4));
+
+        
+        // Image처리
+        // File name이 틀려야 즉각 보여주기가 가능하여   
+        // ShareVar에서 int값으로 정의하여 계속 증가하게 하여 file name으로 사용후 삭제
+        /*
+		String filePath = dto.getShopphotoname();
+		tfFilePath.setText(filePath);
+		
+		lblImage.setIcon(new ImageIcon(filePath));
+		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		File file = new File(filePath);
+		file.delete();
+		*/
+		tfFilePath.setText("");
+
+        		
+	}
+	
 }

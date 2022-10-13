@@ -17,12 +17,16 @@ public class ShopDto {
 		this.shopphone = shopphone;
 		this.shopphotoname = shopphotoname;
 	}
-
-	public ShopDto(String shopid) {
+	
+	public ShopDto(String shopid, String shopaddress, String shopphone, String shopphotoname, String openinghours) {
 		super();
 		this.shopid = shopid;
+		this.shopaddress = shopaddress;
+		this.shopphone = shopphone;
+		this.shopphotoname = shopphotoname;
+		this.openinghours = openinghours;
 	}
-
+	
 	public ShopDto() {
 		
 	}

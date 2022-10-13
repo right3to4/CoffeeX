@@ -89,7 +89,7 @@ public class ChefManageShopDao {
 		}
 		return true;
 	}
-	public boolean deleteAction(int shopid) {
+	public boolean deleteAction(String shopid) {
 	PreparedStatement ps = null;
 	try {
 		//sql접속
@@ -97,11 +97,11 @@ public class ChefManageShopDao {
 		Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql,DBConnect.id_mysql,DBConnect.pw);
 		Statement stmt_mysql = conn_mysql.createStatement();
 		//쿼리문작성
-		String query = "update shop set deletedate = now() where shopid = ? ";
+		String query = "update shop set closingdate = now() where shopid = ? ";
 		//데이터입력
 		ps = conn_mysql.prepareStatement(query);
 	
-		ps.setInt(1, shopid);
+		ps.setString(1, shopid);
 		//실행
 		ps.executeUpdate();
 		
@@ -119,7 +119,7 @@ public class ChefManageShopDao {
 		
 		ArrayList<ShopDto> BeanList = new ArrayList<ShopDto>();
 		
-		String whereStatement = "select shopid, shopaddress, shopphone, shopphotoname, shopphoto from shop ";
+		String whereStatement = "select shopid, shopaddress, shopphone, openinghours, shopphotoname, shopphoto from shop where closingdate is null";
 		//String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and deletedate is null";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -134,18 +134,23 @@ public class ChefManageShopDao {
 				String wkshopid = rs.getString(1);
 				String wkshopaddress = rs.getString(2);
 				String wkshopphone = rs.getString(3);
-				String wkshopphotoname = rs.getString(4);
+				String wkopeninghours = rs.getString(4);
+				String wkshopphotoname = rs.getString(5);
 				
 				// File
-				File file = new File("./" + wkshopphotoname);
-				FileOutputStream output = new FileOutputStream(wkshopphotoname);
-				InputStream input = rs.getBinaryStream(5);
-				byte[] buffer = new byte[1024];
-				while(input.read(buffer) > 0) {
-					output.write(buffer);
-				}
-								
-				ShopDto shopdto = new ShopDto(wkshopid, wkshopaddress, wkshopphone, wkshopphotoname);
+				if (wkshopphotoname.equals(null)) {
+					System.out.println("wksopphotoname is null");
+					
+				}else {
+					File file = new File("./" + wkshopphotoname);
+					FileOutputStream output = new FileOutputStream(wkshopphotoname);
+					InputStream input = rs.getBinaryStream(6);
+					byte[] buffer = new byte[1024];
+					while(input.read(buffer) > 0) {
+						output.write(buffer);
+					}
+				}		
+				ShopDto shopdto = new ShopDto(wkshopid, wkshopaddress, wkshopphone, wkshopphotoname,wkopeninghours);
 				BeanList.add(shopdto);
 			}
 		
@@ -156,13 +161,56 @@ public class ChefManageShopDao {
 			}
 		return BeanList;
 	}
-	/*
-	public StaffDto tableClick() {
+	
+	public ArrayList<ShopDto> conditionList(){
 		
-		StaffDto dto = null;
+		ArrayList<ShopDto> BeanList = new ArrayList<ShopDto>();
 		
-		String whereStatement = "select staffid, staffname, staffphone from staff ";
-		String whereStatement2 = "where staffid = "+ staffid;
+		String whereStatement = "select shopid, shopaddress, shopphone, openinghours, shopphotoname, shopphoto from shop ";
+		String whereStatement2 = "where "+ conname + " like '%" + condata +"%' and closingdate is null";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql,DBConnect.id_mysql,DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+
+			//ResultSet rs = stmt_mysql.executeQuery(whereStatement);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
+			
+			while(rs.next()) {
+				
+				String wkshopid = rs.getString(1);
+				String wkshopaddress = rs.getString(2);
+				String wkshopphone = rs.getString(3);
+				String wkopeninghours = rs.getString(4);
+				String wkshopphotoname = rs.getString(5);
+				
+				// File
+				File file = new File("./" + wkshopphotoname);
+				FileOutputStream output = new FileOutputStream(wkshopphotoname);
+				InputStream input = rs.getBinaryStream(6);
+				byte[] buffer = new byte[1024];
+				while(input.read(buffer) > 0) {
+					output.write(buffer);
+				}
+								
+				ShopDto shopdto = new ShopDto(wkshopid, wkshopaddress, wkshopphone, wkshopphotoname, wkopeninghours);
+				BeanList.add(shopdto);
+			}
+		
+			conn_mysql.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			}
+		return BeanList;
+	}
+/*
+	public ShopDto tableClick() {
+		
+		ShopDto dto = null;
+		
+		String whereStatement = "select shopid, shopaddress, shopphone, openinghours, shopphotoname, shopphoto from shop ";
+		String whereStatement2 = "where shopid = "+ shopid;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -173,11 +221,22 @@ public class ChefManageShopDao {
 			
 			while(rs.next()) {
 				
-				int wkstaffid = rs.getInt(1);
-				String wkstaffname = rs.getString(2);
-				String wkstaffphone = rs.getString(3);
+				String wkshopid = rs.getString(1);
+				String wkaddress = rs.getString(2);
+				String wkphone = rs.getString(3);
+				String wkopeninghours = rs.getString(4);				
+				String wkphotoname = rs.getString(5);
 				
-				dto = new StaffDto(wkstaffid, wkstaffname, wkstaffphone);
+				// File
+				File file = new File("./" + wkphotoname);
+				FileOutputStream output = new FileOutputStream(wkphotoname);
+				InputStream input = rs.getBinaryStream(6);
+				byte[] buffer = new byte[1024];
+				while(input.read(buffer) > 0) {
+					output.write(buffer);
+				}				
+				
+				dto = new ShopDto(wkshopid, wkaddress, wkphone, wkphotoname, wkopeninghours);
 				
 			}
 				
@@ -189,31 +248,6 @@ public class ChefManageShopDao {
 		
 		return dto;
 	}
-
-	public boolean idCheck(String staffid) {
-		PreparedStatement ps = null;
-		int count = 0;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql,
-					DBConnect.pw);
-			Statement stmt_mysql = conn_mysql.createStatement();
-			String query = "select count(staffid) from staff where staffid = ";
-			String query1 = "'" + staffid + "'";
-			ps = conn_mysql.prepareStatement(query + query1);
-			ResultSet rs = stmt_mysql.executeQuery(query + query1);
-			while (rs.next()) {
-				count = rs.getInt(1);
-			}
-		} catch (Exception e) {
-		}
-		if (count == 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-*/
-	
+	*/	
 }
 
