@@ -18,14 +18,14 @@ public class ManagerViewSalesDao {
 
 	public ArrayList<OrdersViewDto> searchSalesByMonth() {
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
-		String whereStatement = "select substring(dates, 1, 7), sum(quantity), sum(price) from orderview";
+		String whereStatement = "select substring(dates, 1, 7), sum(quantity), sum(price) from orderview ";
 		String whereStatement2=	"where staff='" + CustomerInfo.staffname + "' group by substring(dates, 1, 7)";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-			ResultSet rs = stmt_mysql.executeQuery(whereStatement);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
 
 			while (rs.next()) {
 				String wkYear = rs.getString(1);
