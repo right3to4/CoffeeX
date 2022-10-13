@@ -638,6 +638,7 @@ public class ChefUpdateStaff {
 			break;
 		case 3:
 			conditionQueryColumn = "belongshopid";
+			break;
 		case 4:
 			conditionQueryColumn = "position";
 			break;
