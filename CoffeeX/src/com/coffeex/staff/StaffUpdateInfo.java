@@ -86,6 +86,7 @@ public class StaffUpdateInfo {
 		frame.getContentPane().add(getTfStaffPhone());
 		frame.getContentPane().add(getBtnUpdate());
 		frame.getContentPane().add(getLblPwCS());
+		frame.setDefaultCloseOperation(2);
 	}
 
 	private JLabel getLblNewLabel() {

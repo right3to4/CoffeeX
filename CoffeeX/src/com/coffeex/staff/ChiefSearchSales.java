@@ -133,7 +133,7 @@ public class ChiefSearchSales {
 		frmCoffeex.getContentPane().setLayout(null);
 		frmCoffeex.getContentPane().add(getLbStaffManage());
 		frmCoffeex.getContentPane().add(getLbPayment());
-		frmCoffeex.getContentPane().add(getLbChangeMenu());
+//		frmCoffeex.getContentPane().add(getLbChangeMenu());
 		frmCoffeex.getContentPane().add(getLbUpdateInfo());
 		frmCoffeex.getContentPane().add(getLbName());
 		frmCoffeex.getContentPane().add(getLbPromote());
@@ -170,7 +170,7 @@ public class ChiefSearchSales {
 			lbUpdateInfo.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					ManagerUpdateInfo.main(null);
+					StaffUpdateInfo.main(null);
 				}
 
 				@Override
@@ -192,33 +192,34 @@ public class ChiefSearchSales {
 		return lbUpdateInfo;
 	}
 
-	private JLabel getLbChangeMenu() {
-		if (lbChangeMenu == null) {
-			lbChangeMenu = new JLabel("메뉴등록");
-			lbChangeMenu.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					ManagerChangeMenu.main(null);
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					lbChangeMenu.setForeground(Color.black);
-				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					lbChangeMenu.setForeground(Color.white);
-				}
-
-			});
-			lbChangeMenu.setHorizontalAlignment(SwingConstants.CENTER);
-			lbChangeMenu.setForeground(Color.WHITE);
-			lbChangeMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lbChangeMenu.setBounds(608, 0, 140, 50);
-		}
-		return lbChangeMenu;
-	}
+//	private JLabel getLbChangeMenu() {
+//		if (lbChangeMenu == null) {
+//			lbChangeMenu = new JLabel("메뉴등록");
+//			lbChangeMenu.setVisible(false);
+//			lbChangeMenu.addMouseListener(new MouseAdapter() {
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					ManagerChangeMenu.main(null);
+//				}
+//
+//				@Override
+//				public void mousePressed(MouseEvent e) {
+//					lbChangeMenu.setForeground(Color.black);
+//				}
+//
+//				@Override
+//				public void mouseReleased(MouseEvent e) {
+//					lbChangeMenu.setForeground(Color.white);
+//				}
+//
+//			});
+//			lbChangeMenu.setHorizontalAlignment(SwingConstants.CENTER);
+//			lbChangeMenu.setForeground(Color.WHITE);
+//			lbChangeMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
+//			lbChangeMenu.setBounds(608, 0, 140, 50);
+//		}
+//		return lbChangeMenu;
+//	}
 
 	private JLabel getLbPayment() {
 		if (lbPayment == null) {
@@ -242,7 +243,7 @@ public class ChiefSearchSales {
 			lbPayment.setHorizontalAlignment(SwingConstants.CENTER);
 			lbPayment.setForeground(Color.WHITE);
 			lbPayment.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lbPayment.setBounds(456, 0, 140, 50);
+			lbPayment.setBounds(623, 0, 140, 50);
 		}
 		return lbPayment;
 	}
@@ -281,7 +282,7 @@ public class ChiefSearchSales {
 			lbStaffManage.setHorizontalAlignment(SwingConstants.CENTER);
 			lbStaffManage.setForeground(Color.WHITE);
 			lbStaffManage.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lbStaffManage.setBounds(304, 0, 140, 50);
+			lbStaffManage.setBounds(471, 0, 140, 50);
 		}
 		return lbStaffManage;
 	}
@@ -305,10 +306,10 @@ public class ChiefSearchSales {
 					lbNotice.setForeground(Color.white);
 				}
 			});
-			lbNotice.setHorizontalAlignment(SwingConstants.CENTER);
+			lbNotice.setHorizontalAlignment(SwingConstants.RIGHT);
 			lbNotice.setForeground(Color.WHITE);
 			lbNotice.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-			lbNotice.setBounds(191, 0, 140, 50);
+			lbNotice.setBounds(319, 0, 140, 50);
 		}
 		return lbNotice;
 	}
@@ -349,7 +350,7 @@ public class ChiefSearchSales {
 			lbStaffPayManege.setHorizontalAlignment(SwingConstants.CENTER);
 			lbStaffPayManege.setForeground(Color.BLACK);
 			lbStaffPayManege.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-			lbStaffPayManege.setBounds(304, 50, 140, 25);
+			lbStaffPayManege.setBounds(471, 50, 140, 25);
 		}
 		lbStaffPayManege.setVisible(false);
 		return lbStaffPayManege;
@@ -372,7 +373,7 @@ public class ChiefSearchSales {
 			lbStaffInsertDel.setHorizontalAlignment(SwingConstants.CENTER);
 			lbStaffInsertDel.setForeground(Color.BLACK);
 			lbStaffInsertDel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-			lbStaffInsertDel.setBounds(304, 75, 140, 25);
+			lbStaffInsertDel.setBounds(471, 75, 140, 25);
 		}
 		lbStaffInsertDel.setVisible(false);
 		return lbStaffInsertDel;
@@ -395,7 +396,7 @@ public class ChiefSearchSales {
 			lbShopInsert.setHorizontalAlignment(SwingConstants.CENTER);
 			lbShopInsert.setForeground(Color.BLACK);
 			lbShopInsert.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-			lbShopInsert.setBounds(304, 100, 140, 25);
+			lbShopInsert.setBounds(471, 100, 140, 25);
 		}
 		lbShopInsert.setVisible(false);
 		return lbShopInsert;
@@ -441,7 +442,7 @@ public class ChiefSearchSales {
 			lblNewLabel_1 = new JLabel("매출현황");
 			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1.setBounds(341, 59, 152, 34);
+			lblNewLabel_1.setBounds(140, 60, 152, 34);
 		}
 		return lblNewLabel_1;
 	}
