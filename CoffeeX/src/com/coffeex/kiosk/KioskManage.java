@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import com.coffeex.kioskdao.KioskManagerDao;
+import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
 import javax.swing.JTextField;
@@ -278,7 +279,7 @@ public class KioskManage extends JPanel {
 						for (int i=0;i<passwordField.getPassword().length;i++) {
 							staffid=staffid+passwordField.getPassword()[i];
 						}
-						DBConnect.shopname=dao.checkShopName(Integer.parseInt(staffid));
+						CustomerInfo.shopname=dao.checkShopName(Integer.parseInt(staffid));
 						
 						passwordField.setText(null);
 					} else {

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import com.coffeex.dto.MenuViewDto;
 import com.coffeex.dto.ViewCartDto;
 import com.coffeex.kiosk.KioskOrder;
+import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
 public class KioskOrderDao {
@@ -249,7 +250,7 @@ public class KioskOrderDao {
 
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
 			ps.setInt(1, staffid);
-			ps.setString(2, DBConnect.shopname);
+			ps.setString(2, CustomerInfo.shopname);
 			ps.setString(3, custid);
 			ps.setInt(4, dao.getMenuId(menuid));
 			ps.setInt(5, quantity);

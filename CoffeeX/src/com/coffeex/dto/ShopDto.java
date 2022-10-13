@@ -27,6 +27,11 @@ public class ShopDto {
 		this.openinghours = openinghours;
 	}
 	
+	public ShopDto(String shopid) {
+		super();
+		this.shopid = shopid;
+	}
+
 	public ShopDto() {
 		
 	}

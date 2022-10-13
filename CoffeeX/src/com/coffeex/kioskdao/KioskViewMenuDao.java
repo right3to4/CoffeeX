@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.coffeex.dto.MenuViewDto;
+import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
 public class KioskViewMenuDao {
@@ -65,7 +66,7 @@ public class KioskViewMenuDao {
 		ArrayList<MenuViewDto> dtoList = new ArrayList<MenuViewDto>();
 		String whereStatement = "select menuname, price from mmanage ";
 		String whereStatement2 = "where category='" + category + "'";
-		String whereStatement3 = " and shopname='" + DBConnect.shopname + "';";
+		String whereStatement3 = " and shopname='" + CustomerInfo.shopname + "';";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

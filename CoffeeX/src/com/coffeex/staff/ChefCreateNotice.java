@@ -6,12 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Insets;
+
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.NoticeDto;
+import com.coffeex.staffdao.ChefCreateNoticeDao;
+import com.coffeex.staffdao.ChefUpdateStaffDao;
 import com.coffeex.staffdao.StaffViewNoticeDao;
+import com.coffeex.util.CustomerInfo;
 
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
@@ -24,6 +29,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ChefCreateNotice {
 
@@ -44,6 +51,7 @@ public class ChefCreateNotice {
 	private JButton btnDeleteNotice;
 	private JButton btnUpdateNotice;
 	private JButton btnInsertNotice;
+
 	/**
 	 * Launch the application.
 	 */
@@ -77,7 +85,7 @@ public class ChefCreateNotice {
 			public void windowActivated(WindowEvent e) {
 				OrderNoticeTableInit();
 				searchAction();
-				
+
 			}
 		});
 		frame.setBounds(100, 100, 600, 621);
@@ -99,6 +107,7 @@ public class ChefCreateNotice {
 		frame.getContentPane().add(getBtnInsertNotice());
 		frame.setDefaultCloseOperation(2);
 	}
+
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("  CoffeeX");
@@ -111,6 +120,7 @@ public class ChefCreateNotice {
 		}
 		return lblNewLabel;
 	}
+
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("공지사항");
@@ -119,15 +129,16 @@ public class ChefCreateNotice {
 		}
 		return lblNewLabel_1;
 	}
+
 	private JTextField getTfTitle() {
 		if (tfTitle == null) {
 			tfTitle = new JTextField();
-			tfTitle.setEnabled(false);
 			tfTitle.setBounds(66, 221, 503, 26);
 			tfTitle.setColumns(10);
 		}
 		return tfTitle;
 	}
+
 	private JEditorPane getEpText() {
 		if (epText == null) {
 			epText = new JEditorPane();
@@ -135,6 +146,7 @@ public class ChefCreateNotice {
 		}
 		return epText;
 	}
+
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
@@ -149,6 +161,7 @@ public class ChefCreateNotice {
 		}
 		return scrollPane;
 	}
+
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("제목");
@@ -156,6 +169,7 @@ public class ChefCreateNotice {
 		}
 		return lblNewLabel_2;
 	}
+
 	private JTable getInner_Notice() {
 		if (Inner_Notice == null) {
 			Inner_Notice = new JTable();
@@ -172,6 +186,7 @@ public class ChefCreateNotice {
 		}
 		return Inner_Notice;
 	}
+
 	private JTextField getTfInsertDate() {
 		if (tfInsertDate == null) {
 			tfInsertDate = new JTextField();
@@ -181,13 +196,15 @@ public class ChefCreateNotice {
 		}
 		return tfInsertDate;
 	}
+
 	private JLabel getLblNewLabel_2_1() {
 		if (lblNewLabel_2_1 == null) {
-			lblNewLabel_2_1 = new JLabel("등록일자");
+			lblNewLabel_2_1 = new JLabel("작성일자");
 			lblNewLabel_2_1.setBounds(135, 264, 63, 16);
 		}
 		return lblNewLabel_2_1;
 	}
+
 	private JTextField getTfUpdateDate() {
 		if (tfUpdateDate == null) {
 			tfUpdateDate = new JTextField();
@@ -197,6 +214,7 @@ public class ChefCreateNotice {
 		}
 		return tfUpdateDate;
 	}
+
 	private JLabel getLblNewLabel_2_1_1() {
 		if (lblNewLabel_2_1_1 == null) {
 			lblNewLabel_2_1_1 = new JLabel("수정일자");
@@ -204,12 +222,50 @@ public class ChefCreateNotice {
 		}
 		return lblNewLabel_2_1_1;
 	}
-	//-----------------function------------
-private void OrderNoticeTableInit() {
-		
+
+	private JButton getBtnWriteNotice() {
+		if (btnWriteNotice == null) {
+			btnWriteNotice = new JButton("공지사항작성");
+			btnWriteNotice.setBounds(452, 76, 117, 29);
+		}
+		return btnWriteNotice;
+	}
+
+	private JButton getBtnDeleteNotice() {
+		if (btnDeleteNotice == null) {
+			btnDeleteNotice = new JButton("삭제");
+			btnDeleteNotice.setBounds(452, 558, 117, 29);
+		}
+		return btnDeleteNotice;
+	}
+
+	private JButton getBtnUpdateNotice() {
+		if (btnUpdateNotice == null) {
+			btnUpdateNotice = new JButton("수정");
+			btnUpdateNotice.setBounds(323, 558, 117, 29);
+		}
+		return btnUpdateNotice;
+	}
+
+	private JButton getBtnInsertNotice() {
+		if (btnInsertNotice == null) {
+			btnInsertNotice = new JButton("등록");
+			btnInsertNotice.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					insertAction();
+				}
+			});
+			btnInsertNotice.setBounds(194, 558, 117, 29);
+		}
+		return btnInsertNotice;
+	}
+
+	// -----------------function------------
+	private void OrderNoticeTableInit() {
+
 		Outer_Notice.addColumn("No.");
 		Outer_Notice.addColumn("제목");
-		Outer_Notice.addColumn("작성일");
+		Outer_Notice.addColumn("작성일자");
 		Outer_Notice.addColumn("수정일자");
 
 		Outer_Notice.setColumnCount(4);
@@ -226,7 +282,7 @@ private void OrderNoticeTableInit() {
 		TableColumn col = Inner_Notice.getColumnModel().getColumn(vColIndex);
 		int width = 50;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 1;
 		col = Inner_Notice.getColumnModel().getColumn(vColIndex);
 		width = 200;
@@ -236,65 +292,51 @@ private void OrderNoticeTableInit() {
 		col = Inner_Notice.getColumnModel().getColumn(vColIndex);
 		width = 140;
 		col.setPreferredWidth(width);
-		
+
 		vColIndex = 3;
 		col = Inner_Notice.getColumnModel().getColumn(vColIndex);
 		width = 140;
 		col.setPreferredWidth(width);
 
 	}
+
 	private void searchAction() {
 
-	StaffViewNoticeDao dao = new StaffViewNoticeDao();
-	ArrayList<NoticeDto> dtoList = dao.NoticeselectList();
+		StaffViewNoticeDao dao = new StaffViewNoticeDao();
+		ArrayList<NoticeDto> dtoList = dao.NoticeselectList();
 
-	int listCount = dtoList.size();
+		int listCount = dtoList.size();
 
-	for (int index = 0; index < listCount; index++) {
-		String temp = Integer.toString(dtoList.get(index).getNoticeid()) ;
-		String[] qTxt = { temp, dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(),dtoList.get(index).getNoticeupdatedate() };
-		Outer_Notice.addRow(qTxt);
+		for (int index = 0; index < listCount; index++) {
+			String temp = Integer.toString(dtoList.get(index).getNoticeid());
+			String[] qTxt = { temp, dtoList.get(index).getNoticetitle(), dtoList.get(index).getNoticeinsertdate(),
+					dtoList.get(index).getNoticeupdatedate() };
+			Outer_Notice.addRow(qTxt);
+		}
 	}
-}
+
 	private void tableClick() {
-	int i = Inner_Notice.getSelectedRow();
-	String wkNoticeid = (String) Inner_Notice.getValueAt(i, 0);
+		int i = Inner_Notice.getSelectedRow();
+		String wkNoticeid = (String) Inner_Notice.getValueAt(i, 0);
 
-	StaffViewNoticeDao dao = new StaffViewNoticeDao(Integer.parseInt(wkNoticeid));
+		StaffViewNoticeDao dao = new StaffViewNoticeDao(Integer.parseInt(wkNoticeid));
 
-	NoticeDto dto = dao.tableClick();
+		NoticeDto dto = dao.tableClick();
 
-	tfTitle.setText(dto.getNoticetitle());
-	tfInsertDate.setText(dto.getNoticeinsertdate());
-	tfUpdateDate.setText(dto.getNoticeupdatedate());
-	epText.setText(dto.getNoticetext());
-}
-	private JButton getBtnWriteNotice() {
-		if (btnWriteNotice == null) {
-			btnWriteNotice = new JButton("공지사항작성");
-			btnWriteNotice.setBounds(452, 76, 117, 29);
-		}
-		return btnWriteNotice;
+		tfTitle.setText(dto.getNoticetitle());
+		tfInsertDate.setText(dto.getNoticeinsertdate());
+		tfUpdateDate.setText(dto.getNoticeupdatedate());
+		epText.setText(dto.getNoticetext());
 	}
-	private JButton getBtnDeleteNotice() {
-		if (btnDeleteNotice == null) {
-			btnDeleteNotice = new JButton("삭제");
-			btnDeleteNotice.setBounds(452, 558, 117, 29);
-		}
-		return btnDeleteNotice;
+	
+	private int insertAction() {
+
+		ChefCreateNoticeDao dao = new ChefCreateNoticeDao(CustomerInfo.staffid,tfTitle.getText(),epText.getText());
+		
+		tfTitle.setText("");
+		epText.setText("");
+		
+		return dao.insertArcion();
 	}
-	private JButton getBtnUpdateNotice() {
-		if (btnUpdateNotice == null) {
-			btnUpdateNotice = new JButton("수정");
-			btnUpdateNotice.setBounds(323, 558, 117, 29);
-		}
-		return btnUpdateNotice;
-	}
-	private JButton getBtnInsertNotice() {
-		if (btnInsertNotice == null) {
-			btnInsertNotice = new JButton("등록");
-			btnInsertNotice.setBounds(194, 558, 117, 29);
-		}
-		return btnInsertNotice;
-	}
+
 }

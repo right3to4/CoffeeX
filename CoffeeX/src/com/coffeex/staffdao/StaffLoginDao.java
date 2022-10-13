@@ -21,6 +21,8 @@ public class StaffLoginDao {
 	
 	String position;
 	
+	String Shopid;
+	
 	public StaffLoginDao() {
 		// TODO Auto-generated constructor stub
 	}
@@ -75,6 +77,30 @@ public class StaffLoginDao {
 		{
 			String wkposition = rs.getString(1);
 			CustomerInfo.position =wkposition;
+		}
+		
+		
+		
+		conn_mysql.close();
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void belongAction() {
+		try{
+			String whereStatement = "select belong from belongshopid where belongstaffid = '"+ staffid+"'";
+			
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
+		Statement stmt_mysql = conn_mysql.createStatement();
+
+		ResultSet rs = stmt_mysql.executeQuery(whereStatement);
+		
+		while(rs.next())
+		{
+			String wkposition = rs.getString(1);
+			CustomerInfo.shopname = wkposition;
 		}
 		
 		

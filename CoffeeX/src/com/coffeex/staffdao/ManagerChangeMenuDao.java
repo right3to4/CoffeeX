@@ -20,7 +20,7 @@ public class ManagerChangeMenuDao {
 	public ArrayList<MenuViewDto> ShowAllMenu() {
 		ArrayList<MenuViewDto> dtoList = new ArrayList<MenuViewDto>();
 		String whereStatement = "select menuid, mcategory, menuname, mprice, date(mcreatedate), date(mupdatedate) from menu ";
-		String whereStatement2 = "where mdeletedate is null and menu.menuid not in (select managermenumanage.menuid from managermenumanage where shopname='" + DBConnect.shopname + "');";
+		String whereStatement2 = "where mdeletedate is null and menu.menuid not in (select managermenumanage.menuid from managermenumanage where shopname='" + CustomerInfo.shopname + "');";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
@@ -50,7 +50,7 @@ public class ManagerChangeMenuDao {
 	public ArrayList<MenuViewDto> ShowShopMenu() {
 		ArrayList<MenuViewDto> dtoList = new ArrayList<MenuViewDto>();
 		String whereStatement = "select menuid, category, menuname, price, date(createdate), date(updatedate) from managermenumanage ";
-		String whereStatement2 = "where shopname='" + DBConnect.shopname + "';";
+		String whereStatement2 = "where shopname='" + CustomerInfo.shopname + "';";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
@@ -111,7 +111,7 @@ public class ManagerChangeMenuDao {
 			ps = conn_mysql.prepareStatement(whereStatement + whereStatement1);
 			ps.setInt(1, menuid);
 			ps.setInt(2, CustomerInfo.staffid);
-			ps.setString(3, DBConnect.shopname);
+			ps.setString(3, CustomerInfo.shopname);
 			ps.setInt(4, menuid);
 			
 			// 실행
