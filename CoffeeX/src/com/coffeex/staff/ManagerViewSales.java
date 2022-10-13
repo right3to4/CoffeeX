@@ -36,8 +36,6 @@ public class ManagerViewSales {
 	private DefaultTableModel Outer_Table = new DefaultTableModel();
 	private JLabel lblNewLabel;
 
-	private String[] column = { "연도", "월", "매출" };
-
 	/**
 	 * Launch the application.
 	 */
@@ -69,7 +67,8 @@ public class ManagerViewSales {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				TableInit(column);
+				monthTableInit();
+				viewSalesByMonth();
 				// 이 윈도우만 종료
 				frame.setDefaultCloseOperation(2);
 			}
@@ -98,22 +97,17 @@ public class ManagerViewSales {
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (comboBox.getSelectedItem() == "월별 판매내역") {
-						TableInit(column);
+						monthTableInit();
 						viewSalesByMonth();
+						
 					} else if (comboBox.getSelectedItem() == "제품별 판매내역") {
-						column[0] = "메뉴";
-						column[1] = "개수";
-						TableInit(column);
+						menuTableInit();
 						viewSalesByMenu();
 					} else if (comboBox.getSelectedItem() == "직원별 판매내역") {
-						column[0] = "직원";
-						column[1] = "개수";
-						TableInit(column);
+						staffTableInit();
 						viewSalesByStaff();
 					} else {
-						column[0] = "지점";
-						column[1] = "개수";
-						TableInit(column);
+						shopTableInit();
 						viewSalesByShop();
 					}
 
@@ -145,11 +139,118 @@ public class ManagerViewSales {
 		return Inner_Table;
 	}
 
-	private void TableInit(String[] column) {
+	private void monthTableInit() {
 
-		Outer_Table.addColumn(column[0]);
-		Outer_Table.addColumn(column[1]);
-		Outer_Table.addColumn(column[2]);
+		Outer_Table.addColumn("월");
+		Outer_Table.addColumn("개수");
+		Outer_Table.addColumn("매출");
+
+		Outer_Table.setColumnCount(3);
+
+		int i = Outer_Table.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_Table.removeRow(0);
+		}
+
+		Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
+		Inner_Table.setRowHeight(50);
+
+		int vColIndex = 0;
+
+		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		int width = 100;
+		col.setPreferredWidth(width);
+
+		vColIndex = 1;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 230;
+		col.setPreferredWidth(width);
+
+		vColIndex = 2;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 230;
+		col.setPreferredWidth(width);
+
+	}
+	
+	private void menuTableInit() {
+		
+		Outer_Table.addColumn("메뉴");
+		Outer_Table.addColumn("개수");
+		Outer_Table.addColumn("매출");
+
+		Outer_Table.setColumnCount(3);
+
+		int i = Outer_Table.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_Table.removeRow(0);
+		}
+
+		Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
+		Inner_Table.setRowHeight(50);
+
+		int vColIndex = 0;
+
+		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
+
+		int width = 100;
+		col.setPreferredWidth(width);
+
+		vColIndex = 1;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 230;
+		col.setPreferredWidth(width);
+
+		vColIndex = 2;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 230;
+		col.setPreferredWidth(width);
+
+	}
+	
+	private void shopTableInit() {
+
+		Outer_Table.addColumn("지점명");
+		Outer_Table.addColumn("개수");
+		Outer_Table.addColumn("매출");
+
+		Outer_Table.setColumnCount(3);
+
+		int i = Outer_Table.getRowCount();
+
+		for (int j = 0; j < i; j++) {
+			Outer_Table.removeRow(0);
+		}
+
+		Inner_Table.setAutoResizeMode(Inner_Table.AUTO_RESIZE_OFF);
+		Inner_Table.setRowHeight(50);
+
+		int vColIndex = 0;
+
+		TableColumn col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		int width = 100;
+		col.setPreferredWidth(width);
+
+		vColIndex = 1;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 230;
+		col.setPreferredWidth(width);
+
+		vColIndex = 2;
+		col = Inner_Table.getColumnModel().getColumn(vColIndex);
+		width = 230;
+		col.setPreferredWidth(width);
+
+	}
+	
+	private void staffTableInit() {
+
+		
+		Outer_Table.addColumn("직원명");
+		Outer_Table.addColumn("개수");
+		Outer_Table.addColumn("매출");
 
 		Outer_Table.setColumnCount(3);
 
@@ -200,10 +301,10 @@ public class ManagerViewSales {
 		int listCount = dtoList.size();
 
 		for (int index = 0; index < listCount; index++) {
-			String year = dtoList.get(index).getOrderyear();
-			String month = dtoList.get(index).getOrdermonth();
+			String year = dtoList.get(index).getMenuname();
+			int quantity = dtoList.get(index).getQuantity();
 			int price = dtoList.get(index).getPrice();
-			String[] qTxt = { year, month, Integer.toString(price) };
+			String[] qTxt = { year, Integer.toString(quantity), Integer.toString(price) };
 			Outer_Table.addRow(qTxt);
 		}
 	}

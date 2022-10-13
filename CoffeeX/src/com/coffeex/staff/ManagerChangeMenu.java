@@ -424,6 +424,11 @@ public class ManagerChangeMenu {
 		col = tbSelectMenu.getColumnModel().getColumn(vColIndex);
 		width = 70;
 		col.setPreferredWidth(width);
+		
+		vColIndex = 5;
+		col = tbSelectMenu.getColumnModel().getColumn(vColIndex);
+		width = 70;
+		col.setPreferredWidth(width);
 
 	}
 	

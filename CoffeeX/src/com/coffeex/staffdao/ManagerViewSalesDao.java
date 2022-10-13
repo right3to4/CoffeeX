@@ -17,7 +17,7 @@ public class ManagerViewSalesDao {
 
 	public ArrayList<OrdersViewDto> searchSalesByMonth() {
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
-		String whereStatement = "select year(dates), month(dates), sum(price) from orderview group by month(dates), year(dates)";
+		String whereStatement = "select substring(dates, 1, 7), sum(quantity), sum(price) from orderview group by month(dates), year(dates)";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
@@ -27,10 +27,10 @@ public class ManagerViewSalesDao {
 
 			while (rs.next()) {
 				String wkYear = rs.getString(1);
-				String wkMonth = rs.getString(2);
+				int wkQuantity = rs.getInt(2);
 				int wkSum = rs.getInt(3);
 
-				OrdersViewDto dto = new OrdersViewDto(wkYear, wkMonth, wkSum);
+				OrdersViewDto dto = new OrdersViewDto(wkYear, wkQuantity, wkSum);
 				dtoList.add(dto);
 			}
 
