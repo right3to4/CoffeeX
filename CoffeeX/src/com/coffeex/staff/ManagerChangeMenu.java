@@ -43,8 +43,6 @@ public class ManagerChangeMenu {
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_1_1_1;
 	private JButton btnAddButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
 	private JEditorPane editorPane;
 	private JTable tbSearchAllMenu;
 	private JTable tbSelectMenu;
@@ -104,7 +102,7 @@ public class ManagerChangeMenu {
 			}
 		});
 		frame.getContentPane().setBackground(new Color(238, 238, 238));
-		frame.setTitle("메뉴 등록/삭제");
+		frame.setTitle("메뉴 등록");
 		frame.setBounds(100, 100, 600, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -116,8 +114,6 @@ public class ManagerChangeMenu {
 		frame.getContentPane().add(getLblNewLabel_2());
 		frame.getContentPane().add(getLblNewLabel_1_1_1());
 		frame.getContentPane().add(getBtnAddButton());
-		frame.getContentPane().add(getBtnNewButton_1());
-		frame.getContentPane().add(getBtnNewButton_2());
 		frame.getContentPane().add(getEditorPane());
 		frame.getContentPane().add(getSpSearchMenu_1());
 		frame.setDefaultCloseOperation(2);
@@ -202,25 +198,9 @@ public class ManagerChangeMenu {
 					searchShopMenu();
 				}
 			});
-			btnAddButton.setBounds(266, 478, 96, 29);
+			btnAddButton.setBounds(478, 478, 96, 29);
 		}
 		return btnAddButton;
-	}
-
-	private JButton getBtnNewButton_1() {
-		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("수정하기");
-			btnNewButton_1.setBounds(374, 478, 96, 29);
-		}
-		return btnNewButton_1;
-	}
-
-	private JButton getBtnNewButton_2() {
-		if (btnNewButton_2 == null) {
-			btnNewButton_2 = new JButton("삭제하기");
-			btnNewButton_2.setBounds(482, 478, 96, 29);
-		}
-		return btnNewButton_2;
 	}
 
 	private JEditorPane getEditorPane() {

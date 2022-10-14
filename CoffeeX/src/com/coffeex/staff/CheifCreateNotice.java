@@ -85,6 +85,7 @@ public class CheifCreateNotice {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("공지사항 등록/수정");
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {

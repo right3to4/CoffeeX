@@ -90,9 +90,32 @@ public class ManagerAddStaffDao {
 			Statement stmt_mysql = conn_mysql.createStatement();
 			//쿼리문작성
 			String query = "insert into promote (promotestaffid, position, pdate) ";
-			String query1 = "values (?,'알바',now());";
+			String query1 = "values (?,'직원',now());";
 			//데이터입력
 			ps = conn_mysql.prepareStatement(query + query1);
+			ps.setInt(1, staffid);
+
+			//실행
+			check = ps.executeUpdate();
+			
+			//데이터베이스 연결종료
+			conn_mysql.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return check;
+		}
+		//소속 추가
+		try {
+			//sql접속
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql,DBConnect.id_mysql,DBConnect.pw);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			//쿼리문작성
+			String query = "insert into belong (belongstaffid, belongshopid, belongdate) ";
+			String query1 = "values (?,'"+CustomerInfo.shopname+"',now());";
+			//데이터입력
+			ps = conn_mysql.prepareStatement(query + query1);
+			
 			ps.setInt(1, staffid);
 
 			//실행
