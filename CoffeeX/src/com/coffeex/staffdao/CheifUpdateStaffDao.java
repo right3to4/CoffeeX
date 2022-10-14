@@ -12,7 +12,7 @@ import com.coffeex.dto.ShopDto;
 import com.coffeex.dto.StaffDto;
 import com.coffeex.util.DBConnect;
 
-public class ChefUpdateStaffDao {
+public class CheifUpdateStaffDao {
 	
 	int staffid;
 	String staffname;
@@ -30,17 +30,17 @@ public class ChefUpdateStaffDao {
 	
 	
 
-	public ChefUpdateStaffDao() {
+	public CheifUpdateStaffDao() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ChefUpdateStaffDao(String conname, String condata) {
+	public CheifUpdateStaffDao(String conname, String condata) {
 		super();
 		this.conname = conname;
 		this.condata = condata;
 	}
 	
-	public ChefUpdateStaffDao(int staffid, String staffname, String staffpw, String staffphone, int staffhourlywage, String position) {
+	public CheifUpdateStaffDao(int staffid, String staffname, String staffpw, String staffphone, int staffhourlywage, String position) {
 		super();
 		this.staffid = staffid;
 		this.staffname = staffname;
@@ -51,7 +51,7 @@ public class ChefUpdateStaffDao {
 	}
 	
 
-	public ChefUpdateStaffDao(int staffid, String staffname, String staffpw, String staffphone, int staffhourlywage,
+	public CheifUpdateStaffDao(int staffid, String staffname, String staffpw, String staffphone, int staffhourlywage,
 			String shopid, String position) {
 		super();
 		this.staffid = staffid;

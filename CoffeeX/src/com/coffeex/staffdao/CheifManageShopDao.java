@@ -15,7 +15,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 
 
-public class ChefManageShopDao {
+public class CheifManageShopDao {
 	
 	String shopid;
 	String shopaddress;
@@ -29,19 +29,19 @@ public class ChefManageShopDao {
 	String conname;
 	String condata;
 	
-	public ChefManageShopDao() {
+	public CheifManageShopDao() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public ChefManageShopDao(String conname, String condata) {
+	public CheifManageShopDao(String conname, String condata) {
 		super();
 		this.conname = conname;
 		this.condata = condata;
 	}
 
 
-	public ChefManageShopDao(String shopid, String shopaddress, String shopphone, String shopphotoname, FileInputStream shopphoto, String openinghours) {
+	public CheifManageShopDao(String shopid, String shopaddress, String shopphone, String shopphotoname, FileInputStream shopphoto, String openinghours) {
 		super();
 		this.shopid = shopid;
 		this.shopaddress = shopaddress;
@@ -53,7 +53,7 @@ public class ChefManageShopDao {
 	}
 
 
-	public ChefManageShopDao(String shopid) {
+	public CheifManageShopDao(String shopid) {
 		super();
 		this.shopid = shopid;
 	}

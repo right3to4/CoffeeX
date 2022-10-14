@@ -32,7 +32,7 @@ public class StaffLogin {
    private JLabel lblNewLabel_2_1;
    private JPasswordField pwfPw;
    private JLabel lbLogIn;
-   private JButton btnNewButton;
+   private JButton	 btnNewButton;
 
    /**
     * Launch the application.

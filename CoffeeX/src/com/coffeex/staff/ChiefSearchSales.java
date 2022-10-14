@@ -15,6 +15,7 @@ import javax.swing.table.TableColumn;
 import com.coffeex.dto.NoticeDto;
 import com.coffeex.dto.OrdersViewDto;
 import com.coffeex.kioskdao.KioskViewMenuDao;
+import com.coffeex.staffdao.CheifViewSaleDao;
 import com.coffeex.staffdao.ChiefSearchSalesDao;
 import com.coffeex.staffdao.ManagerViewOrdersDao;
 import com.coffeex.util.CustomerInfo;
@@ -227,7 +228,7 @@ public class ChiefSearchSales {
 			lbPayment.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					ManagerViewSales.main(null);
+					CheifViewSales.main(null);
 				}
 
 				@Override
@@ -293,7 +294,7 @@ public class ChiefSearchSales {
 			lbNotice.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					ChefCreateNotice.main(null);
+					CheifCreateNotice.main(null);
 				}
 
 				@Override
@@ -362,7 +363,7 @@ public class ChiefSearchSales {
 			lbStaffInsertDel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					ChefUpdateStaff.main(null);
+					CheifUpdateStaff.main(null);
 					lbShopInsert.setVisible(false);
 					lbStaffInsertDel.setVisible(false);
 					lbStaffPayManege.setVisible(false);
@@ -385,7 +386,7 @@ public class ChiefSearchSales {
 			lbShopInsert.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					ChefManageShop.main(null);
+					CheifManageShop.main(null);
 					lbShopInsert.setVisible(false);
 					lbStaffInsertDel.setVisible(false);
 					lbStaffPayManege.setVisible(false);

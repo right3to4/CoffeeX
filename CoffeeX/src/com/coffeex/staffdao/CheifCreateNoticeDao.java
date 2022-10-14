@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import com.coffeex.util.DBConnect;
 
-public class ChefCreateNoticeDao {
+public class CheifCreateNoticeDao {
 	int noticeid;
 	int noticestaffid;
 	String noticetitle;
@@ -16,17 +16,17 @@ public class ChefCreateNoticeDao {
 	String noticeupdatedate;
 	String noticedeletedate;
 	
-	public ChefCreateNoticeDao() {
+	public CheifCreateNoticeDao() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ChefCreateNoticeDao(int noticestaffid, String noticetitle, String noticetext) {
+	public CheifCreateNoticeDao(int noticestaffid, String noticetitle, String noticetext) {
 		super();
 		this.noticestaffid = noticestaffid;
 		this.noticetitle = noticetitle;
 		this.noticetext = noticetext;
 	}
-	public ChefCreateNoticeDao( String noticetitle, String noticetext, int noticeid) {
+	public CheifCreateNoticeDao( String noticetitle, String noticetext, int noticeid) {
 		super();
 		this.noticeid = noticeid;
 		this.noticetitle = noticetitle;

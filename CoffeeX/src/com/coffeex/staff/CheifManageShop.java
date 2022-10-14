@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.ShopDto;
-import com.coffeex.staffdao.ChefManageShopDao;
+import com.coffeex.staffdao.CheifManageShopDao;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -40,7 +40,7 @@ import javax.swing.JTable;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class ChefManageShop {
+public class CheifManageShop {
 
 	private JFrame frame;
 	private JLabel lblNewLabel;
@@ -81,7 +81,7 @@ public class ChefManageShop {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChefManageShop window = new ChefManageShop();
+					CheifManageShop window = new CheifManageShop();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -94,7 +94,7 @@ public class ChefManageShop {
 	/**
 	 * Create the application.
 	 */
-	public ChefManageShop() {
+	public CheifManageShop() {
 		initialize();
 	}
 
@@ -411,7 +411,7 @@ public class ChefManageShop {
 		}
 		File f = new File(tfFilePath.getText());
 		//Dao dbaction = new Dao(name, telno, address, email, relation, input);
-		ChefManageShopDao dbaction = new ChefManageShopDao(id, address, phone, f.getName(), input, opening); 
+		CheifManageShopDao dbaction = new CheifManageShopDao(id, address, phone, f.getName(), input, opening); 
 		
 		boolean aaa = dbaction.insertAction();
 	/*
@@ -469,7 +469,7 @@ public class ChefManageShop {
 		
 		String shopid = tfId.getText().trim();
 		
-		ChefManageShopDao dao = new ChefManageShopDao(tfId.getText().trim());
+		CheifManageShopDao dao = new CheifManageShopDao(tfId.getText().trim());
 		boolean check = dao.deleteAction(shopid);
 		
 		return check;
@@ -521,7 +521,7 @@ public class ChefManageShop {
 	}	
 
 	private void conditionQueryAction(String conditionQueryColumn) {
-		ChefManageShopDao dao = new ChefManageShopDao(conditionQueryColumn, tfSearch.getText().trim());
+		CheifManageShopDao dao = new CheifManageShopDao(conditionQueryColumn, tfSearch.getText().trim());
 		beanList = dao.conditionList();
 		int listCount = beanList.size();
 		
@@ -533,7 +533,7 @@ public class ChefManageShop {
 	}
 	
 	private void queryAction() {
-		ChefManageShopDao dbAction = new ChefManageShopDao();
+		CheifManageShopDao dbAction = new CheifManageShopDao();
 		beanList = dbAction.selectList();
 		int listcount = beanList.size();
 		

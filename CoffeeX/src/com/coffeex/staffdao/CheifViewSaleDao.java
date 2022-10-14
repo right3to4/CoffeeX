@@ -10,22 +10,22 @@ import com.coffeex.dto.OrdersViewDto;
 import com.coffeex.util.CustomerInfo;
 import com.coffeex.util.DBConnect;
 
-public class ManagerViewSalesDao {
+public class CheifViewSaleDao {
 
-	public ManagerViewSalesDao() {
+	public CheifViewSaleDao() {
 
 	}
 
 	public ArrayList<OrdersViewDto> searchSalesByMonth() {
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
-		String whereStatement = "select substring(dates, 1, 7), sum(quantity), sum(price) from orderview ";
-		String whereStatement2=	"where shop='" + CustomerInfo.shopname + "' group by substring(dates, 1, 7)";
+		String whereStatement = "select substring(dates, 1, 7), sum(quantity), sum(price) from orderview group by substring(dates, 1, 7)";
+//		String whereStatement2=	"where shop='" + CustomerInfo.shopname + "' group by substring(dates, 1, 7)";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-			ResultSet rs = stmt_mysql.executeQuery(whereStatement + whereStatement2);
+			ResultSet rs = stmt_mysql.executeQuery(whereStatement);
 
 			while (rs.next()) {
 				String wkYear = rs.getString(1);
@@ -45,7 +45,7 @@ public class ManagerViewSalesDao {
 
 	public ArrayList<OrdersViewDto> searchSalesByMenu() {
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
-		String whereStatement = "select menu, sum(quantity), sum(price) from orderview where shop='" + CustomerInfo.shopname + "' group by menu";
+		String whereStatement = "select menu, sum(quantity), sum(price) from orderview group by menu";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);
@@ -71,7 +71,7 @@ public class ManagerViewSalesDao {
 
 	public ArrayList<OrdersViewDto> searchSalesByStaff() {
 		ArrayList<OrdersViewDto> dtoList = new ArrayList<OrdersViewDto>();
-		String whereStatement = "select staff, sum(quantity), sum(price) from orderview where shop='" + CustomerInfo.shopname + "' group by staff";
+		String whereStatement = "select staff, sum(quantity), sum(price) from orderview group by staff";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn_mysql = DriverManager.getConnection(DBConnect.url_mysql, DBConnect.id_mysql, DBConnect.pw);

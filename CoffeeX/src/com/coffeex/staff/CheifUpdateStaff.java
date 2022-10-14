@@ -15,7 +15,7 @@ import javax.swing.table.TableColumn;
 import com.coffeex.dto.PromoteDto;
 import com.coffeex.dto.ShopDto;
 import com.coffeex.dto.StaffDto;
-import com.coffeex.staffdao.ChefUpdateStaffDao;
+import com.coffeex.staffdao.CheifUpdateStaffDao;
 import com.coffeex.staffdao.ManagerAddStaffDao;
 import com.mysql.cj.protocol.Warning;
 
@@ -34,7 +34,7 @@ import javax.swing.JTable;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class ChefUpdateStaff {
+public class CheifUpdateStaff {
 
 	private JFrame frame;
 	private JLabel lblNewLabel;
@@ -75,7 +75,7 @@ public class ChefUpdateStaff {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChefUpdateStaff window = new ChefUpdateStaff();
+					CheifUpdateStaff window = new CheifUpdateStaff();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -88,7 +88,7 @@ public class ChefUpdateStaff {
 	/**
 	 * Create the application.
 	 */
-	public ChefUpdateStaff() {
+	public CheifUpdateStaff() {
 		initialize();
 	}
 
@@ -543,7 +543,7 @@ public class ChefUpdateStaff {
 	// 시원정보 입력
 	private int insertAction() {
 
-		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()), tfStaffName.getText(),
+		CheifUpdateStaffDao dao = new CheifUpdateStaffDao(Integer.parseInt(tfStaffId.getText()), tfStaffName.getText(),
 				String.valueOf(pwfPassword.getPassword()), tfPhone.getText(), Integer.parseInt(tfHourlyWage.getText()),
 				cbShopid.getItemAt(cbShopid.getSelectedIndex()).toString(), positionInsert());
 
@@ -553,7 +553,7 @@ public class ChefUpdateStaff {
 	// 사원정보 수정
 	private void updateAction() {
 
-		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(Integer.parseInt(tfStaffId.getText()), tfStaffName.getText(),
+		CheifUpdateStaffDao dao = new CheifUpdateStaffDao(Integer.parseInt(tfStaffId.getText()), tfStaffName.getText(),
 				String.valueOf(pwfPassword.getPassword()), tfPhone.getText(), Integer.parseInt(tfHourlyWage.getText()),
 				cbShopid.getItemAt(cbShopid.getSelectedIndex()).toString(), positionInsert());
 
@@ -651,7 +651,7 @@ public class ChefUpdateStaff {
 	}
 
 	private void conditionQueryAction(String conditionQueryColumn) {
-		ChefUpdateStaffDao dao = new ChefUpdateStaffDao(conditionQueryColumn, tfSearch.getText());
+		CheifUpdateStaffDao dao = new CheifUpdateStaffDao(conditionQueryColumn, tfSearch.getText());
 		ArrayList<StaffDto> dtoList = dao.conditionList();
 		int listCount = dtoList.size();
 
@@ -730,7 +730,7 @@ public class ChefUpdateStaff {
 
 	private void cbInsertShopid() {
 
-		ChefUpdateStaffDao dao = new ChefUpdateStaffDao();
+		CheifUpdateStaffDao dao = new CheifUpdateStaffDao();
 		ArrayList<ShopDto> dtoList = dao.cbInsertShopid();
 
 		int i = 0;

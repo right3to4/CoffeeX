@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.coffeex.dto.NoticeDto;
-import com.coffeex.staffdao.ChefCreateNoticeDao;
-import com.coffeex.staffdao.ChefUpdateStaffDao;
+import com.coffeex.staffdao.CheifCreateNoticeDao;
+import com.coffeex.staffdao.CheifUpdateStaffDao;
 import com.coffeex.staffdao.ManagerAddStaffDao;
 import com.coffeex.staffdao.StaffViewNoticeDao;
 import com.coffeex.util.CustomerInfo;
@@ -35,7 +35,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ChefCreateNotice {
+public class CheifCreateNotice {
 
 	private JFrame frame;
 	private JLabel lblNewLabel;
@@ -64,7 +64,7 @@ public class ChefCreateNotice {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChefCreateNotice window = new ChefCreateNotice();
+					CheifCreateNotice window = new CheifCreateNotice();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -76,7 +76,7 @@ public class ChefCreateNotice {
 	/**
 	 * Create the application.
 	 */
-	public ChefCreateNotice() {
+	public CheifCreateNotice() {
 		initialize();
 	}
 
@@ -375,7 +375,7 @@ public class ChefCreateNotice {
 	
 	private void insertAction() {
 
-		ChefCreateNoticeDao dao = new ChefCreateNoticeDao(CustomerInfo.staffid,tfTitle.getText(),epText.getText());
+		CheifCreateNoticeDao dao = new CheifCreateNoticeDao(CustomerInfo.staffid,tfTitle.getText(),epText.getText());
 		
 		tfTitle.setText("");
 		epText.setText("");
@@ -411,7 +411,7 @@ public class ChefCreateNotice {
 	
 	private void updateAction() {
 
-		ChefCreateNoticeDao dao = new ChefCreateNoticeDao(tfTitle.getText(),epText.getText(),clickNoticeName);
+		CheifCreateNoticeDao dao = new CheifCreateNoticeDao(tfTitle.getText(),epText.getText(),clickNoticeName);
 
 		boolean ok = dao.updateAction();
 
@@ -425,7 +425,7 @@ public class ChefCreateNotice {
 
 		int noticeid = clickNoticeName;
 
-		ChefCreateNoticeDao dao = new ChefCreateNoticeDao();
+		CheifCreateNoticeDao dao = new CheifCreateNoticeDao();
 		boolean check = dao.deleteAction(noticeid);
 
 		return check;

@@ -16,6 +16,7 @@ import javax.swing.table.TableColumn;
 import com.coffeex.dto.OrdersViewDto;
 import com.coffeex.staffdao.ManagerViewOrdersDao;
 import com.coffeex.staffdao.ManagerViewSalesDao;
+import com.coffeex.staffdao.CheifViewSaleDao;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -26,7 +27,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ManagerViewSales {
+public class CheifViewSales {
 
 	private JFrame frame;
 	private JLabel lb;
@@ -43,7 +44,7 @@ public class ManagerViewSales {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ManagerViewSales window = new ManagerViewSales();
+					CheifViewSales window = new CheifViewSales();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +56,7 @@ public class ManagerViewSales {
 	/**
 	 * Create the application.
 	 */
-	public ManagerViewSales() {
+	public CheifViewSales() {
 		initialize();
 	}
 
@@ -113,7 +114,7 @@ public class ManagerViewSales {
 
 				}
 			});
-			comboBox.setModel(new DefaultComboBoxModel(new String[] { "월별 판매내역", "제품별 판매내역", "직원별 판매내역"}));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] { "월별 판매내역", "제품별 판매내역", "직원별 판매내역", "지점별 판매내역" }));
 			comboBox.setBounds(106, 64, 137, 27);
 		}
 		return comboBox;
@@ -295,7 +296,7 @@ public class ManagerViewSales {
 	}
 
 	public void viewSalesByMonth() {
-		ManagerViewSalesDao dao = new ManagerViewSalesDao();
+		CheifViewSaleDao dao = new CheifViewSaleDao();
 		ArrayList<OrdersViewDto> dtoList = dao.searchSalesByMonth();
 
 		int listCount = dtoList.size();
